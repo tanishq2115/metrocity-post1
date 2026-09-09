@@ -13,20 +13,27 @@ async function loadArticle(){
   const slug=new URLSearchParams(location.search).get('slug');
   if(!slug)return;
   const {data,error}=await db.from('news').select('*,categories(name,slug)').eq('slug',slug).maybeSingle();
-  if(error||!data||data.status!=='published'){
-    document.querySelector('#paper').innerHTML='<div class="error">ही बातमी उपलब्ध नाही.</div>';return;
-  }
+  if(error||!data||data.status!=='published'){document.querySelector('#paper').innerHTML='<div class="error">ही बातमी उपलब्ध नाही.</div>';return;}
   document.title=`${data.headline} | मेट्रोसिटी पोस्ट`;
   document.querySelector('meta[name="description"]')?.setAttribute('content',data.seo_description||data.subheadline||data.headline);
   const {data:photos}=await db.from('news_photos').select('image_url,caption,sort_order').eq('news_id',data.id).order('sort_order');
   const urls=[data.main_image_url,...(photos||[]).map(x=>x.image_url)].filter(Boolean);
-  let layout=data.epaper_layout||'auto';
-  if(layout==='auto')layout=data.main_image_url?'photo-left':'no-photo';
-  if(!data.main_image_url)layout='no-photo';
-  const photo=data.main_image_url?`<figure class="paper-photo"><img src="${esc(data.main_image_url)}" alt="${esc(data.headline)}"><figcaption>${esc(data.location||'मेट्रोसिटी पोस्ट')}</figcaption></figure>`:'';
   const paper=document.querySelector('#paper');
-  paper.innerHTML=`<div class="paper-mast"><strong>मेट्रोसिटी पोस्ट</strong><span>${marathiDate(new Date(data.published_at||data.created_at))}</span></div><hr class="double-rule"><div class="category">${esc(data.categories?.name||'विशेष')} • ${esc(data.location||'महाराष्ट्र')}</div><h1>${esc(data.headline)}</h1><p class="dek">${esc(data.subheadline||'')}</p><div class="paper-grid ${layout}">${photo}<div class="paper-text">${paragraphs(data.content)}</div></div><div class="paper-foot"><span>प्रतिनिधी • मेट्रोसिटी पोस्ट</span><span>${marathiDate(new Date(data.published_at||data.created_at))}</span></div>`;
-  document.querySelector('#article-normal').innerHTML=`<div class="eyebrow">सविस्तर बातमी</div><h2>${esc(data.headline)}</h2><div class="meta">${esc(data.categories?.name||'बातमी')} • ${esc(data.location||'महाराष्ट्र')} • ${marathiDate(new Date(data.published_at||data.created_at))}</div>${urls.length>1?`<div class="article-photo-gallery">${urls.map(u=>`<img src="${esc(u)}" alt="">`).join('')}</div>`:''}<div class="body">${paragraphs(data.content)}</div>`;
+  if(data.epaper_layout==='direct-newspaper'){
+    paper.innerHTML=`<div class="paper-mast"><strong>मेट्रोसिटी पोस्ट</strong><span>${marathiDate(new Date(data.published_at||data.created_at))}</span></div><hr class="double-rule"><div class="direct-paper-label">📰 वृत्तपत्राचे पान</div><div class="direct-paper-gallery">${urls.map((u,i)=>`<figure><img src="${esc(u)}" alt="${esc(data.headline)}"><figcaption>पान ${i+1} • मेट्रोसिटी पोस्ट</figcaption></figure>`).join('')}</div><div class="paper-foot"><span>प्रतिनिधी • मेट्रोसिटी पोस्ट</span><span>${marathiDate(new Date(data.published_at||data.created_at))}</span></div>`;
+  }else{
+    let layout=data.epaper_layout||'auto';
+    if(layout==='auto')layout=data.main_image_url?'photo-left':'no-photo';
+    if(!data.main_image_url)layout='no-photo';
+    const photo=data.main_image_url?`<figure class="paper-photo"><img src="${esc(data.main_image_url)}" alt="${esc(data.headline)}"><figcaption>${esc(data.location||'मेट्रोसिटी पोस्ट')}</figcaption></figure>`:'';
+    paper.innerHTML=`<div class="paper-mast"><strong>मेट्रोसिटी पोस्ट</strong><span>${marathiDate(new Date(data.published_at||data.created_at))}</span></div><hr class="double-rule"><div class="category">${esc(data.categories?.name||'विशेष')} • ${esc(data.location||'महाराष्ट्र')}</div><h1>${esc(data.headline)}</h1><p class="dek">${esc(data.subheadline||'')}</p><div class="paper-grid ${layout}">${photo}<div class="paper-text">${paragraphs(data.content)}</div></div><div class="paper-foot"><span>प्रतिनिधी • मेट्रोसिटी पोस्ट</span><span>${marathiDate(new Date(data.published_at||data.created_at))}</span></div>`;
+  }
+  const normal=document.querySelector('#article-normal');
+  if(data.epaper_layout==='direct-newspaper'){
+    normal.innerHTML=`<div class="eyebrow">वृत्तपत्रातील बातमी</div><h2>${esc(data.headline)}</h2><div class="meta">${esc(data.categories?.name||'ई-पेपर')} • ${esc(data.location||'महाराष्ट्र')} • ${marathiDate(new Date(data.published_at||data.created_at))}</div><p class="direct-note">ही बातमी वृत्तपत्राच्या पानाच्या स्वरूपात थेट प्रकाशित करण्यात आली आहे.</p><div class="article-photo-gallery direct-gallery">${urls.map(u=>`<img src="${esc(u)}" alt="${esc(data.headline)}">`).join('')}</div>`;
+  }else{
+    normal.innerHTML=`<div class="eyebrow">सविस्तर बातमी</div><h2>${esc(data.headline)}</h2><div class="meta">${esc(data.categories?.name||'बातमी')} • ${esc(data.location||'महाराष्ट्र')} • ${marathiDate(new Date(data.published_at||data.created_at))}</div>${urls.length>1?`<div class="article-photo-gallery">${urls.map(u=>`<img src="${esc(u)}" alt="">`).join('')}</div>`:''}<div class="body">${paragraphs(data.content)}</div>`;
+  }
   const rel=document.querySelector('#related');
   if(rel){
     const {data:r}=await db.from('news').select('slug,headline,categories(name)').eq('status','published').neq('id',data.id).eq('category_id',data.category_id).order('published_at',{ascending:false}).limit(4);
