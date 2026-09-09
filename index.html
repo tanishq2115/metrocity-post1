@@ -1,8 +1,46 @@
-<!doctype html><html lang="mr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="मेट्रोसिटी पोस्ट — ताज्या मराठी बातम्या, स्थानिक घडामोडी आणि महाराष्ट्रातील विश्वसनीय वृत्तांकन."><title>मेट्रोसिटी पोस्ट | ताज्या मराठी बातम्या</title><link rel="stylesheet" href="styles.css"></head><body>
-<header class="site-header"><div class="utility"><span data-current-date>आजची तारीख</span><span>ताज्या बातम्या • विश्वासार्ह वृत्तांकन</span></div><div class="mast"><button class="menu" aria-label="मेनू" onclick="document.body.classList.toggle('open')">☰</button><a class="logo" href="index.html"><span>मेट्रोसिटी</span> <b>पोस्ट</b><small>तुमच्या शहराची, तुमच्या माणसांची बातमी</small></a><div class="head-actions"><button class="search-btn" onclick="toggleSearch()">⌕ <span>शोधा</span></button><a class="login" href="login.html">प्रतिनिधी लॉगिन ↗</a></div></div><div class="searchbox"><input aria-label="बातमी शोधा" placeholder="बातमी, शहर किंवा विषय शोधा..."><button onclick="searchNews(document.querySelector('.searchbox input').value)">शोधा</button><div id="search-results"></div></div><nav><a class="active" href="index.html">मुख्यपृष्ठ</a><a href="#latest">ताज्या बातम्या</a><a href="#maharashtra">महाराष्ट्र</a><a href="#politics">राजकारण</a><a href="#country">देश</a><a href="#sports">क्रीडा</a><a href="#entertainment">मनोरंजन</a><a href="#special">विशेष</a></nav><div class="breaking"><strong>ब्रेकिंग न्यूज</strong><span>महत्त्वाच्या घडामोडींचे ताजे अपडेट्स मेट्रोसिटी पोस्टवर...</span><b>LIVE</b></div></header>
-<main><section class="intro"><div><small>आजचे डिजिटल वृत्तपत्र</small><h1>ई-पेपरसारखी बातमी,<br><em>डिजिटल वेगाने.</em></h1></div><p>स्थानिक बातम्यांपासून महाराष्ट्रातील महत्त्वाच्या घडामोडींपर्यंत — एका विश्वासार्ह व्यासपीठावर.</p></section>
-<section class="hero-grid"><div id="live-hero"><div class="loading">ताज्या बातम्या लोड होत आहेत…</div></div><aside class="side-news"><div class="side-title">ठळक बातम्या</div><div id="live-side"></div></aside></section>
-<section class="section" id="latest"><div class="head"><div><small>LIVE DESK</small><h2>ताज्या बातम्या</h2></div></div><div id="live-news" class="news-grid"><div class="loading">बातम्या लोड होत आहेत…</div></div></section>
-<section class="section category-row" id="maharashtra"><div class="head"><div><small>REGIONAL NEWS</small><h2>महाराष्ट्र</h2></div></div><p class="section-note">नवीन प्रकाशित बातम्या येथे आपोआप दिसतील.</p></section>
-<section class="section" id="special"><div class="head"><div><small>NEWSPAPER STORIES</small><h2>ई-पेपरमधून</h2></div></div><div class="cards"><article><small>मांडणी ०१</small><h3>फोटो डावीकडे, बातमी दोन कॉलममध्ये</h3><div class="mini"><i></i><b></b><b></b></div></article><article><small>मांडणी ०२</small><h3>मोठा फोटो आणि ठळक मथळा</h3><div class="mini right"><i></i><b></b></div></article><article><small>मांडणी ०३</small><h3>फोटोशिवाय संपादकीय शैली</h3><div class="mini text"><b></b><b></b><b></b></div></article></div></section></main>
-<footer class="sitefoot"><div><div class="logo"><span>मेट्रोसिटी</span><b>पोस्ट</b></div><p>तुमच्या शहराची, तुमच्या माणसांची बातमी.</p></div><div><strong>विभाग</strong><a href="#latest">ताज्या बातम्या</a><a href="#maharashtra">महाराष्ट्र</a><a href="#special">विशेष</a></div><div><strong>मेट्रोसिटी पोस्ट</strong><a href="login.html">प्रतिनिधी लॉगिन</a></div></footer><div class="copyright">© २०२६ मेट्रोसिटी पोस्ट • सर्व हक्क राखीव</div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="script.js"></script></body></html>
+<!doctype html>
+<html lang="mr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="मेट्रोसिटी पोस्ट — महाराष्ट्र, स्थानिक आणि देशभरातील ताज्या मराठी बातम्या.">
+<title>मेट्रोसिटी पोस्ट | ताज्या मराठी बातम्या</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="news-site">
+<header class="masthead">
+  <div class="topline"><div data-current-date>बुधवार, ९ सप्टेंबर २०२६</div><div>विश्वसनीय • स्थानिक • तत्पर</div></div>
+  <div class="brandbar">
+    <button class="hamb" aria-label="मेनू" onclick="document.body.classList.toggle('nav-open')">☰</button>
+    <a class="brand" href="index.html"><span>मेट्रोसिटी</span><b>पोस्ट</b><small>तुमच्या शहराची, तुमच्या माणसांची बातमी</small></a>
+    <div class="brandtools"><button class="iconbtn" onclick="toggleSearch()">⌕</button><a class="reporter-link" href="login.html">प्रतिनिधी लॉगिन ↗</a></div>
+  </div>
+  <div class="searchbar" id="searchbar"><input id="search-input" placeholder="बातमी, शहर किंवा विषय शोधा…"><button onclick="searchNews(document.getElementById('search-input').value)">शोधा</button><div id="search-results"></div></div>
+  <nav class="mainnav"><a class="active" href="index.html">मुख्यपृष्ठ</a><a href="#latest">ताज्या बातम्या</a><a href="#maharashtra">महाराष्ट्र</a><a href="#local">स्थानिक</a><a href="#politics">राजकारण</a><a href="#society">समाज</a><a href="#sports">क्रीडा</a><a href="#entertainment">मनोरंजन</a><a href="#special">विशेष</a></nav>
+</header>
+<main>
+  <section class="breaking-strip" aria-label="ब्रेकिंग न्यूज"><span class="breaking-label">🔴 ब्रेकिंग न्यूज</span><div id="breaking-news"><span>ताज्या घडामोडी लोड होत आहेत…</span></div></section>
+
+  <section class="latest-desk" id="latest">
+    <div class="section-rule"><h1>ताज्या बातम्या</h1><a href="#latest-grid">सर्व बातम्या →</a></div>
+    <div class="latest-grid" id="latest-grid"><div class="loading">ताज्या बातम्या लोड होत आहेत…</div></div>
+  </section>
+
+  <section class="front-section" id="maharashtra">
+    <div class="section-rule"><h2>महाराष्ट्र</h2><span>राज्यभरातील महत्त्वाच्या घडामोडी</span></div>
+    <div class="story-grid" id="maharashtra-grid"><div class="loading">बातम्या लोड होत आहेत…</div></div>
+  </section>
+
+  <section class="front-section" id="local">
+    <div class="section-rule"><h2>स्थानिक</h2><span>तुमच्या परिसरातील बातम्या</span></div>
+    <div class="story-grid" id="local-grid"><div class="loading">बातम्या लोड होत आहेत…</div></div>
+  </section>
+
+  <section class="paper-promo" id="special">
+    <div><span class="kicker">आजचा डिजिटल अंक</span><h2>बातमी वाचा आणि ई-पेपरचा अनुभव घ्या.</h2><p>प्रत्येक प्रकाशित बातमीची मांडणी मेट्रोसिटी पोस्ट आपोआप वृत्तपत्रासारखी तयार करते.</p></div>
+    <a href="#latest">ताज्या बातम्या वाचा →</a>
+  </section>
+</main>
+<footer class="footer"><div class="footer-brand"><div class="brand"><span>मेट्रोसिटी</span><b>पोस्ट</b></div><p>तुमच्या शहराची, तुमच्या माणसांची बातमी.</p></div><div><b>विभाग</b><a href="#latest">ताज्या बातम्या</a><a href="#maharashtra">महाराष्ट्र</a><a href="#local">स्थानिक</a></div><div><b>संपर्क</b><a href="login.html">प्रतिनिधी लॉगिन</a><a href="mailto:contact@metrocitypost.in">ई-मेल</a></div></footer>
+<div class="copyright">© २०२६ मेट्रोसिटी पोस्ट • सर्व हक्क राखीव</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="script.js"></script>
+</body></html>
