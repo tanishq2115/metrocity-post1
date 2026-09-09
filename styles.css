@@ -130,3 +130,71 @@ main.home-page{max-width:1280px;padding:18px 20px 36px}
   .story-grid{grid-template-columns:1fr}.story-grid .home-story-media{height:190px}.story-grid .home-story h3{font-size:17px}
   .footer{grid-template-columns:1fr}.article-paper h1{font-size:25px}
 }
+
+/* =========================================================
+   METROCITY POST — VERSION 6
+   Premium newsroom shell + intuitive navigation.
+   Public design only; Supabase auth/database logic untouched.
+   ========================================================= */
+:root{
+  --v6-red:#b20d24;
+  --v6-red-dark:#86091b;
+  --v6-ink:#101214;
+  --v6-bg:#f4f4f1;
+  --v6-card:#fff;
+  --v6-border:#d5d8da;
+}
+body.news-site{background:var(--v6-bg);overflow-x:hidden}
+.masthead{position:sticky;top:0;z-index:100;background:#fff}
+.topline{height:31px;background:#0b0c0e;padding-left:max(18px,calc((100% - 1320px)/2));padding-right:max(18px,calc((100% - 1320px)/2));font-size:10px}
+.brandbar{height:96px;position:relative;padding-left:max(18px,calc((100% - 1320px)/2));padding-right:max(18px,calc((100% - 1320px)/2));box-shadow:0 1px 0 #e5e5e5}
+.brandbar>.brand{position:absolute;left:50%;transform:translateX(-50%);top:20px;font-size:44px;line-height:1}
+.brand small{font-size:8px;bottom:-15px}
+.brandtools{margin-left:auto}
+.iconbtn{width:48px;height:48px;border:1px solid #c6c9cc;border-radius:12px;font-size:28px;background:#fff;display:grid;place-items:center;transition:.2s}
+.iconbtn:hover{border-color:var(--v6-red);color:var(--v6-red);box-shadow:0 5px 16px #00000012}
+.hamb{display:grid;place-content:center;gap:5px;width:48px;height:48px;border:1px solid #c6c9cc;border-radius:12px;background:#fff;padding:0}
+.hamb span{display:block;width:23px;height:2.5px;background:#111;border-radius:3px;transition:.2s}
+.hamb:hover{border-color:var(--v6-red)}
+.hamb:hover span{background:var(--v6-red)}
+.mainnav{max-width:1320px;margin:auto;border-bottom:1px solid #15171a;box-shadow:none;justify-content:center;gap:4px;padding:0 12px}
+.mainnav a{padding:13px 18px;font-size:12px;letter-spacing:.1px}
+.searchbar{max-width:1320px;border-top:1px solid #eee;border-bottom:1px solid #d5d7da;padding:12px max(18px,calc((100% - 1240px)/2));box-shadow:0 10px 28px #00000014}
+.searchbar input{border-radius:10px;border:1px solid #c9cdd0;background:#f8f9fa}
+.searchbar button{border-radius:10px;margin-left:8px}
+.menu-overlay{position:fixed;inset:0;background:#07080a99;backdrop-filter:blur(2px);opacity:0;visibility:hidden;transition:.25s;z-index:105}
+.side-menu{position:fixed;left:0;top:0;bottom:0;width:min(390px,88vw);background:#fff;z-index:110;transform:translateX(-105%);transition:transform .3s cubic-bezier(.2,.8,.2,1);box-shadow:20px 0 60px #0003;padding:0;display:flex;flex-direction:column}
+body.nav-open .side-menu{transform:translateX(0)}
+body.nav-open .menu-overlay{opacity:1;visibility:visible}
+.side-menu-head{height:108px;background:#101113;color:#fff;padding:25px 22px;display:flex;justify-content:space-between;align-items:center;border-bottom:4px solid var(--v6-red)}
+.side-menu-head div{display:flex;flex-direction:column;gap:2px}.menu-kicker{font-size:9px;color:#d8d8d8;letter-spacing:1px}.side-menu-head strong{font-size:25px}.menu-close{width:40px;height:40px;border:1px solid #ffffff44;background:#ffffff12;color:#fff;border-radius:10px;font-size:28px;line-height:1}
+.drawer-nav{padding:14px 12px}.drawer-nav a,.drawer-search{display:flex;align-items:center;gap:14px;width:100%;padding:14px 13px;margin:3px 0;border:0;border-radius:10px;background:transparent;text-align:left;color:#202225;font-size:14px;font-weight:800}.drawer-nav a span,.drawer-search span{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:#f0f1f2;color:var(--v6-red);font-size:12px}.drawer-nav a:hover,.drawer-search:hover,.drawer-primary{background:#f8e9ec!important;color:var(--v6-red)!important}.drawer-search{font-family:inherit;cursor:pointer}.drawer-divider{height:1px;background:#e4e5e7;margin:4px 24px 12px}.drawer-login{margin:0 18px;padding:15px;border:1px solid #ddd;border-radius:13px;background:#fafafa;display:flex;align-items:center;gap:12px;color:#111}.drawer-login>span{width:38px;height:38px;border-radius:10px;background:#111;color:#fff;display:grid;place-items:center;font-size:18px}.drawer-login div{flex:1}.drawer-login b{display:block;font-size:12px}.drawer-login small{display:block;color:#777;font-size:9px;margin-top:2px}.drawer-login strong{color:var(--v6-red);font-size:20px}.drawer-foot{margin-top:auto;padding:18px 22px;color:#85888b;font-size:9px;border-top:1px solid #eee}
+main.home-page{max-width:1320px;padding:20px 24px 48px}
+.breaking-strip{border-radius:11px;border:1px solid #cfd3d6;box-shadow:0 4px 18px #00000009;margin-bottom:25px}
+.breaking-label{font-size:11px;display:flex;align-items:center;gap:7px}.breaking-strip>div{font-size:12px}
+.section-rule{padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid #bfc3c7}.section-rule:after{height:4px;width:92px}.home-page .section-rule h1,.home-page .section-rule h2{font-size:31px}
+.latest-desk{margin-top:4px}.lead-story{border-radius:14px;overflow:hidden;box-shadow:0 10px 30px #0000000d}.lead-media{min-height:400px}.lead-copy{padding:30px}.lead-copy h2{font-size:34px;line-height:1.2}.lead-copy p{font-size:13px;line-height:1.75}
+.news-feed{border:1px solid #d2d5d8;border-top:4px solid #15171a;border-radius:0 0 12px 12px;background:#fff}
+.home-story{padding:15px 14px}.home-story-media{border-radius:9px}.home-story h3{font-size:18px}.read-more{font-weight:900;color:var(--v6-red)}
+.front-section{margin-top:54px}.front-section .story-grid{padding:13px;border-radius:14px;background:#e8eaec}
+.front-section .section-rule h2{display:flex;align-items:center;gap:10px}.front-section .section-rule h2:after{content:'›';font-family:Arial,sans-serif;color:#999;font-size:26px;font-weight:400}
+.section-maharashtra .story-grid{border-left:5px solid #b20d24;background:#f0e5e7}.section-local .story-grid{border-left:5px solid #1c5664;background:#e6edef}.section-politics .story-grid{border-left:5px solid #3d3b68;background:#e9e9f0}.section-sports .story-grid{border-left:5px solid #6d5a23;background:#efede5}
+.section-maharashtra .section-rule:after{background:#b20d24}.section-local .section-rule:after{background:#1c5664}.section-politics .section-rule:after{background:#3d3b68}.section-sports .section-rule:after{background:#6d5a23}
+.story-grid .home-story{box-shadow:0 4px 14px #0000000a}.story-grid .home-story:hover{transform:translateY(-3px)}
+.footer{margin-top:0}
+
+@media(max-width:800px){
+  .masthead{position:sticky;top:0}.topline{height:29px;padding:0 12px}.brandbar{height:82px;padding:0 12px}.brandbar>.brand{font-size:34px;top:19px}.hamb{width:43px;height:43px}.iconbtn{width:43px;height:43px}.mainnav{display:none}.searchbar{padding:10px 12px}.side-menu{width:min(370px,90vw)}
+  main.home-page{padding:13px 12px 38px}.breaking-strip{margin-bottom:19px}.breaking-label{padding:10px 12px}.section-rule{margin-bottom:13px}.home-page .section-rule h1,.home-page .section-rule h2{font-size:25px}
+  .latest-grid .lead-story{grid-template-columns:1fr}.lead-media,.lead-media img{height:270px;min-height:270px}.lead-copy{padding:19px}.lead-copy h2{font-size:24px}.lead-copy p{font-size:11px}
+  .news-feed{padding:0 10px}.home-story{grid-template-columns:112px minmax(0,1fr);padding:13px 0;gap:12px}.home-story-media{height:94px}.home-story h3{font-size:15px}.home-story p{font-size:9px}
+  .front-section{margin-top:38px}.front-section .story-grid{padding:9px;border-radius:12px}.story-grid{grid-template-columns:1fr 1fr}.story-grid .home-story-media{height:145px}.story-grid .home-story-body{padding:10px}.story-grid .home-story h3{font-size:15px}
+}
+@media(max-width:520px){
+  .brandbar>.brand{font-size:29px;top:21px;letter-spacing:-2px}.brandbar>.brand small{display:none}.topline div:last-child{display:none}.topline{font-size:8px}
+  .breaking-strip{grid-template-columns:112px 1fr}.breaking-label{font-size:8px;justify-content:center;padding:9px 5px}.breaking-strip>div{font-size:9px;padding:9px 8px}
+  .home-page .section-rule h1,.home-page .section-rule h2{font-size:23px}.section-rule>span{display:none}
+  .lead-media,.lead-media img{height:218px;min-height:218px}.lead-copy h2{font-size:21px}.lead-copy p{font-size:10px;line-height:1.65}.read-more.large{font-size:12px}
+  .home-story{grid-template-columns:96px minmax(0,1fr);gap:10px}.home-story-media{height:84px}.home-story h3{font-size:13px;line-height:1.35}.home-story p{font-size:8.5px}.home-story .story-meta{gap:5px}.home-story .tag{font-size:7px}
+  .front-section .story-grid{grid-template-columns:1fr;padding:8px}.story-grid .home-story-media{height:190px}.story-grid .home-story h3{font-size:17px}.story-grid .home-story p{font-size:10px}
+}
