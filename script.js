@@ -24,11 +24,27 @@ async function selectEdition(n){selectedEdition=await enrichEdition(n);n=selecte
 async function loadSingle(){const slug=new URLSearchParams(location.search).get('slug');if(!slug)return false;try{const rows=await publicGet(`/news?select=id,slug,headline,location,main_image_url,epaper_layout,published_at,created_at&status=eq.published&slug=eq.${encodeURIComponent(slug)}&limit=1`);if(!rows?.length){setText('edition-title','ई-पेपर उपलब्ध नाही');setText('edition-date','ही आवृत्ती सापडली नाही.');$('#paper-loading').style.display='none';$('#paper-empty').hidden=false;return true}await selectEdition(rows[0]);return true}catch(e){console.error(e);setText('edition-title','ई-पेपर लोड झाले नाही');$('#paper-loading').innerHTML='<span>ही आवृत्ती लोड करताना अडचण आली.</span>';return true}}
 async function loadHome(){try{const rows=await publicGet('/news?select=id,slug,headline,location,main_image_url,epaper_layout,published_at,created_at&status=eq.published&epaper_layout=eq.direct-newspaper&order=published_at.desc&limit=100');editions=groupEditions(rows||[]);renderEditionList();if(editions.length)await selectEdition(editions[0]);else{setText('edition-date','अजून कोणताही ई-पेपर प्रकाशित झालेला नाही.');$('#paper-loading').style.display='none';$('#paper-empty').hidden=false}}catch(e){console.error(e);$('#paper-loading').innerHTML='<span>ई-पेपर लोड करताना अडचण आली. कृपया पुन्हा प्रयत्न करा.</span>'}}
 async function shareCurrent(){try{await (navigator.share?navigator.share({title:`${selectedEdition?.headline||'मेट्रोसिटी पोस्ट'} — ई-पेपर`,url:location.href}):navigator.clipboard.writeText(location.href));if(!navigator.share)alert('ई-पेपरची लिंक कॉपी झाली आहे.')}catch(e){}}
+async function downloadCurrentPage(){
+ if(!pages.length)return;
+ const url=pages[currentPage];
+ const stamp=dateKey(selectedEdition?.published_at||selectedEdition?.created_at||new Date());
+ const filename=`metrocity-post-${stamp}-page-${currentPage+1}.jpg`;
+ try{
+   const r=await fetch(url,{mode:'cors',cache:'no-store'});
+   if(!r.ok)throw new Error('download failed');
+   const blob=await r.blob();
+   const blobUrl=URL.createObjectURL(blob);
+   const a=document.createElement('a');a.href=blobUrl;a.download=filename;document.body.appendChild(a);a.click();a.remove();
+   setTimeout(()=>URL.revokeObjectURL(blobUrl),1500);
+ }catch(e){
+   const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';a.download=filename;document.body.appendChild(a);a.click();a.remove();
+ }
+}
 function openFullscreen(){if(!pages.length)return;const f=$('#fullscreen-reader'),img=$('#fullscreen-image');img.src=pages[currentPage];setText('fullscreen-label',`पान ${currentPage+1} / ${pages.length}`);f.classList.add('open');f.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}
 function closeFullscreen(){const f=$('#fullscreen-reader');f.classList.remove('open');f.setAttribute('aria-hidden','true');$('#fullscreen-image').removeAttribute('src');document.body.style.overflow=''}
 function bindReader(){
  $('#date-open')?.addEventListener('click',openDates);$('#date-close')?.addEventListener('click',closeDates);$('#date-drawer')?.addEventListener('click',e=>{if(e.target.id==='date-drawer')closeDates()});
- $('#share-btn')?.addEventListener('click',shareCurrent);$('#prev-page')?.addEventListener('click',()=>selectPage(currentPage-1));$('#next-page')?.addEventListener('click',()=>selectPage(currentPage+1));$('#mobile-prev')?.addEventListener('click',()=>selectPage(currentPage-1));$('#mobile-next')?.addEventListener('click',()=>selectPage(currentPage+1));
+ $('#share-btn')?.addEventListener('click',shareCurrent);$('#download-btn')?.addEventListener('click',downloadCurrentPage);$('#prev-page')?.addEventListener('click',()=>selectPage(currentPage-1));$('#next-page')?.addEventListener('click',()=>selectPage(currentPage+1));$('#mobile-prev')?.addEventListener('click',()=>selectPage(currentPage-1));$('#mobile-next')?.addEventListener('click',()=>selectPage(currentPage+1));
  $('#zoom-in')?.addEventListener('click',()=>{zoom=Math.min(2.5,+(zoom+.25).toFixed(2));applyZoom()});$('#zoom-out')?.addEventListener('click',()=>{zoom=Math.max(1,+(zoom-.25).toFixed(2));applyZoom()});$('#fit-btn')?.addEventListener('click',resetZoom);$('#fullscreen-btn')?.addEventListener('click',openFullscreen);$('#fullscreen-close')?.addEventListener('click',closeFullscreen);$('#fullscreen-reader')?.addEventListener('click',e=>{if(e.target.id==='fullscreen-reader')closeFullscreen()});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDates();closeFullscreen()}if(e.key==='ArrowLeft')selectPage(currentPage-1);if(e.key==='ArrowRight')selectPage(currentPage+1)});
  const view=$('#paper-viewport');view?.addEventListener('touchstart',e=>{if(e.touches.length===1)drag={x:e.touches[0].clientX,y:e.touches[0].clientY}}, {passive:true});view?.addEventListener('touchend',e=>{if(!drag)return;const dx=e.changedTouches[0].clientX-drag.x,dy=e.changedTouches[0].clientY-drag.y;drag=null;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.25){selectPage(currentPage+(dx<0?1:-1))}}, {passive:true});
