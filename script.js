@@ -1,84 +1,36 @@
 const API_BASE=`${window.METROCITY_SUPABASE_URL}/rest/v1`;
 const API_KEY=window.METROCITY_SUPABASE_KEY;
-async function publicGet(path){
-  const r=await fetch(API_BASE+path,{headers:{apikey:API_KEY,Authorization:`Bearer ${API_KEY}`},cache:'no-store'});
-  if(!r.ok){let detail='';try{detail=await r.text()}catch{};throw new Error(`Supabase ${r.status}: ${detail||r.statusText}`)}
-  return r.json();
-}
-async function publicPost(path,body){
-  const r=await fetch(API_BASE+path,{method:'POST',headers:{apikey:API_KEY,Authorization:`Bearer ${API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify(body)});
-  if(!r.ok)throw new Error(`Supabase ${r.status}`);
-  return r.text();
-}
+async function publicGet(path){const r=await fetch(API_BASE+path,{headers:{apikey:API_KEY,Authorization:`Bearer ${API_KEY}`},cache:'no-store'});if(!r.ok){let d='';try{d=await r.text()}catch{}throw new Error(`Supabase ${r.status}: ${d||r.statusText}`)}return r.json()}
+async function publicPost(path,body){const r=await fetch(API_BASE+path,{method:'POST',headers:{apikey:API_KEY,Authorization:`Bearer ${API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw new Error(`Supabase ${r.status}`);return r.text()}
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const marathiDate=d=>new Intl.DateTimeFormat('mr-IN',{day:'numeric',month:'long',year:'numeric'}).format(d);
-const relativeTime=d=>{const x=Date.now()-new Date(d).getTime(),m=Math.floor(x/60000);if(m<1)return'आत्ताच';if(m<60)return`${m} मिनिटांपूर्वी`;const h=Math.floor(m/60);if(h<24)return`${h} तासांपूर्वी`;return marathiDate(new Date(d))};
-const img=(u,cls='')=>u?`<img class="${cls}" src="${esc(u)}" alt="">`:`<div class="${cls} placeholder">छायाचित्र उपलब्ध नाही</div>`;
-const paragraphs=t=>String(t||'').split(/\n+/).filter(Boolean).map(p=>`<p>${esc(p)}</p>`).join('');
-function toggleSearch(){document.getElementById('searchbar')?.classList.toggle('show');document.getElementById('search-input')?.focus()}
-function toggleMenu(){const open=!document.body.classList.contains('nav-open');document.body.classList.toggle('nav-open',open);document.querySelector('.hamb')?.setAttribute('aria-expanded',String(open))}
-function closeMenu(){document.body.classList.remove('nav-open');document.querySelector('.hamb')?.setAttribute('aria-expanded','false')}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
-function setDate(){document.querySelectorAll('[data-current-date]').forEach(e=>e.textContent=marathiDate(new Date()))}
-function articleUrl(slug){return `article.html?slug=${encodeURIComponent(slug)}`}
-function card(n){const direct=n.epaper_layout==='direct-newspaper';return `<article class="home-story ${direct?'paper-story':''}" onclick="location.href='${articleUrl(n.slug)}'" tabindex="0" role="link"><a class="home-story-media ${direct?'paper-story-media':''}" href="${articleUrl(n.slug)}" onclick="event.stopPropagation()">${n.main_image_url?`<img src="${esc(n.main_image_url)}" alt="${esc(n.headline)}" loading="lazy" onerror="this.parentElement.classList.add('no-image');this.remove()">`:`<div class="no-image">मेट्रोसिटी पोस्ट</div>`}${direct?'<span class="paper-chip">📰 ई-पेपर कटिंग</span>':''}</a><div class="home-story-body"><div class="story-meta"><span class="tag">${esc(n.categories?.name||'बातमी')}</span><time>${relativeTime(n.published_at)}</time></div><h3><a href="${articleUrl(n.slug)}" onclick="event.stopPropagation()">${esc(n.headline)}</a></h3>${direct?'<p class="paper-story-note">वृत्तपत्राच्या स्वरूपात थेट प्रकाशित</p>':`<p>${esc(n.subheadline||'ताज्या घडामोडींचे संक्षिप्त वृत्तांकन.').slice(0,180)}${String(n.subheadline||'').length>180?'…':''}</p>`}<a class="read-more" href="${articleUrl(n.slug)}" onclick="event.stopPropagation()">पुढे वाचा <span>→</span></a></div></article>`}
-async function loadHome(){
-  let data;
-  try{data=await publicGet('/news?select=id,slug,headline,subheadline,location,main_image_url,epaper_layout,published_at,categories(name,slug)&status=eq.published&order=published_at.desc&limit=40')}catch(error){console.error('Metrocity Post public news error',error);document.querySelectorAll('.loading').forEach(x=>x.outerHTML='<div class="error">बातम्या लोड करता आल्या नाहीत. <button class="retry-btn" onclick="location.reload()">पुन्हा प्रयत्न करा</button></div>');return}
-  const latest=document.querySelector('#latest-grid');
-  if(!data?.length){if(latest)latest.innerHTML='<div class="empty">अजून बातम्या प्रकाशित झालेल्या नाहीत.</div>';document.querySelector('#breaking-news').textContent='अजून ब्रेकिंग बातमी उपलब्ध नाही.';return}
-  const [first,...rest]=data;
-  document.querySelector('#breaking-news').innerHTML=`<a href="${articleUrl(first.slug)}">${esc(first.headline)}</a>`;
-  if(latest){
-    latest.innerHTML=`<article class="lead-story" onclick="location.href='${articleUrl(first.slug)}'">
-      <a class="lead-media" href="${articleUrl(first.slug)}" onclick="event.stopPropagation()">${first.main_image_url?`<img src="${esc(first.main_image_url)}" alt="${esc(first.headline)}" onerror="this.parentElement.classList.add('no-image');this.remove()">`:`<div class="no-image">मेट्रोसिटी पोस्ट</div>`}<span class="lead-badge">ताजी बातमी</span></a>
-      <div class="lead-copy"><div class="story-meta"><span class="tag">${esc(first.categories?.name||'बातमी')}</span><time>${relativeTime(first.published_at)}</time></div><h2><a href="${articleUrl(first.slug)}" onclick="event.stopPropagation()">${esc(first.headline)}</a></h2><p>${esc(first.subheadline||'ताज्या घडामोडींचे संक्षिप्त वृत्तांकन.')}</p><a class="read-more large" href="${articleUrl(first.slug)}" onclick="event.stopPropagation()">पुढे वाचा <span>→</span></a></div>
-    </article>
-    <div class="news-feed">${rest.slice(0,8).map(card).join('')}</div>`;
-  }
-  const mah=data.filter(n=>n.categories?.slug==='maharashtra').slice(0,4);
-  const local=data.filter(n=>n.categories?.slug==='local').slice(0,4);
-  const politics=data.filter(n=>n.categories?.slug==='politics').slice(0,4);
-  const sports=data.filter(n=>n.categories?.slug==='sports').slice(0,4);
-  const fill=(id,items,empty)=>{const el=document.querySelector(id);if(el)el.innerHTML=items.length?items.map(card).join(''):`<div class="empty">${empty}</div>`};
-  fill('#maharashtra-grid',mah,'महाराष्ट्र विभागात अजून बातम्या नाहीत.');
-  fill('#local-grid',local,'स्थानिक विभागात अजून बातम्या नाहीत.');
-  fill('#politics-grid',politics,'राजकारण विभागात अजून बातम्या नाहीत.');
-  fill('#sports-grid',sports,'क्रीडा विभागात अजून बातम्या नाहीत.');
+const dateKey=d=>{const x=new Date(d);return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`};
+let editions=[];let selectedEdition=null;let currentPage=0;let zoom=1;let pages=[];let drag=null;
+const $=s=>document.querySelector(s);
+function setText(id,text){const e=document.getElementById(id);if(e)e.textContent=text}
+function openDates(){const d=$('#date-drawer');if(!d)return;d.classList.add('open');d.setAttribute('aria-hidden','false')}
+function closeDates(){const d=$('#date-drawer');if(!d)return;d.classList.remove('open');d.setAttribute('aria-hidden','true')}
+function editionLabel(item){return marathiDate(new Date(item.published_at||item.created_at))}
+function groupEditions(rows){const map=new Map();for(const n of rows){const k=dateKey(n.published_at||n.created_at);if(!map.has(k))map.set(k,n)}return [...map.values()].sort((a,b)=>new Date(b.published_at||b.created_at)-new Date(a.published_at||a.created_at))}
+function renderEditionList(){const box=$('#edition-list');if(!box)return;if(!editions.length){box.innerHTML='<div class="rail-loading">अंक उपलब्ध नाहीत.</div>';return}box.innerHTML=editions.map((n,i)=>{const active=selectedEdition&&dateKey(selectedEdition.published_at||selectedEdition.created_at)===dateKey(n.published_at||n.created_at);return `<button class="edition-item ${active?'active':''}" data-index="${i}"><span><b>${i===0?'आजचा अंक':editionLabel(n)}</b><small>${n.location?esc(n.location)+' • ':''}वृत्तपत्राचा अंक</small></span><span class="edition-arrow">›</span></button>`}).join('');box.querySelectorAll('.edition-item').forEach((b,i)=>b.addEventListener('click',()=>{selectEdition(editions[i]);closeDates()}))}
+function getPages(n){const urls=[];if(n.main_image_url)urls.push(n.main_image_url);if(Array.isArray(n.news_photos))for(const p of n.news_photos)if(p.image_url&&!urls.includes(p.image_url))urls.push(p.image_url);return urls}
+async function enrichEdition(n){let photos=[];try{photos=await publicGet(`/news_photos?select=image_url,sort_order&news_id=eq.${encodeURIComponent(n.id)}&order=sort_order.asc`)}catch(e){console.warn('photo list',e)}return {...n,news_photos:photos||[]}}
+function resetZoom(){zoom=1;applyZoom()}
+function applyZoom(){const img=$('#paper-image'),view=$('#paper-viewport');if(!img)return;const pct=Math.round(zoom*100);setText('zoom-value',`${pct}%`);img.style.transform=`scale(${zoom})`;img.classList.toggle('zoomed',zoom>1.01);view.classList.toggle('is-zoomed',zoom>1.01);if(zoom<=1.01){img.style.transform='scale(1)';img.style.width=innerWidth<=800?'100%':'auto';}}
+function selectPage(i){if(!pages.length)return;currentPage=Math.max(0,Math.min(i,pages.length-1));const img=$('#paper-image'),loading=$('#paper-loading');if(!img)return;loading.style.display='flex';img.style.visibility='hidden';resetZoom();img.onload=()=>{loading.style.display='none';img.style.visibility='visible'};img.onerror=()=>{loading.innerHTML='<span>हे पान लोड करता आले नाही. पुन्हा प्रयत्न करा.</span>';img.style.visibility='hidden'};img.src=pages[currentPage];setText('page-current',String(currentPage+1));setText('page-total',String(pages.length));setText('mobile-page-label',`पान ${currentPage+1}`);setText('rail-count',String(pages.length));setText('fullscreen-label',`पान ${currentPage+1} / ${pages.length}`);document.querySelectorAll('.thumb').forEach((x,i2)=>x.classList.toggle('active',i2===currentPage));const active=document.querySelector('.thumb.active');active?.scrollIntoView({block:'nearest'});updateNav()}
+function updateNav(){const prev=$('#prev-page'),next=$('#next-page'),mp=$('#mobile-prev'),mn=$('#mobile-next');[prev,mp].forEach(x=>{if(x)x.disabled=currentPage<=0});[next,mn].forEach(x=>{if(x)x.disabled=currentPage>=pages.length-1})}
+function renderThumbnails(){const box=$('#thumbnails');if(!box)return;if(!pages.length){box.innerHTML='<div class="rail-loading">पाने उपलब्ध नाहीत.</div>';return}box.innerHTML=pages.map((u,i)=>`<button class="thumb ${i===currentPage?'active':''}" type="button" aria-label="पान ${i+1}"><img src="${esc(u)}" alt="पान ${i+1}" loading="lazy"><span>पान ${i+1}</span></button>`).join('');box.querySelectorAll('.thumb').forEach((b,i)=>b.addEventListener('click',()=>selectPage(i)))}
+async function selectEdition(n){selectedEdition=await enrichEdition(n);n=selectedEdition;setText('edition-title',n.headline||'आजचा अंक');setText('edition-date',editionLabel(n));pages=getPages(n);currentPage=0;renderEditionList();renderThumbnails();if(!pages.length){$('#paper-image').style.display='none';$('#paper-empty').hidden=false;$('#paper-loading').style.display='none';updateNav();return}$('#paper-image').style.display='block';$('#paper-empty').hidden=true;$('#paper-loading').innerHTML='<div class="spinner"></div><span>ई-पेपर लोड होत आहे…</span>';selectPage(0)}
+async function loadSingle(){const slug=new URLSearchParams(location.search).get('slug');if(!slug)return false;try{const rows=await publicGet(`/news?select=id,slug,headline,location,main_image_url,epaper_layout,published_at,created_at&status=eq.published&slug=eq.${encodeURIComponent(slug)}&limit=1`);if(!rows?.length){setText('edition-title','ई-पेपर उपलब्ध नाही');setText('edition-date','ही आवृत्ती सापडली नाही.');$('#paper-loading').style.display='none';$('#paper-empty').hidden=false;return true}await selectEdition(rows[0]);return true}catch(e){console.error(e);setText('edition-title','ई-पेपर लोड झाले नाही');$('#paper-loading').innerHTML='<span>ही आवृत्ती लोड करताना अडचण आली.</span>';return true}}
+async function loadHome(){try{const rows=await publicGet('/news?select=id,slug,headline,location,main_image_url,epaper_layout,published_at,created_at&status=eq.published&epaper_layout=eq.direct-newspaper&order=published_at.desc&limit=100');editions=groupEditions(rows||[]);renderEditionList();if(editions.length)await selectEdition(editions[0]);else{setText('edition-date','अजून कोणताही ई-पेपर प्रकाशित झालेला नाही.');$('#paper-loading').style.display='none';$('#paper-empty').hidden=false}}catch(e){console.error(e);$('#paper-loading').innerHTML='<span>ई-पेपर लोड करताना अडचण आली. कृपया पुन्हा प्रयत्न करा.</span>'}}
+async function shareCurrent(){try{await (navigator.share?navigator.share({title:`${selectedEdition?.headline||'मेट्रोसिटी पोस्ट'} — ई-पेपर`,url:location.href}):navigator.clipboard.writeText(location.href));if(!navigator.share)alert('ई-पेपरची लिंक कॉपी झाली आहे.')}catch(e){}}
+function openFullscreen(){if(!pages.length)return;const f=$('#fullscreen-reader'),img=$('#fullscreen-image');img.src=pages[currentPage];setText('fullscreen-label',`पान ${currentPage+1} / ${pages.length}`);f.classList.add('open');f.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}
+function closeFullscreen(){const f=$('#fullscreen-reader');f.classList.remove('open');f.setAttribute('aria-hidden','true');$('#fullscreen-image').removeAttribute('src');document.body.style.overflow=''}
+function bindReader(){
+ $('#date-open')?.addEventListener('click',openDates);$('#date-close')?.addEventListener('click',closeDates);$('#date-drawer')?.addEventListener('click',e=>{if(e.target.id==='date-drawer')closeDates()});
+ $('#share-btn')?.addEventListener('click',shareCurrent);$('#prev-page')?.addEventListener('click',()=>selectPage(currentPage-1));$('#next-page')?.addEventListener('click',()=>selectPage(currentPage+1));$('#mobile-prev')?.addEventListener('click',()=>selectPage(currentPage-1));$('#mobile-next')?.addEventListener('click',()=>selectPage(currentPage+1));
+ $('#zoom-in')?.addEventListener('click',()=>{zoom=Math.min(2.5,+(zoom+.25).toFixed(2));applyZoom()});$('#zoom-out')?.addEventListener('click',()=>{zoom=Math.max(1,+(zoom-.25).toFixed(2));applyZoom()});$('#fit-btn')?.addEventListener('click',resetZoom);$('#fullscreen-btn')?.addEventListener('click',openFullscreen);$('#fullscreen-close')?.addEventListener('click',closeFullscreen);$('#fullscreen-reader')?.addEventListener('click',e=>{if(e.target.id==='fullscreen-reader')closeFullscreen()});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDates();closeFullscreen()}if(e.key==='ArrowLeft')selectPage(currentPage-1);if(e.key==='ArrowRight')selectPage(currentPage+1)});
+ const view=$('#paper-viewport');view?.addEventListener('touchstart',e=>{if(e.touches.length===1)drag={x:e.touches[0].clientX,y:e.touches[0].clientY}}, {passive:true});view?.addEventListener('touchend',e=>{if(!drag)return;const dx=e.changedTouches[0].clientX-drag.x,dy=e.changedTouches[0].clientY-drag.y;drag=null;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.25){selectPage(currentPage+(dx<0?1:-1))}}, {passive:true});
 }
-async function searchNews(q){const box=document.querySelector('#search-results');if(!box)return;if(!q.trim()){box.innerHTML='';return}const term=q.trim().replace(/[%_,]/g,' ');try{const data=await publicGet(`/news?select=slug,headline,subheadline,published_at,categories(name)&status=eq.published&or=(headline.ilike.*${encodeURIComponent(term)}*,subheadline.ilike.*${encodeURIComponent(term)}*)&order=published_at.desc&limit=15`);box.innerHTML=data?.length?data.map(n=>`<a class="search-result" href="article.html?slug=${encodeURIComponent(n.slug)}"><small>${esc(n.categories?.name||'बातमी')}</small><b>${esc(n.headline)}</b><span>${relativeTime(n.published_at)}</span></a>`).join(''):'<div class="empty">बातमी सापडली नाही.</div>'}catch(error){console.error('Metrocity Post search error',error);box.innerHTML='<div class="error">शोध करताना अडचण आली.</div>'}}
-async function loadArticle(){
-  const slug=new URLSearchParams(location.search).get('slug');
-  if(!slug)return;
-  let rows;try{rows=await publicGet(`/news?select=*,categories(name,slug)&slug=eq.${encodeURIComponent(slug)}&limit=1`)}catch(error){console.error('Metrocity Post article error',error);document.querySelector('#paper').innerHTML='<div class="error">ही बातमी उपलब्ध नाही. <button class="retry-btn" onclick="location.reload()">पुन्हा प्रयत्न करा</button></div>';return}const data=rows?.[0];if(!data||data.status!=='published'){document.querySelector('#paper').innerHTML='<div class="error">ही बातमी उपलब्ध नाही.</div>';return;}
-  document.title=`${data.headline} | मेट्रोसिटी पोस्ट`;
-  document.querySelector('meta[name="description"]')?.setAttribute('content',data.seo_description||data.subheadline||data.headline);
-  let photos=[];try{photos=await publicGet(`/news_photos?select=image_url,caption,sort_order&news_id=eq.${encodeURIComponent(data.id)}&order=sort_order.asc`)}catch(error){console.warn('Metrocity Post photo list error',error)}
-  const urls=[data.main_image_url,...(photos||[]).map(x=>x.image_url)].filter(Boolean);
-  const paper=document.querySelector('#paper');
-  if(data.epaper_layout==='direct-newspaper'){
-    paper.innerHTML=`<div class="paper-mast"><strong>मेट्रोसिटी पोस्ट</strong><span>${marathiDate(new Date(data.published_at||data.created_at))}</span></div><hr class="double-rule"><div class="direct-paper-label">📰 वृत्तपत्राचे पान</div><div class="direct-paper-gallery">${urls.map((u,i)=>`<figure><img src="${esc(u)}" alt="${esc(data.headline)}"><figcaption>पान ${i+1} • मेट्रोसिटी पोस्ट</figcaption></figure>`).join('')}</div><div class="paper-foot"><span>प्रतिनिधी • मेट्रोसिटी पोस्ट</span><span>${marathiDate(new Date(data.published_at||data.created_at))}</span></div>`;
-  }else{
-    let layout=data.epaper_layout||'auto';
-    if(layout==='auto')layout=data.main_image_url?'photo-left':'no-photo';
-    if(!data.main_image_url)layout='no-photo';
-    const photo=data.main_image_url?`<figure class="paper-photo"><img src="${esc(data.main_image_url)}" alt="${esc(data.headline)}"><figcaption>${esc(data.location||'मेट्रोसिटी पोस्ट')}</figcaption></figure>`:'';
-    paper.innerHTML=`<div class="paper-mast"><strong>मेट्रोसिटी पोस्ट</strong><span>${marathiDate(new Date(data.published_at||data.created_at))}</span></div><hr class="double-rule"><div class="category">${esc(data.categories?.name||'विशेष')} • ${esc(data.location||'महाराष्ट्र')}</div><h1>${esc(data.headline)}</h1><p class="dek">${esc(data.subheadline||'')}</p><div class="paper-grid ${layout}">${photo}<div class="paper-text">${paragraphs(data.content)}</div></div><div class="paper-foot"><span>प्रतिनिधी • मेट्रोसिटी पोस्ट</span><span>${marathiDate(new Date(data.published_at||data.created_at))}</span></div>`;
-  }
-  const normal=document.querySelector('#article-normal');
-  if(data.epaper_layout==='direct-newspaper'){
-    normal.style.display='none';
-    normal.innerHTML=`<div class="eyebrow">वृत्तपत्रातील बातमी</div><h2>${esc(data.headline)}</h2><div class="meta">${esc(data.categories?.name||'ई-पेपर')} • ${esc(data.location||'महाराष्ट्र')} • ${marathiDate(new Date(data.published_at||data.created_at))}</div><p class="direct-note">ही बातमी वृत्तपत्राच्या पानाच्या स्वरूपात थेट प्रकाशित करण्यात आली आहे.</p><div class="article-photo-gallery direct-gallery">${urls.map(u=>`<img src="${esc(u)}" alt="${esc(data.headline)}">`).join('')}</div>`;
-  }else{
-    normal.innerHTML=`<div class="eyebrow">सविस्तर बातमी</div><h2>${esc(data.headline)}</h2><div class="meta">${esc(data.categories?.name||'बातमी')} • ${esc(data.location||'महाराष्ट्र')} • ${marathiDate(new Date(data.published_at||data.created_at))}</div>${urls.length>1?`<div class="article-photo-gallery">${urls.map(u=>`<img src="${esc(u)}" alt="">`).join('')}</div>`:''}<div class="body">${paragraphs(data.content)}</div>`;
-  }
-  const rel=document.querySelector('#related');
-  if(rel){
-    let r=[];try{r=await publicGet(`/news?select=slug,headline,categories(name)&status=eq.published&category_id=eq.${encodeURIComponent(data.category_id)}&id=neq.${encodeURIComponent(data.id)}&order=published_at.desc&limit=4`)}catch(error){console.warn('Metrocity Post related stories error',error)}
-    rel.innerHTML=(r||[]).map(n=>`<article class="story-card"><div class="story-card-body"><span class="tag">${esc(n.categories?.name||'बातमी')}</span><h3><a href="article.html?slug=${encodeURIComponent(n.slug)}">${esc(n.headline)}</a></h3></div></article>`).join('');
-  }
-  publicPost('/rpc/increment_news_views',{news_id:data.id}).catch(()=>{});
-}
-async function shareNews(){if(navigator.share)try{await navigator.share({title:document.title,url:location.href})}catch{}else copyLink()};async function copyLink(){try{await navigator.clipboard.writeText(location.href);alert('लिंक कॉपी झाली आहे.')}catch{prompt('लिंक कॉपी करा',location.href)}}
-function wireSearch(){const i=document.querySelector('#search-input');if(i){let t;i.addEventListener('input',()=>{clearTimeout(t);t=setTimeout(()=>searchNews(i.value),250)});i.addEventListener('keydown',e=>{if(e.key==='Enter')searchNews(i.value)})}}
-document.addEventListener('DOMContentLoaded',()=>{setDate();wireSearch();loadHome();loadArticle()});
+document.addEventListener('DOMContentLoaded',()=>{bindReader();if(document.body.classList.contains('single-paper'))loadSingle();else loadHome()});
