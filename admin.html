@@ -1,208 +1,78 @@
-<!doctype html>
-<html lang="mr">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>न्यूजरूम | मेट्रोसिटी पोस्ट</title>
-<link rel="stylesheet" href="admin-login.css?v=20260909-9">
-<style>
-:root{--red:#c90024;--ink:#151515;--muted:#777;--line:#dedede;--paper:#f7f7f5}
-*{box-sizing:border-box}
-body.admin-shell{background:var(--paper)!important;color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans Devanagari",sans-serif}
-.admin-header{height:72px!important;padding:0 24px!important;background:#111!important;border-bottom:1px solid #292929!important}
-.admin-header .brand{font-size:25px!important}
-.admin-head-actions a,.admin-head-actions button{border:1px solid #444!important;border-radius:8px!important;background:transparent!important;padding:9px 14px!important}
-.admin-main{max-width:920px!important;margin:0 auto!important;padding:34px 20px 70px!important}
-.admin-welcome{display:flex!important;align-items:end!important;justify-content:space-between!important;gap:20px!important;margin-bottom:22px!important}
-.admin-kicker{font-size:11px!important;letter-spacing:.18em!important;font-weight:800!important;color:var(--red)!important}
-.admin-welcome h1{font-size:34px!important;line-height:1.15!important;margin:7px 0 5px!important}
-.admin-welcome p{margin:0!important;color:var(--muted)!important}
-.secure-pill{display:none!important}
-
-.mode-switch{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important;margin:0 0 18px!important}
-.mode-btn{display:flex!important;align-items:center!important;text-align:left!important;gap:13px!important;padding:16px 18px!important;border:1px solid #d7d7d7!important;border-radius:12px!important;background:#fff!important;box-shadow:none!important}
-.mode-btn.active{border-color:var(--red)!important;background:#fff!important;box-shadow:0 0 0 1px rgba(201,0,36,.08)!important}
-.mode-icon{font-size:23px!important}
-.mode-btn b{display:block!important;font-size:17px!important}
-.mode-btn small{display:block!important;color:#888!important;margin-top:3px!important}
-
-.mode-panel{display:none!important}
-.mode-panel.active{display:block!important}
-.form-card,.manager-card{background:#fff!important;border:1px solid var(--line)!important;border-radius:14px!important;box-shadow:none!important;padding:22px!important;margin-bottom:14px!important}
-.card-head{margin-bottom:18px!important}
-.card-head>div{display:flex!important;align-items:center!important;gap:10px!important}
-.card-head span{display:grid!important;place-items:center!important;width:28px!important;height:28px!important;border-radius:50%!important;background:#111!important;color:#fff!important;font-size:11px!important;font-weight:800!important}
-.card-head h2{font-size:21px!important;margin:0!important}
-.card-head em{font-size:11px!important;color:#999!important;font-style:normal!important}
-label{display:block!important;font-weight:700!important;font-size:14px!important;margin:15px 0 7px!important}
-input,textarea,select{width:100%!important;border:1px solid #d4d4d4!important;border-radius:9px!important;background:#fff!important;padding:13px 14px!important;font:inherit!important;outline:none!important}
-input:focus,textarea:focus,select:focus{border-color:var(--red)!important;box-shadow:0 0 0 3px rgba(201,0,36,.08)!important}
-textarea{min-height:220px!important;resize:vertical!important}
-.form-row{display:grid!important;grid-template-columns:1fr 1fr!important;gap:14px!important}
-.upload-box,.big-drop{border:1px dashed #cfcfcf!important;border-radius:10px!important;background:#fafafa!important}
-.upload-box{display:flex!important;align-items:center!important;gap:12px!important;padding:14px!important}
-.upload-icon{font-size:24px!important}
-.upload-box small,.big-drop small{display:block!important;color:#888!important;margin-top:3px!important}
-.file-button,.big-drop strong{display:inline-block!important;background:#111!important;color:#fff!important;border-radius:8px!important;padding:10px 14px!important;margin:0 0 0 auto!important;cursor:pointer!important}
-.upload-preview,.newspaper-preview{min-height:82px!important;border:1px dashed #ddd!important;border-radius:9px!important;margin:10px 0!important;padding:10px!important}
-.big-drop{display:flex!important;align-items:center!important;gap:14px!important;padding:20px!important;cursor:pointer!important}
-.big-drop>span{font-size:28px!important}
-.big-drop b{font-size:16px!important}
-.hint{font-size:12px!important;color:#888!important;margin:8px 0 0!important}
-.direct-intro{display:flex!important;gap:14px!important;align-items:center!important;background:#111!important;color:#fff!important;border-radius:12px!important;padding:18px 20px!important;margin-bottom:14px!important}
-.direct-intro h2{font-size:21px!important;margin:0 0 4px!important}
-.direct-intro p{margin:0!important;color:#bbb!important;font-size:13px!important}
-.direct-icon{font-size:28px!important}
-.publish-bar{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important;margin:14px 0 24px!important}
-.publish-bar button{border-radius:9px!important;padding:13px 16px!important;font-size:15px!important;font-weight:800!important}
-.primary.big{background:var(--red)!important;border:1px solid var(--red)!important}
-.secondary.big{background:#fff!important;border:1px solid #ccc!important}
-.manager-head{display:flex!important;justify-content:space-between!important;align-items:start!important;gap:15px!important}
-.manager-head h2{font-size:22px!important;margin:5px 0!important}
-.manager-head p{font-size:12px!important;color:#888!important;margin:0!important}
-.refresh-btn{white-space:nowrap!important;border:1px solid #ccc!important;background:#fff!important;border-radius:8px!important;padding:9px 12px!important}
-.manager-list{margin-top:18px!important}
-.manager-item{display:grid!important;grid-template-columns:58px 1fr auto!important;align-items:center!important;gap:12px!important;padding:12px 0!important;border-top:1px solid #eee!important}
-.manager-thumb{width:58px!important;height:58px!important;border-radius:8px!important;overflow:hidden!important;background:#eee!important;display:grid!important;place-items:center!important}
-.manager-thumb img{width:100%!important;height:100%!important;object-fit:cover!important}
-.manager-info h3{font-size:15px!important;margin:0 0 4px!important}
-.manager-info p{font-size:11px!important;color:#888!important;margin:0!important}
-.manager-actions{display:flex!important;gap:6px!important;flex-wrap:wrap!important;justify-content:flex-end!important}
-.manager-actions a,.manager-actions button{font:inherit!important;font-size:11px!important;border:1px solid #ddd!important;background:#fff!important;border-radius:7px!important;padding:7px 9px!important;text-decoration:none!important;color:#222!important}
-.manager-actions .danger{color:var(--red)!important}
-.global-status{position:sticky!important;top:8px!important;z-index:5!important;margin-bottom:10px!important}
-@media(max-width:650px){
- .admin-header{height:64px!important;padding:0 15px!important}
- .admin-header .brand{font-size:20px!important}
- .admin-head-actions a{display:none!important}
- .admin-head-actions button{font-size:12px!important}
- .admin-main{padding:24px 14px 50px!important}
- .admin-welcome{display:block!important}
- .admin-welcome h1{font-size:28px!important}
- .mode-switch,.form-row,.publish-bar{grid-template-columns:1fr!important}
- .mode-btn{padding:13px!important}
- .form-card,.manager-card{padding:16px!important;border-radius:12px!important}
- .manager-item{grid-template-columns:48px 1fr!important}
- .manager-thumb{width:48px!important;height:48px!important}
- .manager-actions{grid-column:2!important;justify-content:flex-start!important}
- .direct-intro{padding:15px!important}
- .big-drop{align-items:flex-start!important;flex-wrap:wrap!important}
- .big-drop strong{margin-left:auto!important}
-}
-</style>
-
-</head>
+<!doctype html><html lang="mr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ई-पेपर न्यूजroom | मेट्रोसिटी पोस्ट</title><link rel="stylesheet" href="admin-login.css?v=20260909-10"><style>
+:root{--red:#c90024;--ink:#191919;--muted:#707070;--line:#e4e4e4;--bg:#f5f5f3;--white:#fff}
+*{box-sizing:border-box}body.admin-shell{margin:0;background:var(--bg)!important;color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans Devanagari","Nirmala UI",sans-serif}.admin-header{height:64px!important;padding:0 22px!important;background:#fff!important;color:#111!important;border-bottom:1px solid var(--line)!important;display:flex;align-items:center;justify-content:space-between}.admin-header .brand{font-size:22px!important;color:#111!important;text-decoration:none}.admin-header .brand b{color:var(--red)!important}.admin-head-actions{display:flex;align-items:center;gap:8px}.admin-head-actions a,.admin-head-actions button{border:1px solid #d5d5d5!important;border-radius:8px!important;background:#fff!important;color:#222!important;padding:8px 12px!important;text-decoration:none!important;font:inherit}.admin-head-actions button:hover,.admin-head-actions a:hover{border-color:#aaa!important}
+.admin-main{width:min(860px,100%);margin:auto;padding:28px 18px 60px}.admin-welcome{margin-bottom:18px}.admin-kicker{display:block;font-size:10px;letter-spacing:.16em;font-weight:800;color:var(--red)}.admin-welcome h1{font-size:30px;line-height:1.2;margin:6px 0}.admin-welcome p{margin:0;color:var(--muted);font-size:13px}.global-status{position:sticky;top:8px;z-index:10;margin-bottom:10px}.direct-intro{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--red);border-radius:12px;padding:16px 18px;margin-bottom:14px}.direct-icon{font-size:27px}.direct-intro h2{font-size:18px;margin:0 0 3px}.direct-intro p{font-size:12px;color:#777;margin:0;line-height:1.55}
+.form-card,.manager-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:14px}.card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}.card-head>div{display:flex;align-items:center;gap:9px}.card-head span{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#191919;color:#fff;font-size:11px;font-weight:800}.card-head h2{font-size:19px;margin:0}.card-head em{font-style:normal;color:#999;font-size:11px}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}label{display:block;font-size:13px;font-weight:700;margin:12px 0 6px}input,select{width:100%;border:1px solid #d4d4d4;border-radius:8px;background:#fff;padding:11px 12px;font:inherit;outline:0}input:focus,select:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(201,0,36,.07)}.big-drop{display:flex;align-items:center;gap:13px;border:1px dashed #c8c8c8;border-radius:10px;padding:18px;background:#fafafa}.big-drop>span{font-size:27px}.big-drop b{font-size:14px}.big-drop small{display:block;color:#888;margin-top:2px;font-size:11px}.file-button{display:inline-flex!important;margin:0 0 0 auto!important;background:#191919;color:#fff!important;border-radius:7px;padding:9px 13px!important;cursor:pointer;font-size:12px!important}.newspaper-preview{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;min-height:75px;border:1px dashed #ddd;border-radius:9px;margin-top:10px;padding:10px}.newspaper-preview>span{grid-column:1/-1;color:#999;font-size:12px;display:grid;place-items:center;min-height:55px}.preview-tile{border:1px solid #ddd;border-radius:8px;overflow:hidden;background:#f4f4f4}.preview-tile img{width:100%;height:150px;object-fit:cover;display:block}.preview-tile small{display:block;padding:5px 7px;font-size:10px}.hint{font-size:11px;color:#888;margin:8px 0 0}.publish-bar{display:flex;margin:14px 0 24px}.publish-bar button{width:100%;border-radius:9px;padding:13px 16px;font-size:14px;font-weight:800;border:1px solid var(--red);background:var(--red);color:#fff}.publish-bar button:disabled{opacity:.6}.manager-head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px}.manager-head h2{font-size:20px;margin:4px 0}.manager-head p{font-size:12px;color:#888;margin:0}.refresh-btn{white-space:nowrap;border:1px solid #ccc;background:#fff;border-radius:8px;padding:8px 11px;font:inherit}.manager-list{margin-top:14px}.manager-item{display:grid;grid-template-columns:58px 1fr auto;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #eee}.manager-thumb{width:58px;height:58px;border-radius:7px;overflow:hidden;background:#eee;display:grid;place-items:center}.manager-thumb img{width:100%;height:100%;object-fit:cover}.manager-info h3{font-size:14px;margin:0 0 3px}.manager-info p{font-size:11px;color:#888;margin:0}.manager-actions{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.manager-actions a,.manager-actions button{font:inherit;font-size:11px;border:1px solid #ddd;background:#fff;border-radius:7px;padding:6px 8px;text-decoration:none;color:#222}.manager-actions .danger{color:var(--red)}
+@media(max-width:650px){.admin-header{height:58px!important;padding:0 13px!important}.admin-header .brand{font-size:18px!important}.admin-head-actions a{display:none!important}.admin-head-actions button{font-size:11px!important}.admin-main{padding:20px 12px 45px}.admin-welcome h1{font-size:25px}.form-card,.manager-card{padding:15px}.form-row{grid-template-columns:1fr}.big-drop{align-items:flex-start;flex-wrap:wrap}.file-button{margin-left:auto!important}.manager-item{grid-template-columns:48px 1fr}.manager-thumb{width:48px;height:48px}.manager-actions{grid-column:2;justify-content:flex-start}.direct-intro{padding:14px}.card-head h2{font-size:17px}}
+</style></head>
 <body class="admin-shell">
 <header class="admin-header">
   <a class="brand" href="index.html"><span>मेट्रोसिटी</span> <b>पोस्ट</b></a>
-  <div class="admin-head-actions"><a href="index.html">साइट पहा ↗</a><button id="logout">बाहेर पडा</button></div>
+  <div class="admin-head-actions"><a href="index.html">ई-पेपर पहा ↗</a><button id="logout">बाहेर पडा</button></div>
 </header>
 
 <main class="admin-main">
   <section class="admin-welcome">
-    <div><span class="admin-kicker">NEWSROOM</span><h1>आजची बातमी तयार करा</h1><p id="welcome">लॉगिन तपासत आहे…</p></div>
-    <div class="secure-pill">🔐 सुरक्षित पॅनेल</div>
-  </section>
-
-  <section class="mode-switch" aria-label="बातमीचा प्रकार">
-    <button class="mode-btn active" data-mode="article"><span class="mode-icon">✍️</span><span><b>नवीन बातमी</b><small>मजकूर लिहा आणि प्रकाशित करा</small></span></button>
-    <button class="mode-btn" data-mode="newspaper"><span class="mode-icon">📰</span><span><b>वृत्तपत्र फोटो थेट अपलोड</b><small>पेपरचे तयार पान तसेच प्रकाशित करा</small></span></button>
+    <div><span class="admin-kicker">E-PAPER NEWSROOM</span><h1>आजचे ई-पेपर प्रकाशित करा</h1><p id="welcome">लॉगिन तपासत आहे…</p></div>
   </section>
 
   <div id="global-status" class="global-status" role="status"></div>
 
-  <!-- ARTICLE MODE -->
-  <section id="article-mode" class="mode-panel active">
-    <form id="article-form">
-      <div class="form-card">
-        <div class="card-head"><div><span>01</span><h2>बातमीची माहिती</h2></div><em>* आवश्यक</em></div>
-        <label for="headline">मुख्य मथळा *</label>
-        <input id="headline" required maxlength="180" placeholder="उदा. शहरात आजपासून नवीन उपक्रमाला सुरुवात">
-        <label for="subheadline">उपमथळा</label>
-        <input id="subheadline" maxlength="300" placeholder="बातमीचा छोटा सारांश — १ ते २ ओळी">
-        <div class="form-row">
-          <div><label for="category">विभाग *</label><select id="category" required><option value="">विभाग लोड होत आहे…</option></select></div>
-          <div><label for="location">ठिकाण</label><input id="location" placeholder="उदा. खुलताबाद"></div>
-        </div>
-      </div>
-
-      <div class="form-card">
-        <div class="card-head"><div><span>02</span><h2>संपूर्ण बातमी</h2></div></div>
-        <label for="content">मजकूर *</label>
-        <textarea id="content" rows="12" required placeholder="बातमी येथे लिहा…&#10;&#10;प्रत्येक परिच्छेद नवीन ओळीत लिहा."></textarea>
-      </div>
-
-      <div class="form-card">
-        <div class="card-head"><div><span>03</span><h2>फोटो आणि ई-पेपर</h2></div></div>
-        <div class="upload-box">
-          <div class="upload-icon">📷</div><div><b>बातमीचे फोटो</b><small>एक किंवा अनेक फोटो निवडा</small></div>
-          <input id="photo" type="file" accept="image/*" multiple>
-          <label class="file-button" for="photo">फोटो निवडा</label>
-        </div>
-        <div id="preview" class="upload-preview"><span>निवडलेले फोटो येथे दिसतील</span></div>
-        <label for="layout">ई-पेपर मांडणी</label>
-        <select id="layout">
-          <option value="auto">✨ आपोआप निवडा</option><option value="photo-left">फोटो डावीकडे</option><option value="photo-right">फोटो उजवीकडे</option><option value="photo-top">फोटो वर</option><option value="photo-bottom">फोटो खाली</option><option value="no-photo">फोटोशिवाय</option><option value="two-column">दोन कॉलम</option><option value="three-column">तीन कॉलम</option>
-        </select>
-        <p class="hint">आपोआप निवडा वापरल्यास फोटोची संख्या आणि बातमीच्या लांबीवरून योग्य मांडणी केली जाईल.</p>
-      </div>
-
-      <div class="publish-bar"><button class="secondary big" type="button" id="save-draft">मसुदा जतन करा</button><button class="primary big" type="submit" id="publish">📰 बातमी प्रकाशित करा</button></div>
-    </form>
+  <section class="direct-intro">
+    <div class="direct-icon">📰</div>
+    <div><h2>फक्त वृत्तपत्राचे पान</h2><p>मजकूर टाइप करण्याची गरज नाही. तयार केलेली ई-पेपर पाने अपलोड करा आणि तीच वेबसाइटवर प्रकाशित होतील.</p></div>
   </section>
 
-  <!-- NEWSPAPER PHOTO MODE -->
-  <section id="newspaper-mode" class="mode-panel">
-    <div class="direct-intro"><div class="direct-icon">📰</div><div><h2>वृत्तपत्राचे पान थेट प्रकाशित करा</h2><p>पेपरचा फोटो निवडा आणि थेट प्रकाशित करा.</p></div></div>
-    <form id="newspaper-form">
-      <div class="form-card">
-        <div class="card-head"><div><span>01</span><h2>पेपरची माहिती</h2></div><em>मथळा ऐच्छिक</em></div>
-        <label for="paper-headline">बातमीचा मथळा</label>
-        <input id="paper-headline" maxlength="180" placeholder="उदा. पेपरमध्ये प्रसिद्ध झालेली बातमी">
-        <div class="form-row">
-          <div><label for="paper-category">विभाग</label><select id="paper-category"><option value="">विभाग लोड होत आहे…</option></select></div>
-          <div><label for="paper-location">ठिकाण</label><input id="paper-location" placeholder="उदा. खुलताबाद"></div>
-        </div>
+  <form id="newspaper-form">
+    <div class="form-card">
+      <div class="card-head"><div><span>01</span><h2>वृत्तपत्राची पाने</h2></div><em>किमान १ पान</em></div>
+      <label for="newspaper-photo">ई-पेपर पानांचे फोटो *</label>
+      <div class="big-drop">
+        <span>📄</span><div><b>पाने निवडा</b><small>JPG, PNG किंवा WebP • एकापेक्षा जास्त पाने निवडू शकता</small></div>
+        <label class="file-button" for="newspaper-photo">फोटो निवडा</label>
+        <input id="newspaper-photo" type="file" accept="image/jpeg,image/png,image/webp" multiple required hidden>
       </div>
-      <div class="form-card direct-upload-card">
-        <div class="card-head"><div><span>02</span><h2>वृत्तपत्राचे फोटो</h2></div><em>एक किंवा अनेक</em></div>
-        <label class="big-drop" for="newspaper-photo"><span>📰</span><b>वृत्तपत्राचे पान निवडा</b><small>JPG, PNG किंवा WEBP • अनेक पानेही निवडू शकता</small><strong>फोटो निवडा</strong></label>
-        <input id="newspaper-photo" type="file" accept="image/*" multiple hidden>
-        <div id="newspaper-preview" class="newspaper-preview"><span>अजून कोणतेही पान निवडलेले नाही</span></div>
+      <div id="newspaper-preview" class="newspaper-preview"><span>अजून कोणतेही पान निवडलेले नाही</span></div>
+      <p class="hint">तुम्ही ज्या क्रमाने पाने निवडाल, त्याच क्रमाने ती Page 1, Page 2, Page 3… म्हणून दिसतील.</p>
+    </div>
+
+    <div class="form-card">
+      <div class="card-head"><div><span>02</span><h2>एडिशनची माहिती</h2></div><em>पर्यायी</em></div>
+      <div class="form-row">
+        <div><label for="paper-headline">एडिशन / शीर्षक</label><input id="paper-headline" maxlength="180" placeholder="उदा. मेट्रोसिटी पोस्ट — आजचा अंक"></div>
+        <div><label for="paper-location">आवृत्ती / शहर</label><input id="paper-location" placeholder="उदा. छत्रपती संभाजीनगर"></div>
       </div>
-      <div class="publish-bar"><button class="primary big full" type="submit" id="publish-newspaper">📰 वृत्तपत्राचे पान प्रकाशित करा</button></div>
-    </form>
-  </section>
+      <label for="paper-category">विभाग</label><select id="paper-category"><option value="">विभाग निवडा</option></select>
+    </div>
+
+    <div class="publish-bar">
+      <button id="publish-newspaper" class="primary big" type="submit">📰 ई-पेपर प्रकाशित करा</button>
+    </div>
+  </form>
 
   <section class="manager-card">
-    <div class="manager-head"><div><span class="admin-kicker">CONTENT MANAGEMENT</span><h2>प्रकाशित व मसुदा बातम्या</h2><p>बातमी पाहा, संपादित करा, संग्रहित करा किंवा कायमची हटवा.</p></div><button class="refresh-btn" id="refresh-news">↻ ताजे करा</button></div>
-    <div id="news-list" class="manager-list"><div class="loading">बातम्या लोड करत आहे…</div></div>
+    <div class="manager-head"><div><span class="admin-kicker">PUBLISHED EDITIONS</span><h2>प्रकाशित ई-पेपर</h2><p>आधी प्रकाशित केलेले अंक व्यवस्थापित करा.</p></div><button id="refresh-news" class="refresh-btn">↻ ताजे करा</button></div>
+    <div id="news-list" class="manager-list"><div class="loading">ई-पेपर लोड करत आहे…</div></div>
   </section>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase-config.js"></script>
-<script>
 const db=window.supabase.createClient(window.METROCITY_SUPABASE_URL,window.METROCITY_SUPABASE_KEY);
 const $=id=>document.getElementById(id);let session=null,profile=null,editingId=null,existingImageUrls=[];
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const date=d=>new Intl.DateTimeFormat('mr-IN',{day:'numeric',month:'short',year:'numeric'}).format(new Date(d));
 function setStatus(msg,type=''){const x=$('global-status');x.className='global-status '+type;x.textContent=msg||'';if(msg)setTimeout(()=>{x.textContent='';x.className='global-status'},5000)}
-async function init(){try{const {data,error}=await db.auth.getSession();if(error)throw error;session=data.session;if(!session)return location.href='login.html';const {data:p,error:pe}=await db.from('profiles').select('id,full_name,role').eq('id',session.user.id).maybeSingle();if(pe)throw pe;if(!p)return db.auth.signOut().then(()=>location.href='login.html');profile=p;$('welcome').textContent=`नमस्कार ${p.full_name} • ${p.role==='admin'?'प्रशासक':'प्रतिनिधी'}`;await loadCategories();await loadNews();const edit=new URLSearchParams(location.search).get('edit');if(edit)await startEdit(edit)}catch(e){setStatus('पॅनेल लोड करताना अडचण: '+(e.message||'कृपया पुन्हा प्रयत्न करा.'),'error')}}
-async function loadCategories(){const {data,error}=await db.from('categories').select('id,name').order('sort_order');if(error){['category','paper-category'].forEach(id=>$(id).innerHTML='<option value="">विभाग लोड झाला नाही</option>');setStatus('विभाग लोड करता आले नाही: '+error.message,'error');return}['category','paper-category'].forEach(id=>{const s=$(id);s.innerHTML='<option value="">विभाग निवडा</option>';(data||[]).forEach(c=>{const o=document.createElement('option');o.value=c.id;o.textContent=c.name;s.appendChild(o)})})}
+async function init(){try{const {data,error}=await db.auth.getSession();if(error)throw error;session=data.session;if(!session)return location.href='login.html';const {data:p,error:pe}=await db.from('profiles').select('id,full_name,role').eq('id',session.user.id).maybeSingle();if(pe)throw pe;if(!p)return db.auth.signOut().then(()=>location.href='login.html');profile=p;$('welcome').textContent=`नमस्कार ${p.full_name} • ${p.role==='admin'?'प्रशासक':'प्रतिनिधी'}`;await loadCategories();await loadNews();}catch(e){setStatus('पॅनेल लोड करताना अडचण: '+(e.message||'कृपया पुन्हा प्रयत्न करा.'),'error')}}
+async function loadCategories(){const {data,error}=await db.from('categories').select('id,name').order('sort_order');const s=$('paper-category');if(error){s.innerHTML='<option value="">विभाग लोड झाला नाही</option>';setStatus('विभाग लोड करता आले नाही: '+error.message,'error');return}s.innerHTML='<option value="">विभाग निवडा</option>';(data||[]).forEach(c=>{const o=document.createElement('option');o.value=c.id;o.textContent=c.name;s.appendChild(o)})}
 function previewFiles(input,box,kind='normal'){const fs=[...input.files];if(!fs.length){box.innerHTML='<span>निवडलेले फोटो येथे दिसतील</span>';return}box.innerHTML=fs.map((f,i)=>`<div class="preview-tile"><img src="${URL.createObjectURL(f)}" alt=""><small>${i+1}. ${esc(f.name)}</small></div>`).join('')}
-$('photo').addEventListener('change',()=>previewFiles($('photo'),$('preview')));$('newspaper-photo').addEventListener('change',()=>previewFiles($('newspaper-photo'),$('newspaper-preview'),'paper'));
+$('newspaper-photo').addEventListener('change',()=>previewFiles($('newspaper-photo'),$('newspaper-preview'),'paper'));
 function slugify(s){return s.toLowerCase().trim().replace(/[^\u0900-\u097F\w\s-]/g,'').replace(/[\s_]+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'')||'news-'+Date.now()}
 async function uploadFiles(files){const urls=[];for(const f of files){const ext=(f.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';const path=`${session.user.id}/${crypto.randomUUID()}.${ext}`;const {error}=await db.storage.from('news-images').upload(path,f,{cacheControl:'31536000',upsert:false});if(error)throw error;urls.push(db.storage.from('news-images').getPublicUrl(path).data.publicUrl)}return urls}
 function pathFromUrl(url){try{const marker='/storage/v1/object/public/news-images/';const u=new URL(url),i=u.pathname.indexOf(marker);return i>=0?decodeURIComponent(u.pathname.slice(i+marker.length)):null}catch{return null}}
-async function saveArticle(statusValue){const btn=$('publish'),draft=$('save-draft');btn.disabled=true;draft.disabled=true;setStatus(editingId?'बातमी अपडेट करत आहे…':'बातमी जतन करत आहे…');try{const title=$('headline').value.trim(),content=$('content').value.trim();if(!title||!content)throw Error('मथळा आणि संपूर्ण बातमी आवश्यक आहे.');const files=[...$('photo').files];let urls=files.length?await uploadFiles(files):[];if(editingId){const payload={headline:title,subheadline:$('subheadline').value.trim()||null,content,category_id:$('category').value?Number($('category').value):null,location:$('location').value.trim()||null,epaper_layout:$('layout').value,status:statusValue,published_at:statusValue==='published'?new Date().toISOString():null,main_image_url:urls[0]||existingImageUrls[0]||null,seo_title:title,seo_description:$('subheadline').value.trim()||title};const {error}=await db.from('news').update(payload).eq('id',editingId);if(error)throw error;if(urls.length>1){await db.from('news_photos').delete().eq('news_id',editingId);const rows=urls.slice(1).map((u,i)=>({news_id:editingId,image_url:u,sort_order:i+1}));if(rows.length)await db.from('news_photos').insert(rows)}setStatus('बातमी अपडेट झाली.','success');editingId=null;history.replaceState({},'', 'admin.html');resetArticle();await loadNews();return}let slug=slugify(title);const {data:dupe}=await db.from('news').select('id').eq('slug',slug).maybeSingle();if(dupe)slug+='-'+Date.now().toString().slice(-6);const payload={slug,headline:title,subheadline:$('subheadline').value.trim()||null,content,category_id:$('category').value?Number($('category').value):null,location:$('location').value.trim()||null,reporter_id:session.user.id,main_image_url:urls[0]||null,epaper_layout:$('layout').value,status:statusValue,published_at:statusValue==='published'?new Date().toISOString():null,seo_title:title,seo_description:$('subheadline').value.trim()||title};const {data:n,error}=await db.from('news').insert(payload).select('id,slug').single();if(error)throw error;if(urls.length>1){const rows=urls.slice(1).map((u,i)=>({news_id:n.id,image_url:u,sort_order:i+1}));const r=await db.from('news_photos').insert(rows);if(r.error)throw r.error}resetArticle();setStatus(statusValue==='published'?'बातमी यशस्वीरीत्या प्रकाशित झाली!':'मसुदा जतन झाला!','success');await loadNews();if(statusValue==='published')setTimeout(()=>location.href='article.html?slug='+encodeURIComponent(n.slug),500)}catch(e){setStatus('अडचण: '+(e.message||'कृती पूर्ण झाली नाही.'),'error')}finally{btn.disabled=false;draft.disabled=false}}
-function resetArticle(){$('article-form').reset();$('preview').innerHTML='<span>निवडलेले फोटो येथे दिसतील</span>';existingImageUrls=[];editingId=null;$('form-title')?.remove()}
 async function publishNewspaper(e){e.preventDefault();const btn=$('publish-newspaper');btn.disabled=true;setStatus('वृत्तपत्राचे फोटो अपलोड करत आहे…');try{const files=[...$('newspaper-photo').files];if(!files.length)throw Error('किमान एक वृत्तपत्राचा फोटो निवडा.');const urls=await uploadFiles(files);const title=$('paper-headline').value.trim()||`ई-पेपर बातमी • ${date(new Date())}`;let slug=slugify(title);const {data:dupe}=await db.from('news').select('id').eq('slug',slug).maybeSingle();if(dupe)slug+='-'+Date.now().toString().slice(-6);const payload={slug,headline:title,subheadline:'वृत्तपत्राच्या पानाच्या स्वरूपात थेट प्रकाशित केलेली बातमी.',content:'ही बातमी वृत्तपत्राच्या पानाच्या स्वरूपात थेट प्रकाशित करण्यात आली आहे.',category_id:$('paper-category').value?Number($('paper-category').value):null,location:$('paper-location').value.trim()||null,reporter_id:session.user.id,main_image_url:urls[0],epaper_layout:'direct-newspaper',status:'published',published_at:new Date().toISOString(),seo_title:title,seo_description:'वृत्तपत्राच्या पानाच्या स्वरूपात प्रकाशित केलेली बातमी.'};const {data:n,error}=await db.from('news').insert(payload).select('id,slug').single();if(error)throw error;if(urls.length>1){const rows=urls.slice(1).map((u,i)=>({news_id:n.id,image_url:u,sort_order:i+1}));const r=await db.from('news_photos').insert(rows);if(r.error)throw r.error}$('newspaper-form').reset();$('newspaper-preview').innerHTML='<span>अजून कोणतेही पान निवडलेले नाही</span>';setStatus('वृत्तपत्राचे पान यशस्वीरीत्या प्रकाशित झाले!','success');await loadNews();setTimeout(()=>location.href='article.html?slug='+encodeURIComponent(n.slug),500)}catch(e){setStatus('अडचण: '+(e.message||'अपलोड पूर्ण झाला नाही.'),'error')}finally{btn.disabled=false}}
-async function loadNews(){const box=$('news-list');box.innerHTML='<div class="loading">बातम्या लोड करत आहे…</div>';const {data,error}=await db.from('news').select('id,slug,headline,status,published_at,created_at,main_image_url,epaper_layout,categories(name)').order('created_at',{ascending:false}).limit(100);if(error){box.innerHTML=`<div class="error">बातम्या लोड करता आल्या नाहीत: ${esc(error.message)}</div>`;return}if(!data?.length){box.innerHTML='<div class="empty">अजून कोणतीही बातमी नाही.</div>';return}box.innerHTML=data.map(n=>`<article class="manager-item"><div class="manager-thumb">${n.main_image_url?`<img src="${esc(n.main_image_url)}" alt="">`:'<span>📰</span>'}</div><div class="manager-info"><h3>${esc(n.headline)}</h3><p>${n.epaper_layout==='direct-newspaper'?'📰 थेट वृत्तपत्र पान':esc(n.categories?.name||'बातमी')} • ${n.status==='published'?'प्रकाशित':n.status==='draft'?'मसुदा':'संग्रहित'} • ${date(n.published_at||n.created_at)}</p></div><div class="manager-actions">${n.status==='published'?`<a href="article.html?slug=${encodeURIComponent(n.slug)}">पहा</a>`:''}<a href="admin.html?edit=${encodeURIComponent(n.id)}">संपादित</a>${n.status!=='archived'?`<button data-act="archive" data-id="${esc(n.id)}">संग्रहित</button>`:''}<button class="danger" data-act="delete" data-id="${esc(n.id)}" data-title="${esc(n.headline)}">🗑️ हटवा</button></div></article>`).join('')}
-async function startEdit(id){const {data,error}=await db.from('news').select('id,headline,subheadline,content,category_id,location,main_image_url,epaper_layout,status').eq('id',id).maybeSingle();if(error||!data){setStatus('बातमी संपादित करता आली नाही.','error');return}if(data.epaper_layout==='direct-newspaper'){setStatus('थेट वृत्तपत्र पान संपादित करण्यासाठी नवीन पान पुन्हा अपलोड करा.','error');return}editingId=id;$('headline').value=data.headline||'';$('subheadline').value=data.subheadline||'';$('content').value=data.content||'';$('category').value=data.category_id||'';$('location').value=data.location||'';$('layout').value=data.epaper_layout||'auto';existingImageUrls=[data.main_image_url].filter(Boolean);$('preview').innerHTML=data.main_image_url?`<div class="preview-tile"><img src="${esc(data.main_image_url)}" alt="सध्याचा फोटो"><small>सध्याचा मुख्य फोटो</small></div>`:'<span>फोटो उपलब्ध नाही</span>';$('article-mode').scrollIntoView({behavior:'smooth'});setStatus('बातमी संपादनासाठी उघडली आहे.','success')}
+async function loadNews(){const box=$('news-list');box.innerHTML='<div class="loading">बातम्या लोड करत आहे…</div>';const {data,error}=await db.from('news').select('id,slug,headline,status,published_at,created_at,main_image_url,epaper_layout,categories(name)').order('created_at',{ascending:false}).limit(100);if(error){box.innerHTML=`<div class="error">बातम्या लोड करता आल्या नाहीत: ${esc(error.message)}</div>`;return}if(!data?.length){box.innerHTML='<div class="empty">अजून कोणतीही बातमी नाही.</div>';return}box.innerHTML=data.map(n=>`<article class="manager-item"><div class="manager-thumb">${n.main_image_url?`<img src="${esc(n.main_image_url)}" alt="">`:'<span>📰</span>'}</div><div class="manager-info"><h3>${esc(n.headline)}</h3><p>${n.epaper_layout==='direct-newspaper'?'📰 थेट वृत्तपत्र पान':esc(n.categories?.name||'बातमी')} • ${n.status==='published'?'प्रकाशित':n.status==='draft'?'मसुदा':'संग्रहित'} • ${date(n.published_at||n.created_at)}</p></div><div class="manager-actions">${n.status==='published'?`<a href="article.html?slug=${encodeURIComponent(n.slug)}">पहा</a>`:''}${n.status!=='archived'?`<button data-act="archive" data-id="${esc(n.id)}">संग्रहित</button>`:''}<button class="danger" data-act="delete" data-id="${esc(n.id)}" data-title="${esc(n.headline)}">🗑️ हटवा</button></div></article>`).join('')}
 async function archive(id){if(!confirm('ही बातमी संग्रहित करायची का?'))return;const {error}=await db.from('news').update({status:'archived'}).eq('id',id);if(error)return setStatus('संग्रहित करता आले नाही: '+error.message,'error');setStatus('बातमी संग्रहित झाली.','success');loadNews()}
 async function remove(id,title){if(!confirm(`“${title}” कायमची हटवायची का?\n\nही कृती पूर्ववत करता येणार नाही.`))return;const {data:n,error}=await db.from('news').select('id,main_image_url').eq('id',id).maybeSingle();if(error||!n)return setStatus('बातमी सापडली नाही.','error');const {data:ph}=await db.from('news_photos').select('image_url').eq('news_id',id);const paths=[n.main_image_url,...(ph||[]).map(x=>x.image_url)].map(pathFromUrl).filter(Boolean);const {data:del,error:de}=await db.from('news').delete().eq('id',id).select('id');if(de)return setStatus('हटवता आले नाही: '+de.message,'error');if(!del?.length)return setStatus('हटवण्याची परवानगी मिळाली नाही.','error');if(paths.length){const r=await db.storage.from('news-images').remove(paths);if(r.error)console.warn(r.error)}setStatus('बातमी कायमची हटवली आहे.','success');loadNews()}
 // Mode switch
-for(const b of document.querySelectorAll('.mode-btn'))b.addEventListener('click',()=>{document.querySelectorAll('.mode-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.mode-panel').forEach(x=>x.classList.remove('active'));$(b.dataset.mode==='article'?'article-mode':'newspaper-mode').classList.add('active')});
-$('article-form').addEventListener('submit',e=>{e.preventDefault();saveArticle('published')});$('save-draft').addEventListener('click',()=>saveArticle('draft'));$('newspaper-form').addEventListener('submit',publishNewspaper);$('refresh-news').addEventListener('click',loadNews);$('news-list').addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b)return;b.dataset.act==='delete'?remove(b.dataset.id,b.dataset.title):archive(b.dataset.id)});$('logout').addEventListener('click',async()=>{await db.auth.signOut();location.href='login.html'});init();
+$('newspaper-form').addEventListener('submit',publishNewspaper);$('refresh-news').addEventListener('click',loadNews);$('news-list').addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b)return;b.dataset.act==='delete'?remove(b.dataset.id,b.dataset.title):archive(b.dataset.id)});$('logout').addEventListener('click',async()=>{await db.auth.signOut();location.href='login.html'});init();
 </script>
 </body></html>
