@@ -6,6 +6,8 @@
   <div id="news-list" class="news-list"><p class="form-status">बातम्या लोड करत आहे…</p></div>
 </section></section></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script>
 const {createClient}=window.supabase;const db=createClient(window.METROCITY_SUPABASE_URL,window.METROCITY_SUPABASE_KEY);let session=null,profile=null;const $=id=>document.getElementById(id);const status=$('status');
+function esc(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#39;');}
+function marathiDate(d){return new Intl.DateTimeFormat('mr-IN',{day:'numeric',month:'short',year:'numeric'}).format(d);}
 function slugify(s){return s.toLowerCase().trim().replace(/[^\u0900-\u097F\w\s-]/g,'').replace(/[\s_]+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'')||('news-'+Date.now());}
 async function init(){const {data}=await db.auth.getSession();session=data.session;if(!session){location.href='login.html';return;}const {data:p,error}=await db.from('profiles').select('id,full_name,role').eq('id',session.user.id).maybeSingle();if(error||!p){await db.auth.signOut();location.href='login.html';return;}profile=p;$('welcome').textContent=`नमस्कार ${p.full_name} • ${p.role==='admin'?'प्रशासक':'प्रतिनिधी'}`;await loadCategories();}
 async function loadCategories(){const {data}=await db.from('categories').select('id,name,slug').order('sort_order');if(data) data.forEach(c=>{const o=document.createElement('option');o.value=c.id;o.textContent=c.name;$('category').appendChild(o);});}
