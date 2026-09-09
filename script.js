@@ -1,4 +1,15 @@
-const {createClient}=window.supabase;const db=createClient(window.METROCITY_SUPABASE_URL,window.METROCITY_SUPABASE_KEY);
+const API_BASE=`${window.METROCITY_SUPABASE_URL}/rest/v1`;
+const API_KEY=window.METROCITY_SUPABASE_KEY;
+async function publicGet(path){
+  const r=await fetch(API_BASE+path,{headers:{apikey:API_KEY,Authorization:`Bearer ${API_KEY}`},cache:'no-store'});
+  if(!r.ok){let detail='';try{detail=await r.text()}catch{};throw new Error(`Supabase ${r.status}: ${detail||r.statusText}`)}
+  return r.json();
+}
+async function publicPost(path,body){
+  const r=await fetch(API_BASE+path,{method:'POST',headers:{apikey:API_KEY,Authorization:`Bearer ${API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!r.ok)throw new Error(`Supabase ${r.status}`);
+  return r.text();
+}
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const marathiDate=d=>new Intl.DateTimeFormat('mr-IN',{day:'numeric',month:'long',year:'numeric'}).format(d);
 const relativeTime=d=>{const x=Date.now()-new Date(d).getTime(),m=Math.floor(x/60000);if(m<1)return'आत्ताच';if(m<60)return`${m} मिनिटांपूर्वी`;const h=Math.floor(m/60);if(h<24)return`${h} तासांपूर्वी`;return marathiDate(new Date(d))};
@@ -9,8 +20,8 @@ function setDate(){document.querySelectorAll('[data-current-date]').forEach(e=>e
 function articleUrl(slug){return `article.html?slug=${encodeURIComponent(slug)}`}
 function card(n){return `<article class="home-story" onclick="location.href='${articleUrl(n.slug)}'" tabindex="0" role="link"><a class="home-story-media" href="${articleUrl(n.slug)}" onclick="event.stopPropagation()">${n.main_image_url?`<img src="${esc(n.main_image_url)}" alt="${esc(n.headline)}" loading="lazy" onerror="this.parentElement.classList.add('no-image');this.remove()">`:`<div class="no-image">मेट्रोसिटी पोस्ट</div>`}</a><div class="home-story-body"><div class="story-meta"><span class="tag">${esc(n.categories?.name||'बातमी')}</span><time>${relativeTime(n.published_at)}</time></div><h3><a href="${articleUrl(n.slug)}" onclick="event.stopPropagation()">${esc(n.headline)}</a></h3><p>${esc(n.subheadline||'ताज्या घडामोडींचे संक्षिप्त वृत्तांकन.').slice(0,180)}${String(n.subheadline||'').length>180?'…':''}</p><a class="read-more" href="${articleUrl(n.slug)}" onclick="event.stopPropagation()">पुढे वाचा <span>→</span></a></div></article>`}
 async function loadHome(){
-  const {data,error}=await db.from('news').select('id,slug,headline,subheadline,location,main_image_url,published_at,categories(name,slug)').eq('status','published').order('published_at',{ascending:false}).limit(40);
-  if(error){document.querySelectorAll('.loading').forEach(x=>x.outerHTML='<div class="error">बातम्या लोड करता आल्या नाहीत.</div>');return}
+  let data;
+  try{data=await publicGet('/news?select=id,slug,headline,subheadline,location,main_image_url,published_at,categories(name,slug)&status=eq.published&order=published_at.desc&limit=40')}catch(error){console.error('Metrocity Post public news error',error);document.querySelectorAll('.loading').forEach(x=>x.outerHTML='<div class="error">बातम्या लोड करता आल्या नाहीत. <button class="retry-btn" onclick="location.reload()">पुन्हा प्रयत्न करा</button></div>');return}
   const latest=document.querySelector('#latest-grid');
   if(!data?.length){if(latest)latest.innerHTML='<div class="empty">अजून बातम्या प्रकाशित झालेल्या नाहीत.</div>';document.querySelector('#breaking-news').textContent='अजून ब्रेकिंग बातमी उपलब्ध नाही.';return}
   const [first,...rest]=data;
@@ -32,15 +43,14 @@ async function loadHome(){
   fill('#politics-grid',politics,'राजकारण विभागात अजून बातम्या नाहीत.');
   fill('#sports-grid',sports,'क्रीडा विभागात अजून बातम्या नाहीत.');
 }
-async function searchNews(q){const box=document.querySelector('#search-results');if(!box)return;if(!q.trim()){box.innerHTML='';return}const term=q.trim().replace(/[%_,]/g,' ');const {data,error}=await db.from('news').select('slug,headline,subheadline,published_at,categories(name)').eq('status','published').or(`headline.ilike.%${term}%,subheadline.ilike.%${term}%`).order('published_at',{ascending:false}).limit(15);box.innerHTML=error?'<div class="error">शोध करताना अडचण आली.</div>':data?.length?data.map(n=>`<a class="search-result" href="article.html?slug=${encodeURIComponent(n.slug)}"><small>${esc(n.categories?.name||'बातमी')}</small><b>${esc(n.headline)}</b><span>${relativeTime(n.published_at)}</span></a>`).join(''):'<div class="empty">बातमी सापडली नाही.</div>'}
+async function searchNews(q){const box=document.querySelector('#search-results');if(!box)return;if(!q.trim()){box.innerHTML='';return}const term=q.trim().replace(/[%_,]/g,' ');try{const data=await publicGet(`/news?select=slug,headline,subheadline,published_at,categories(name)&status=eq.published&or=(headline.ilike.*${encodeURIComponent(term)}*,subheadline.ilike.*${encodeURIComponent(term)}*)&order=published_at.desc&limit=15`);box.innerHTML=data?.length?data.map(n=>`<a class="search-result" href="article.html?slug=${encodeURIComponent(n.slug)}"><small>${esc(n.categories?.name||'बातमी')}</small><b>${esc(n.headline)}</b><span>${relativeTime(n.published_at)}</span></a>`).join(''):'<div class="empty">बातमी सापडली नाही.</div>'}catch(error){console.error('Metrocity Post search error',error);box.innerHTML='<div class="error">शोध करताना अडचण आली.</div>'}}
 async function loadArticle(){
   const slug=new URLSearchParams(location.search).get('slug');
   if(!slug)return;
-  const {data,error}=await db.from('news').select('*,categories(name,slug)').eq('slug',slug).maybeSingle();
-  if(error||!data||data.status!=='published'){document.querySelector('#paper').innerHTML='<div class="error">ही बातमी उपलब्ध नाही.</div>';return;}
+  let rows;try{rows=await publicGet(`/news?select=*,categories(name,slug)&slug=eq.${encodeURIComponent(slug)}&limit=1`)}catch(error){console.error('Metrocity Post article error',error);document.querySelector('#paper').innerHTML='<div class="error">ही बातमी उपलब्ध नाही. <button class="retry-btn" onclick="location.reload()">पुन्हा प्रयत्न करा</button></div>';return}const data=rows?.[0];if(!data||data.status!=='published'){document.querySelector('#paper').innerHTML='<div class="error">ही बातमी उपलब्ध नाही.</div>';return;}
   document.title=`${data.headline} | मेट्रोसिटी पोस्ट`;
   document.querySelector('meta[name="description"]')?.setAttribute('content',data.seo_description||data.subheadline||data.headline);
-  const {data:photos}=await db.from('news_photos').select('image_url,caption,sort_order').eq('news_id',data.id).order('sort_order');
+  let photos=[];try{photos=await publicGet(`/news_photos?select=image_url,caption,sort_order&news_id=eq.${encodeURIComponent(data.id)}&order=sort_order.asc`)}catch(error){console.warn('Metrocity Post photo list error',error)}
   const urls=[data.main_image_url,...(photos||[]).map(x=>x.image_url)].filter(Boolean);
   const paper=document.querySelector('#paper');
   if(data.epaper_layout==='direct-newspaper'){
@@ -60,10 +70,10 @@ async function loadArticle(){
   }
   const rel=document.querySelector('#related');
   if(rel){
-    const {data:r}=await db.from('news').select('slug,headline,categories(name)').eq('status','published').neq('id',data.id).eq('category_id',data.category_id).order('published_at',{ascending:false}).limit(4);
+    let r=[];try{r=await publicGet(`/news?select=slug,headline,categories(name)&status=eq.published&category_id=eq.${encodeURIComponent(data.category_id)}&id=neq.${encodeURIComponent(data.id)}&order=published_at.desc&limit=4`)}catch(error){console.warn('Metrocity Post related stories error',error)}
     rel.innerHTML=(r||[]).map(n=>`<article class="story-card"><div class="story-card-body"><span class="tag">${esc(n.categories?.name||'बातमी')}</span><h3><a href="article.html?slug=${encodeURIComponent(n.slug)}">${esc(n.headline)}</a></h3></div></article>`).join('');
   }
-  db.rpc('increment_news_views',{news_id:data.id}).catch(()=>{});
+  publicPost('/rpc/increment_news_views',{news_id:data.id}).catch(()=>{});
 }
 async function shareNews(){if(navigator.share)try{await navigator.share({title:document.title,url:location.href})}catch{}else copyLink()};async function copyLink(){try{await navigator.clipboard.writeText(location.href);alert('लिंक कॉपी झाली आहे.')}catch{prompt('लिंक कॉपी करा',location.href)}}
 function wireSearch(){const i=document.querySelector('#search-input');if(i){let t;i.addEventListener('input',()=>{clearTimeout(t);t=setTimeout(()=>searchNews(i.value),250)});i.addEventListener('keydown',e=>{if(e.key==='Enter')searchNews(i.value)})}}
