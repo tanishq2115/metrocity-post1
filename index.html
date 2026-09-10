@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="epaper.css?v=20260910-v25">
+<link rel="stylesheet" href="epaper.css?v=20260910-v26">
 </head>
 <body class="epaper-site">
 <header class="reader-topbar" style="height:64px;background:#fff;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(14px,3vw,42px);position:sticky;top:0;z-index:40">
@@ -28,6 +28,8 @@
   <section class="paper-reader" id="reader">
     <aside class="page-rail"><div class="rail-title"><span>पाने</span><small id="rail-count">—</small></div><div id="thumbnails" class="thumbnails"><div class="rail-loading">पाने लोड होत आहेत…</div></div></aside>
     <div class="paper-stage" id="paper-stage">
+      <button class="reader-side-nav reader-side-prev" id="side-prev" type="button" aria-label="मागील पान">‹</button>
+      <button class="reader-side-nav reader-side-next" id="side-next" type="button" aria-label="पुढील पान">›</button>
       <div class="stage-toolbar">
         <button type="button" id="zoom-out" aria-label="लहान करा">−</button><span id="zoom-value">100%</span><button type="button" id="zoom-in" aria-label="मोठे करा">+</button><span class="toolbar-sep"></span><button type="button" id="fit-btn">फिट</button><button type="button" id="download-btn" aria-label="पान डाउनलोड करा">↓</button><button type="button" id="fullscreen-btn" aria-label="पूर्ण स्क्रीन">⛶</button>
       </div>
@@ -44,5 +46,5 @@
 <div class="date-drawer" id="date-drawer" aria-hidden="true"><div class="date-panel"><div class="date-panel-head"><div><span class="eyebrow">ई-पेपर</span><h2>अलीकडील दैनिक अंक</h2></div><button id="date-close" type="button" aria-label="बंद करा">×</button></div><p class="date-help">प्रत्येक दिवसातील सर्व अपलोड एकाच दैनिक ई-पेपरच्या पानांमध्ये दाखवले जातात.</p><div id="edition-list" class="edition-list"><div class="rail-loading">अंक लोड होत आहेत…</div></div></div></div>
 <div class="fullscreen-reader" id="fullscreen-reader" aria-hidden="true"><div class="fullscreen-bar"><button class="fs-nav" id="fs-prev" type="button" aria-label="मागील पान">‹</button><div class="fs-center"><b>मेट्रोसिटी पोस्ट</b><span id="fullscreen-label">पान 1 / 1</span></div><div class="fs-actions"><button class="fs-nav" id="fs-next" type="button" aria-label="पुढील पान">›</button><button class="fs-download" id="fs-download" type="button" aria-label="पान डाउनलोड करा">↓</button><button class="fs-close" id="fullscreen-close" type="button" aria-label="बंद करा">×</button></div></div><div class="fullscreen-stage" id="fullscreen-stage"><img id="fullscreen-image" alt="वृत्तपत्राचे पान"></div></div>
 <footer class="reader-footer"><span>© २०२६ मेट्रोसिटी पोस्ट</span><span>विश्वसनीय • स्थानिक • तत्पर</span></footer>
-<script src="supabase-config.js?v=20260910-v25"></script><script src="script.js?v=20260910-v25"></script>
+<script src="supabase-config.js?v=20260910-v26"></script><script src="script.js?v=20260910-v26"></script>
 </body></html>
