@@ -152,3 +152,29 @@ button,a{font:inherit}
   .fullscreen-bar .fs-center b{display:none}
   .fs-control-dock .fs-download{display:none}
 }
+
+/* Fullscreen zoom/pan fix: make the stage a true 2-axis scrolling surface. */
+.fullscreen-stage{
+  display:block;
+  overflow:auto;
+  width:100%;
+  box-sizing:border-box;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  touch-action:pan-x pan-y;
+}
+.fullscreen-stage img{
+  position:relative;
+  display:block;
+  flex:none;
+}
+.fullscreen-stage.zoomed-stage{
+  overflow:auto;
+  touch-action:pan-x pan-y;
+}
+.fullscreen-stage.zoomed-stage img{
+  cursor:grab;
+}
+.fullscreen-stage.zoomed-stage img:active{
+  cursor:grabbing;
+}

@@ -18,7 +18,7 @@ function getPages(n){const urls=[];if(n.main_image_url)urls.push(n.main_image_ur
 async function enrichEdition(n){let photos=[];try{photos=await publicGet(`/news_photos?select=image_url,sort_order&news_id=eq.${encodeURIComponent(n.id)}&order=sort_order.asc`)}catch(e){console.warn(e)}return {...n,news_photos:photos||[]}}
 function fitWidth(){const v=$('#paper-viewport');if(!v)return 1;const cs=getComputedStyle(v);return Math.max(1,Math.floor(v.clientWidth-(parseFloat(cs.paddingLeft)||0)-(parseFloat(cs.paddingRight)||0)))}
 function fullscreenFitWidth(){const v=$('#fullscreen-stage');if(!v)return 1;const cs=getComputedStyle(v);return Math.max(1,Math.floor(v.clientWidth-(parseFloat(cs.paddingLeft)||0)-(parseFloat(cs.paddingRight)||0)))}
-function applyFullscreenZoom(){const img=$('#fullscreen-image');if(!img||!$('#fullscreen-reader')?.classList.contains('open'))return;const fit=fullscreenFitWidth();const isZoom=zoom>1.001;img.style.height='auto';img.style.width=`${Math.round(fit*zoom)}px`;img.style.maxWidth='none';img.style.margin='0 auto';img.classList.toggle('fs-zoomed',isZoom);setText('fs-zoom-value',`${Math.round(zoom*100)}%`)}
+function applyFullscreenZoom(){const img=$('#fullscreen-image'),stage=$('#fullscreen-stage');if(!img||!stage||!$('#fullscreen-reader')?.classList.contains('open'))return;const fit=fullscreenFitWidth();const isZoom=zoom>1.001;img.style.height='auto';img.style.width=`${Math.round(fit*zoom)}px`;img.style.maxWidth='none';img.style.margin=isZoom?'0':'0 auto';img.classList.toggle('fs-zoomed',isZoom);stage.classList.toggle('zoomed-stage',isZoom);setText('fs-zoom-value',`${Math.round(zoom*100)}%`)}
 function applyZoom(resetScroll=false){const img=$('#paper-image'),v=$('#paper-viewport');if(!img||!v)return;const fit=fitWidth(),isZoom=zoom>1.001;setText('zoom-value',`${Math.round(zoom*100)}%`);img.classList.toggle('zoomed',isZoom);v.classList.toggle('is-zoomed',isZoom);img.style.height='auto';img.style.transform='none';if(!isZoom){img.style.width=`${fit}px`;img.style.maxWidth=`${fit}px`;if(resetScroll){v.scrollLeft=0;v.scrollTop=0}}else{img.style.width=`${Math.round(fit*zoom)}px`;img.style.maxWidth='none'}applyFullscreenZoom()}
 function resetZoom(){zoom=1;applyZoom(true)}
 function updateNav(){const a=currentPage<=0,b=currentPage>=pages.length-1;['prev-page','mobile-prev','fs-prev','side-prev','fs-zoom-out'].forEach(id=>{const e=$('#'+id);if(e&&['prev-page','mobile-prev','fs-prev','side-prev'].includes(id))e.disabled=a});['next-page','mobile-next','fs-next','side-next'].forEach(id=>{const e=$('#'+id);if(e)e.disabled=b});}
@@ -38,17 +38,18 @@ async function closeFullscreen(){const f=$('#fullscreen-reader');f.classList.rem
 function changePage(delta){const next=Math.max(0,Math.min(currentPage+delta,pages.length-1));if(next!==currentPage){const y=window.scrollY;selectPage(next);requestAnimationFrame(()=>{if(!$('#fullscreen-reader')?.classList.contains('open'))window.scrollTo({top:y,left:0,behavior:'auto'})})}}
 function bindReader(){const bind=(id,fn)=>document.getElementById(id)?.addEventListener('click',fn);const zoomIn=()=>{zoom=Math.min(3,+(zoom+.25).toFixed(2));applyZoom()};const zoomOut=()=>{zoom=Math.max(1,+(zoom-.25).toFixed(2));applyZoom()};const fsZoomIn=()=>{zoom=Math.min(4,+(zoom+.25).toFixed(2));applyZoom();applyFullscreenZoom()};const fsZoomOut=()=>{zoom=Math.max(1,+(zoom-.25).toFixed(2));applyZoom();applyFullscreenZoom()};const fsFit=()=>{zoom=1;applyZoom(true);applyFullscreenZoom()};bind('date-open',openDates);bind('date-close',closeDates);bind('share-btn',shareCurrent);bind('download-btn',downloadCurrentPage);bind('prev-page',()=>changePage(-1));bind('next-page',()=>changePage(1));bind('side-prev',()=>changePage(-1));bind('side-next',()=>changePage(1));bind('below-prev',()=>changePage(-1));bind('below-next',()=>changePage(1));bind('zoom-in',zoomIn);bind('zoom-out',zoomOut);bind('fit-btn',resetZoom);bind('zoom-view-btn',openZoomView);bind('zoom-view-close',closeZoomView);bind('zoom-view-backdrop',closeZoomView);bind('zoom-view-prev',()=>changeZoomViewPage(-1));bind('zoom-view-next',()=>changeZoomViewPage(1));bind('zoom-view-download',downloadCurrentPage);bind('fullscreen-btn',openFullscreen);bind('fullscreen-close',closeFullscreen);bind('fs-prev',()=>changePage(-1));bind('fs-next',()=>changePage(1));bind('fs-download',downloadCurrentPage);bind('fs-zoom-in',fsZoomIn);bind('fs-zoom-out',fsZoomOut);bind('fs-fit',fsFit);$('#date-drawer')?.addEventListener('click',e=>{if(e.target.id==='date-drawer')closeDates()});document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement&&$('#fullscreen-reader')?.classList.contains('open'))closeFullscreen()});document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDates();closeFullscreen();closeZoomView()}if(e.key==='ArrowLeft')changePage(-1);if(e.key==='ArrowRight')changePage(1);if(e.key==='+'||e.key==='='){if($('#fullscreen-reader')?.classList.contains('open'))fsZoomIn();else zoomIn()}if(e.key==='-'){if($('#fullscreen-reader')?.classList.contains('open'))fsZoomOut();else zoomOut()}});const view=$('#paper-viewport');let swipe=null;view?.addEventListener('touchstart',e=>{if(zoom>1.001||e.touches.length!==1)return;swipe={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});view?.addEventListener('touchend',e=>{if(!swipe||e.changedTouches.length!==1){swipe=null;return}const dx=e.changedTouches[0].clientX-swipe.x,dy=e.changedTouches[0].clientY-swipe.y;swipe=null;if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.35)changePage(dx<0?1:-1)},{passive:true});
 const fsStage=$('#fullscreen-stage');
-let pinchStartDistance=0,pinchStartZoom=1,fsTouchStart=null;
+let pinchStartDistance=0,pinchStartZoom=1,pinchCenterX=0,pinchCenterY=0;
 const touchDistance=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
 fsStage?.addEventListener('touchstart',e=>{
   if(e.touches.length===2){
     pinchStartDistance=touchDistance(e.touches[0],e.touches[1]);
     pinchStartZoom=zoom;
-    fsTouchStart=null;
-  }else if(e.touches.length===1){
-    fsTouchStart={x:e.touches[0].clientX,y:e.touches[0].clientY,zoom};
+    pinchCenterX=(e.touches[0].clientX+e.touches[1].clientX)/2;
+    pinchCenterY=(e.touches[0].clientY+e.touches[1].clientY)/2;
+  }else{
+    pinchStartDistance=0;
   }
-},{passive:false});
+},{passive:true});
 fsStage?.addEventListener('touchmove',e=>{
   if(e.touches.length===2&&pinchStartDistance>0){
     e.preventDefault();
@@ -57,15 +58,7 @@ fsStage?.addEventListener('touchmove',e=>{
     applyFullscreenZoom();
   }
 },{passive:false});
-fsStage?.addEventListener('touchend',e=>{
-  if(e.touches.length<2)pinchStartDistance=0;
-  if(!e.touches.length&&fsTouchStart){
-    const dx=e.changedTouches[0].clientX-fsTouchStart.x;
-    const dy=e.changedTouches[0].clientY-fsTouchStart.y;
-    if(fsTouchStart.zoom<=1.001&&Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.35)changePage(dx<0?1:-1);
-    fsTouchStart=null;
-  }
-},{passive:false});
+fsStage?.addEventListener('touchend',e=>{if(e.touches.length<2)pinchStartDistance=0},{passive:true});
 
 window.addEventListener('resize',()=>{if(zoom<=1.001)applyZoom(false);if($('#fullscreen-reader')?.classList.contains('open'))applyFullscreenZoom()});window.addEventListener('orientationchange',()=>setTimeout(()=>{if(zoom<=1.001)applyZoom(true);if($('#fullscreen-reader')?.classList.contains('open'))applyFullscreenZoom()},80))}
 async function loadSingle(){const params=new URLSearchParams(location.search);const requestedDate=params.get('date');const requestedPage=Math.max(1,parseInt(params.get('page')||'1',10)||1);try{const rows=await publicGet('/news?select=id,slug,headline,location,main_image_url,epaper_layout,published_at,created_at&status=eq.published&order=published_at.desc.nullslast,created_at.desc.nullslast&limit=200');editions=groupEditions((rows||[]).filter(n=>n.epaper_layout==='direct-newspaper'));renderEditionList();renderRecentEditions();const target=requestedDate?editions.find(g=>g.dateKey===requestedDate):editions[0];if(!target){setText('edition-title','ई-पेपर उपलब्ध नाही');setText('edition-date',requestedDate?'त्या तारखेचा अंक सापडला नाही.':'अजून कोणताही ई-पेपर प्रकाशित झालेला नाही.');$('#paper-loading').style.display='none';$('#paper-empty').hidden=false;return}await selectEdition(target);if(requestedPage>1&&requestedPage<=pages.length)selectPage(requestedPage-1)}catch(e){console.error(e);$('#paper-loading').innerHTML='<span>ई-पेपर लोड करताना अडचण आली. कृपया पुन्हा प्रयत्न करा.</span>'}}
