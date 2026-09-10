@@ -7,6 +7,19 @@
 <meta name="description" content="मेट्रोसिटी पोस्ट — डिजिटल ई-पेपर.">
 <title>ई-पेपर | मेट्रोसिटी पोस्ट</title>
 <link rel="stylesheet" href="epaper.css?v=20260909-epaper10">
+
+/* V24: strict mobile fit. At 100%, the newspaper is exactly the available viewport width. */
+@media (max-width: 800px){
+  html,body{width:100%;max-width:100%;overflow-x:hidden!important;}
+  .reader-shell{width:100%!important;max-width:100%!important;overflow:visible!important;}
+  .reader-card{width:100%!important;max-width:100%!important;min-width:0!important;overflow:hidden!important;}
+  .paper-stage{width:100%!important;max-width:100%!important;min-width:0!important;overflow:visible!important;}
+  .paper-viewport{width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;display:block!important;overflow-x:hidden!important;overflow-y:visible!important;padding-left:8px!important;padding-right:8px!important;}
+  .paper-viewport>img{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;height:auto!important;margin:0!important;transform:none!important;}
+  .paper-viewport.is-zoomed{overflow:auto!important;max-width:100%!important;}
+  .paper-viewport.is-zoomed>img{max-width:none!important;}
+}
+
 </head>
 <body class="epaper-site single-paper">
 <header class="reader-topbar">

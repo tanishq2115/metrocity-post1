@@ -30,7 +30,7 @@ body{font-family:'Noto Sans Devanagari',sans-serif;background:#f5f5f4;color:var(
 .date-drawer{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.28);opacity:0;pointer-events:none;transition:.2s;display:flex;justify-content:flex-end}.date-drawer.open{opacity:1;pointer-events:auto}.date-panel{height:100%;width:min(430px,92vw);background:#fff;padding:24px;overflow:auto;transform:translateX(20px);transition:.22s}.date-drawer.open .date-panel{transform:none}.edition-item{width:100%;text-align:left;border:1px solid #e5e7eb;background:#fff;border-radius:12px;padding:13px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px}.edition-item:hover,.edition-item.active{border-color:#ef4444;background:#fff5f5}.edition-item b{font-size:13px}.edition-item small{display:block;color:#6b7280;font-size:10px;margin-top:3px}.edition-arrow{font-size:20px;color:#888}
 .fullscreen-reader{position:fixed;inset:0;z-index:999;background:#111;display:none;flex-direction:column}.fullscreen-reader.open{display:flex}.fullscreen-bar{height:56px;flex:0 0 56px;display:flex;align-items:center;justify-content:center;position:relative;padding:0 12px;background:rgba(255,255,255,.98);border-bottom:1px solid #e5e7eb}.fs-center{display:flex;align-items:center;gap:10px;font-size:12px}.fs-center span{color:#6b7280;font-weight:700}.fs-actions{position:absolute;right:10px;display:flex;gap:6px}.fs-nav,.fs-download,.fs-close{width:38px;height:38px;border:1px solid #d1d5db;background:#fff;color:#1f2937;border-radius:9px;font-size:21px;font-weight:800}.fs-nav:disabled{opacity:.35}.fullscreen-stage{flex:1;min-height:0;overflow:auto;display:flex;align-items:flex-start;justify-content:center;padding:16px 14px 28px;-webkit-overflow-scrolling:touch;touch-action:pan-y pan-x}.fullscreen-stage img{display:block;width:auto;height:auto;max-width:min(100%,1200px);object-fit:contain;background:#fff;box-shadow:0 12px 45px rgba(0,0,0,.4)}
 .recent-card{display:flex;align-items:center;gap:12px;text-align:left;border:1px solid #e5e7eb;background:#fff;border-radius:13px;padding:10px;transition:.18s;color:#1f2937;width:100%}.recent-card:hover{border-color:#fca5a5;transform:translateY(-1px)}.recent-thumb{width:64px;height:82px;flex:0 0 64px;background:#f3f4f6;border-radius:7px;overflow:hidden;display:flex;align-items:flex-start;justify-content:center}.recent-thumb img{width:100%;height:auto;display:block}.recent-card b{display:block;font-size:12px;line-height:1.45}.recent-card small{display:block;color:#6b7280;font-size:10px;margin-top:4px}.recent-arrow{margin-left:auto;color:#888;font-size:19px}
-@media(max-width:800px){.paper-viewport{min-height:0;overflow:visible;padding:58px 10px 18px}.paper-viewport>img{width:100%;max-width:100%;max-height:none;box-shadow:0 8px 28px rgba(0,0,0,.14)}.paper-viewport.is-zoomed{overflow:auto;max-height:calc(100vh - 190px)}.paper-viewport>img.zoomed{width:auto;max-width:none}.mobile-page-nav{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;border-top:1px solid #e5e7eb;background:#fff}.mobile-page-nav button{border:0;background:#f3f4f6;color:#1f2937;border-radius:8px;padding:7px 10px;font-size:11px;font-weight:800}.mobile-page-nav span{font-size:11px;color:#6b7280}.stage-toolbar{top:8px;left:auto;right:8px;transform:none}.stage-toolbar .toolbar-sep,.stage-toolbar #fit-btn{display:none}.fullscreen-bar{height:54px;flex-basis:54px}.fs-center b{display:none}.fs-download{display:none}.fullscreen-stage{padding:12px 8px 26px}.fullscreen-stage img{max-width:100%;box-shadow:none}.date-panel{padding:18px;width:min(420px,94vw)}}
+@media(max-width:800px){.paper-viewport{min-height:0;overflow:visible;padding:58px 10px 18px}.paper-viewport>img{width:100%;max-width:100%;max-height:none;box-shadow:0 8px 28px rgba(0,0,0,.14)}.paper-viewport.is-zoomed{overflow:auto;max-height:calc(100vh - 190px)}.paper-viewport>img.zoomed{width:auto;max-width:none}.mobile-page-nav{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;border-top:1px solid #e5e7eb;background:#fff}.mobile-page-nav button{border:0;background:#f3f4f6;color:#1f2937;border-radius:8px;padding:7px 10px;font-size:11px;font-weight:800}.mobile-page-nav span{font-size:11px;color:#6b7280}.stage-toolbar{top:8px;left:auto;right:8px;transform:none}.stage-toolbar .toolbar-sep{display:none}.fullscreen-bar{height:54px;flex-basis:54px}.fs-center b{display:none}.fs-download{display:none}.fullscreen-stage{padding:12px 8px 26px}.fullscreen-stage img{max-width:100%;box-shadow:none}.date-panel{padding:18px;width:min(420px,94vw)}}
 
 /* V21: reader-first layout */
 .reader-card{overflow-anchor:none;}
@@ -51,6 +51,19 @@ body{font-family:'Noto Sans Devanagari',sans-serif;background:#f5f5f4;color:var(
 @media(min-width:801px){.thumbnails-bottom{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));overflow:visible;}.thumbnails-bottom .thumb{width:auto;min-width:0;}.below-reader{margin-top:14px;}}
 @media(max-width:800px){.paper-viewport{overflow:visible!important;}.reader-card{overflow:hidden;}.page-list-card{padding:11px;}.page-list-head{align-items:flex-end;}.page-list-head span{max-width:230px;}.thumbnails-bottom .thumb{width:88px;min-width:88px;}.page-switcher button{width:46px;height:42px;}.page-counter{height:42px;min-width:86px;}}
 </style>
+
+/* V24: strict mobile fit. At 100%, the newspaper is exactly the available viewport width. */
+@media (max-width: 800px){
+  html,body{width:100%;max-width:100%;overflow-x:hidden!important;}
+  .reader-shell{width:100%!important;max-width:100%!important;overflow:visible!important;}
+  .reader-card{width:100%!important;max-width:100%!important;min-width:0!important;overflow:hidden!important;}
+  .paper-stage{width:100%!important;max-width:100%!important;min-width:0!important;overflow:visible!important;}
+  .paper-viewport{width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;display:block!important;overflow-x:hidden!important;overflow-y:visible!important;padding-left:8px!important;padding-right:8px!important;}
+  .paper-viewport>img{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;height:auto!important;margin:0!important;transform:none!important;}
+  .paper-viewport.is-zoomed{overflow:auto!important;max-width:100%!important;}
+  .paper-viewport.is-zoomed>img{max-width:none!important;}
+}
+
 </head>
 <body class="bg-stone-100 text-gray-900">
 
@@ -146,8 +159,8 @@ body{font-family:'Noto Sans Devanagari',sans-serif;background:#f5f5f4;color:var(
 
 <footer class="bg-gray-900 text-gray-400 text-sm mt-8 border-t-4 border-red-700"><div class="max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row justify-between gap-3"><div><h4 class="brand-title text-xl font-bold text-white">मेट्रोसिटी पोस्ट</h4><p class="text-xs mt-1">डिजिटल मराठी ई-पेपर</p></div><div class="text-xs">© २०२६ मेट्रोसिटी पोस्ट. सर्व हक्क सुरक्षित.</div></div></footer>
 
-<script src="supabase-config.js?v=20260910-epaper22"></script>
-<script src="script.js?v=20260910-epaper22"></script>
+<script src="supabase-config.js?v=20260910-epaper24"></script>
+<script src="script.js?v=20260910-epaper24"></script>
 <script>
 (function(){
   document.getElementById('btn-dismiss')?.addEventListener('click',()=>{document.getElementById('pwa-prompt').style.display='none'});
@@ -174,13 +187,33 @@ body.fullscreen-active{overflow:hidden}
  .reader-card{border-radius:4px!important}
  .paper-viewport{overflow:visible!important;padding:58px 8px 18px!important}
  .paper-viewport.is-zoomed{overflow:auto!important;max-height:calc(100vh - 150px)!important}
- .paper-viewport>img{max-width:none!important;box-shadow:0 8px 22px rgba(0,0,0,.16)!important}
+ .paper-viewport>img{box-shadow:0 8px 22px rgba(0,0,0,.16)!important}
  .stage-toolbar{border-radius:4px!important}
  .page-switcher{gap:8px}
  .page-switcher button,.page-counter{border-radius:4px!important}
  .recent-card{border-radius:4px!important}
 }
 </style>
+<style>
+/* V23: fit-first reader. Never let the default page exceed the viewport. */
+.paper-viewport{min-width:0!important;max-width:100%!important;overflow-x:hidden;}
+.paper-viewport>img{display:block!important;width:100%!important;max-width:100%!important;height:auto!important;min-width:0!important;transform:none!important;}
+.paper-viewport>img.zoomed{width:auto!important;max-width:none!important;min-width:0!important;}
+@media(max-width:800px){
+  .paper-reader{width:100%!important;max-width:100%!important;min-height:0!important;height:auto!important;}
+  .paper-stage{width:100%!important;max-width:100%!important;min-height:0!important;height:auto!important;}
+  .paper-viewport{width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;overflow-x:hidden!important;overflow-y:visible!important;padding:58px 8px 18px!important;}
+  .paper-viewport.is-zoomed{max-height:calc(100vh - 150px)!important;overflow:auto!important;}
+  .paper-viewport>img{width:100%!important;max-width:100%!important;height:auto!important;margin:0 auto!important;}
+  .paper-viewport>img.zoomed{width:auto!important;max-width:none!important;height:auto!important;margin:0!important;}
+  .stage-toolbar{max-width:calc(100% - 16px);gap:1px;padding:3px;}
+  .stage-toolbar button{min-width:30px;height:31px;padding:0 6px;}
+}
+</style>
+<script>
+// V23 keeps the reader fit-first and responsive.
+window.addEventListener('load',()=>{const i=document.getElementById('paper-image');if(i?.complete&&i.naturalWidth){requestAnimationFrame(()=>applyZoom(false));}});
+</script>
 <script>
 // V22 keeps the zoom percentage in sync with the visible toolbar.
 window.addEventListener('load',()=>{if(window.innerWidth<=800){const i=document.getElementById('paper-image');if(i?.complete&&i.naturalWidth){setTimeout(()=>window.dispatchEvent(new Event('resize')),50)}}});

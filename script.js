@@ -44,30 +44,54 @@ function getFitWidth(){
  if(!img||!view)return 0;
  const cs=getComputedStyle(view);
  const pad=(parseFloat(cs.paddingLeft)||0)+(parseFloat(cs.paddingRight)||0);
- return Math.max(80,view.clientWidth-pad);
+ return Math.max(1,view.clientWidth-pad);
 }
 function resetZoom(){zoom=1;applyZoom(true)}
 function applyZoom(resetScroll=false){
- const img=$('#paper-image'),view=$('#paper-viewport');if(!img)return;
+ const img=$('#paper-image'),view=$('#paper-viewport');if(!img||!view)return;
  const pct=Math.round(zoom*100);
  setText('zoom-value',`${pct}%`);setText('zoom-value-top',`${pct}%`);
- img.classList.toggle('zoomed',zoom>1.01);
- view.classList.toggle('is-zoomed',zoom>1.01);
- const fitWidth=getFitWidth();
- if(fitWidth){
-   img.style.transform='none';
-   img.style.width=`${fitWidth*zoom}px`;
-   img.style.maxWidth='none';
-   img.style.height='auto';
- }
- if(zoom<=1.01){
-   img.style.width=`${fitWidth||100}%`;
+ const fitWidth=Math.max(1, Math.floor(getFitWidth()));
+ img.classList.toggle('zoomed',zoom>1.001);
+ view.classList.toggle('is-zoomed',zoom>1.001);
+ img.style.height='auto';
+ img.style.transform='none';
+ if(zoom<=1.001){
+   img.style.width=`${fitWidth}px`;
+   img.style.maxWidth=`${fitWidth}px`;
+   img.style.minWidth='0';
    if(resetScroll){view.scrollTop=0;view.scrollLeft=0;}
+ }else{
+   img.style.width=`${Math.round(fitWidth*zoom)}px`;
+   img.style.maxWidth='none';
+   img.style.minWidth='0';
  }
 }
-function selectPage(i){if(!pages.length)return;currentPage=Math.max(0,Math.min(i,pages.length-1));const img=$('#paper-image'),loading=$('#paper-loading');if(!img)return;loading.style.display='flex';img.style.visibility='hidden';resetZoom();img.onload=()=>{loading.style.display='none';img.style.visibility='visible'};img.onerror=()=>{loading.innerHTML='<span>हे पान लोड करता आले नाही. पुन्हा प्रयत्न करा.</span>';img.style.visibility='hidden'};img.src=pages[currentPage];setText('page-current',String(currentPage+1));setText('page-total',String(pages.length));setText('mobile-page-label',`पान ${currentPage+1}`);setText('rail-count',String(pages.length));setText('fullscreen-label',`पान ${currentPage+1} / ${pages.length}`);document.querySelectorAll('.thumb').forEach((x,i2)=>x.classList.toggle('active',i2===currentPage));updateNav()}
-function updateNav(){const prev=$('#prev-page'),next=$('#next-page'),mp=$('#mobile-prev'),mn=$('#mobile-next'),fp=$('#fs-prev'),fn=$('#fs-next');[prev,mp,fp].forEach(x=>{if(x)x.disabled=currentPage<=0});[next,mn,fn].forEach(x=>{if(x)x.disabled=currentPage>=pages.length-1})}
-function renderThumbnails(){const box=$('#thumbnails');if(!box)return;if(!pages.length){box.innerHTML='<div class="rail-loading">पाने उपलब्ध नाहीत.</div>';return}box.innerHTML=pages.map((u,i)=>`<button class="thumb ${i===currentPage?'active':''}" type="button" aria-label="पान ${i+1}"><img src="${esc(u)}" alt="पान ${i+1}" loading="lazy"><span>पान ${i+1}</span></button>`).join('');box.querySelectorAll('.thumb').forEach((b,i)=>b.addEventListener('click',()=>selectPage(i)))}
+function selectPage(i,options={}){
+ if(!pages.length)return;
+ const previousScroll=Number.isFinite(options.keepScrollY)?options.keepScrollY:null;
+ currentPage=Math.max(0,Math.min(i,pages.length-1));
+ const img=$('#paper-image'),loading=$('#paper-loading');if(!img)return;
+ loading.style.display='flex';
+ loading.innerHTML='<div class="spinner"></div><span>ई-पेपर लोड होत आहे…</span>';
+ img.style.visibility='hidden';
+ zoom=1;
+ applyZoom(true);
+ img.onload=()=>{
+   applyZoom(true);
+   loading.style.display='none';
+   img.style.visibility='visible';
+   if(previousScroll!==null){
+     window.scrollTo({top:previousScroll,left:window.scrollX,behavior:'auto'});
+     requestAnimationFrame(()=>window.scrollTo({top:previousScroll,left:window.scrollX,behavior:'auto'}));
+   }
+ };
+ img.onerror=()=>{loading.innerHTML='<span>हे पान लोड करता आले नाही. पुन्हा प्रयत्न करा.</span>';img.style.visibility='hidden'};
+ img.src=pages[currentPage];
+ setText('page-current',String(currentPage+1));setText('page-total',String(pages.length));setText('mobile-page-label',`पान ${currentPage+1}`);setText('rail-count',String(pages.length));setText('fullscreen-label',`पान ${currentPage+1} / ${pages.length}`);
+ document.querySelectorAll('.thumb').forEach((x,i2)=>x.classList.toggle('active',i2===currentPage));
+ updateNav();
+}
 async function selectEdition(group){
  selectedEdition=group;
  setText('edition-title',groupTitle(group));
@@ -131,8 +155,7 @@ function changePage(delta){
  const next=Math.max(0,Math.min(currentPage+delta,pages.length-1));
  if(next===currentPage)return;
  const keepY=window.scrollY;
- selectPage(next);
- requestAnimationFrame(()=>window.scrollTo(0,keepY));
+ selectPage(next,{keepScrollY:keepY});
 }
 function bindReader(){
  const bind=(id,fn)=>document.getElementById(id)?.addEventListener('click',fn);
@@ -174,6 +197,6 @@ function bindReader(){
      requestAnimationFrame(()=>window.scrollTo({top:startY,behavior:'auto'}));
    }
  },{passive:true});
- window.addEventListener('resize',()=>{if(zoom<=1.01)applyZoom();});
+ window.addEventListener('resize',()=>{applyZoom(false);});
 }
 document.addEventListener('DOMContentLoaded',()=>{bindReader();if(document.body.classList.contains('single-paper'))loadSingle();else loadHome()});
