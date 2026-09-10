@@ -71,7 +71,7 @@ button,a{font:inherit}
 @media(max-width:800px){.fs-actions{gap:3px}.fs-zoom,.fs-fit{width:34px;height:34px;min-width:34px;padding:0}.fs-zoom-value{height:34px;min-width:40px;font-size:10px}.fs-download{display:inline-flex;width:34px;height:34px;align-items:center;justify-content:center}.fullscreen-bar{padding:0 5px}.fs-actions{right:5px}.fs-nav{width:34px;height:34px}.fs-center{font-size:10px}}
 @media(max-width:430px){.fs-center{display:none}.fs-actions{left:50%;right:auto;transform:translateX(-50%)}.fullscreen-bar>#fs-prev{position:absolute;left:5px}.fs-zoom,.fs-fit,.fs-download,.fs-close,.fs-nav{width:32px;height:32px;min-width:32px}.fs-zoom-value{height:32px;min-width:38px}}
 
-/* Lokmat integration polish */
+/* Lokmadat integration polish */
 .epaper-section .reader-shell{border:1px solid #d3d5d8;background:#f0f1f3}
 .epaper-section .reader-topline{display:flex;justify-content:space-between;gap:18px;align-items:center;background:#fff;border:1px solid #d8d8d8;border-bottom:0;padding:18px 20px}
 .epaper-section .reader-kicker{display:block;color:#b40018;font-weight:900;font-size:12px}
