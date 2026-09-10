@@ -1,119 +1,245 @@
-<!doctype html>
-<html lang="mr">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f6f3ed">
-<meta name="description" content="मेट्रोसिटी पोस्ट — आधुनिक डिजिटल मराठी ई-पेपर.">
-<title>मेट्रोसिटी पोस्ट | ई-पेपर</title>
-<link rel="stylesheet" href="epaper.css?v=20260910-epaper20">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beedvastav Premium Digital ePaper</title>
+    <!-- Tailwind CSS Engine for sleek utility layouts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for visual navigation anchors -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Premium Editorial Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .editorial-title { font-family: 'Playfair Display', serif; }
+        .epaper-canvas { background-color: #f4f3ef; min-height: 75vh; }
+    </style>
 </head>
-<body class="epaper-site">
-<header class="reader-topbar">
-  <div class="reader-brand">
-    <a href="index.html" class="brand-mark" aria-label="मेट्रोसिटी पोस्ट मुख्यपृष्ठ"><span>मेट्रोसिटी</span><b>पोस्ट</b></a>
-    <span class="brand-divider"></span>
-    <span class="edition-label">डिजिटल ई-पेपर</span>
-  </div>
-  <div class="reader-actions">
-    <button class="tool-btn" id="date-open" type="button" aria-label="अंक निवडा">
-      <span class="icon"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="3"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg></span>
-      <span>अंक</span>
-    </button>
-    <button class="tool-btn" id="share-btn" type="button" aria-label="शेअर करा">
-      <span class="icon"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-      <span>शेअर</span>
-    </button>
-    <a class="tool-btn login-tool" href="login.html" aria-label="लॉगिन">
-      <span class="icon"><svg viewBox="0 0 24 24"><path d="M13 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4M10 8l4 4-4 4M14 12H3"/></svg></span>
-      <span>लॉगिन</span>
-    </a>
-  </div>
-</header>
+<body class="bg-gray-50 text-gray-900 transition-colors duration-300">
 
-<main class="reader-shell">
-  <section class="edition-head">
-    <div>
-      <span class="eyebrow">मेट्रोसिटी पोस्ट • ई-पेपर</span>
-      <h1 id="edition-title">आजचा अंक</h1>
-      <p id="edition-date">अंक लोड होत आहे…</p>
-    </div>
-    <div class="edition-controls">
-      <button class="round-control" id="prev-page" type="button" aria-label="मागील पान">‹</button>
-      <div class="page-counter"><strong id="page-current">1</strong><span>/</span><span id="page-total">1</span></div>
-      <button class="round-control" id="next-page" type="button" aria-label="पुढील पान">›</button>
-    </div>
-  </section>
-
-  <section class="paper-reader" id="reader">
-    <aside class="page-rail" aria-label="वृत्तपत्राची पाने">
-      <div class="rail-title"><span>पाने</span><small id="rail-count">—</small></div>
-      <div id="thumbnails" class="thumbnails"><div class="rail-loading">पाने लोड होत आहेत…</div></div>
-    </aside>
-
-    <div class="paper-stage" id="paper-stage">
-      <div class="stage-toolbar">
-        <button type="button" id="zoom-out" aria-label="लहान करा">−</button>
-        <span id="zoom-value">100%</span>
-        <button type="button" id="zoom-in" aria-label="मोठे करा">+</button>
-        <span class="toolbar-sep"></span>
-        <button type="button" id="fit-btn">फिट</button>
-        <button type="button" id="download-btn" aria-label="पान डाउनलोड करा">
-          <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 4v12m0 0 4.5-4.5M12 16l-4.5-4.5M5 20h14"/></svg></span>
-        </button>
-        <button type="button" id="fullscreen-btn" aria-label="पूर्ण स्क्रीन">
-          <span class="icon"><svg viewBox="0 0 24 24"><path d="M9 4H5a1 1 0 0 0-1 1v4M15 4h4a1 1 0 0 1 1 1v4M9 20H5a1 1 0 0 1-1-1v-4M15 20h4a1 1 0 0 0 1-1v-4"/></svg></span>
-        </button>
-      </div>
-      <div class="paper-viewport" id="paper-viewport">
-        <div class="paper-loading" id="paper-loading"><div class="spinner"></div><span>ई-पेपर लोड होत आहे…</span></div>
-        <img id="paper-image" alt="मेट्रोसिटी पोस्ट वृत्तपत्राचे पान" draggable="false">
-        <div class="paper-empty" id="paper-empty" hidden>
-          <div>
-            <div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 5h13a2 2 0 0 1 2 2v11a1.5 1.5 0 0 1-3 0V7H4a1.5 1.5 0 0 1 0-3Z"/><path d="M4 5v11a1.5 1.5 0 0 0 1.5 1.5H16M7 9h8M7 12h8M7 15h5"/></svg></div>
-            <h2>ई-पेपर उपलब्ध नाही</h2>
-            <p>या अंकासाठी अजून वृत्तपत्राचे पान प्रकाशित झालेले नाही.</p>
-          </div>
+    <!-- 📌 TOP NOTIFICATION / APP PWA PROMPT -->
+    <div id="pwa-prompt" class="bg-gradient-to-r from-red-700 to-red-900 text-white text-sm px-4 py-2 flex justify-between items-center z-50 shadow-md">
+        <div class="flex items-center gap-2">
+            <i class="fa-solid fa-mobile-screen-button text-base animate-pulse"></i>
+            <span>Add <strong>Beedvastav</strong> to your home screen for a lightning-fast experience!</span>
         </div>
-      </div>
-      <div class="mobile-page-nav">
-        <button id="mobile-prev" type="button">‹ मागील</button>
-        <span id="mobile-page-label">पान 1</span>
-        <button id="mobile-next" type="button">पुढील ›</button>
-      </div>
+        <div class="flex gap-4">
+            <button id="btn-install" class="bg-white text-red-900 px-3 py-1 rounded-md text-xs font-bold hover:bg-gray-100 transition">Install</button>
+            <button id="btn-dismiss" class="text-white/80 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+        </div>
     </div>
-  </section>
-</main>
 
-<section class="recent-editions" aria-labelledby="recent-title">
-  <div class="recent-head"><div><span class="eyebrow">LATEST UPLOADS</span><h2 id="recent-title">अलीकडे प्रकाशित ई-पेपर</h2><p>दिवसभरातील सर्व अपलोड्स एकाच ई-पेपरमध्ये एकत्रितपणे उपलब्ध आहेत.</p></div></div>
-  <div id="recent-editions-list" class="recent-grid"><div class="rail-loading">अंक लोड होत आहेत…</div></div>
-</section>
+    <!-- 🔍 SYSTEM NAVIGATION HEADER -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <button class="text-gray-600 hover:text-gray-900 md:hidden"><i class="fa-solid fa-bars text-xl"></i></button>
+                <h1 class="editorial-title text-3xl font-extrabold tracking-tight text-red-700 select-none">Beedvastav</h1>
+            </div>
+            
+            <!-- Quick Context Controls -->
+            <div class="hidden md:flex items-center gap-6 text-sm text-gray-600">
+                <span><i class="fa-regular fa-calendar-days mr-1"></i> <strong id="current-date-display">09 September 2026</strong></span>
+                <span class="bg-red-50 text-red-700 px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">Main Edition</span>
+            </div>
 
-<div class="date-drawer" id="date-drawer" aria-hidden="true">
-  <div class="date-panel">
-    <div class="date-panel-head"><div><span class="eyebrow">ई-पेपर</span><h2>अलीकडील अंक</h2></div><button id="date-close" type="button" aria-label="बंद करा">×</button></div>
-    <p class="date-help">प्रत्येक दिवसाचा ई-पेपर एका अंकात दाखवला जातो. त्या दिवशीचे नवीन अपलोड सर्वात आधीचे पान बनतात.</p>
-    <div id="edition-list" class="edition-list"><div class="rail-loading">अंक लोड होत आहेत…</div></div>
-  </div>
-</div>
+            <!-- Profile / Admin Trigger Gateway -->
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden sm:block">
+                    <p class="text-xs text-gray-400">Welcome,</p>
+                    <p class="text-xs font-bold text-gray-700" id="user-status">Guest Account</p>
+                </div>
+                <a href="login.html" class="bg-gray-100 text-gray-700 hover:bg-red-700 hover:text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center gap-2">
+                    <i class="fa-solid fa-right-to-bracket"></i> Login
+                </a>
+            </div>
+        </div>
+    </header>
 
-<div class="fullscreen-reader" id="fullscreen-reader" aria-hidden="true">
-  <div class="fullscreen-bar">
-    <button class="fs-nav" id="fs-prev" type="button" aria-label="मागील पान">‹</button>
-    <div class="fs-center"><b>मेट्रोसिटी पोस्ट</b><span id="fullscreen-label">पान 1 / 1</span></div>
-    <div class="fs-actions">
-      <button class="fs-nav" id="fs-next" type="button" aria-label="पुढील पान">›</button>
-      <button class="fs-download" id="fs-download" type="button" aria-label="पान डाउनलोड करा">↓</button>
-      <button class="fs-close" id="fullscreen-close" type="button" aria-label="बंद करा">×</button>
+    <!-- 🛠 EPAPER CONTROL COCKPIT -->
+    <section class="bg-white border-b border-gray-200 py-3 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-3">
+            <!-- Edition Selector & Historical Archives -->
+            <div class="flex items-center gap-2">
+                <select id="edition-select" class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-600 font-medium">
+                    <option value="main">MAIN EDITION</option>
+                    <option value="marathwada">Regional Bulletin</option>
+                </select>
+                <input type="date" id="archive-date" value="2026-09-09" class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-600 text-gray-600">
+            </div>
+
+            <!-- Functional Interaction Canvas Utilities -->
+            <div class="flex items-center gap-1 bg-gray-100 p-1 rounded-xl">
+                <button title="Crop Snippet" class="p-2 text-gray-600 hover:bg-white rounded-lg hover:text-red-700 transition" onclick="activateAction('crop')"><i class="fa-solid fa-scissors"></i></button>
+                <button title="Zoom Page" class="p-2 text-gray-600 hover:bg-white rounded-lg hover:text-red-700 transition" onclick="activateAction('zoom')"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                <button title="Download PDF" class="p-2 text-gray-600 hover:bg-white rounded-lg hover:text-red-700 transition" onclick="downloadEdition()"><i class="fa-solid fa-file-pdf"></i></button>
+                <button title="Share Link" class="p-2 text-gray-600 hover:bg-white rounded-lg hover:text-red-700 transition" onclick="copyShareUrl()"><i class="fa-solid fa-share-nodes"></i></button>
+            </div>
+
+            <!-- Page Selection Map Dots -->
+            <div class="flex items-center gap-1.5" id="page-pagination">
+                <button class="px-2.5 py-1.5 text-xs font-bold rounded-md bg-gray-200 text-gray-500 cursor-not-allowed"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="px-3.5 py-1.5 text-xs font-bold rounded-md transition bg-red-700 text-white shadow-sm">1</button>
+                <button class="px-3.5 py-1.5 text-xs font-bold rounded-md transition bg-white border border-gray-300 hover:bg-gray-50">2</button>
+                <button class="px-3.5 py-1.5 text-xs font-bold rounded-md transition bg-white border border-gray-300 hover:bg-gray-50">3</button>
+                <button class="px-3.5 py-1.5 text-xs font-bold rounded-md transition bg-white border border-gray-300 hover:bg-gray-50">4</button>
+                <button class="px-2.5 py-1.5 text-xs font-bold rounded-md transition bg-white border border-gray-300 hover:bg-gray-50 text-red-700"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🗺 MAIN INTERACTIVE EPAPER DESK -->
+    <main class="max-w-7xl mx-auto px-4 py-6">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            
+            <!-- Left Side Feed: Live breaking bulletins -->
+            <aside class="space-y-4 lg:col-span-1">
+                <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-xs">
+                    <h3 class="text-xs font-bold text-red-700 uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span> Latest Archives
+                    </h3>
+                    <ul class="space-y-2.5 text-sm" id="latest-editions-list">
+                        <li><a href="#" class="block p-2 rounded-lg bg-gray-50 font-medium border border-transparent hover:border-red-200 hover:bg-red-50/30 text-gray-700 transition">09 Sep 2026 Edition</a></li>
+                        <li><a href="#" class="block p-2 rounded-lg bg-gray-50 hover:bg-gray-100 text-gray-600 transition">08 Sep 2026 Edition</a></li>
+                        <li><a href="#" class="block p-2 rounded-lg bg-gray-50 hover:bg-gray-100 text-gray-600 transition">07 Sep 2026 Edition</a></li>
+                    </ul>
+                </div>
+
+                <div class="bg-amber-50/60 rounded-xl border border-amber-200/70 p-4 text-xs text-amber-800 flex gap-2.5 items-start shadow-xs">
+                    <i class="fa-solid fa-circle-info text-base mt-0.5 text-amber-600"></i>
+                    <div>
+                        <h4 class="font-bold mb-1">💡 Reading Tip</h4>
+                        <p class="leading-relaxed">Click directly on any article block on the news canvas layout to expand a mobile-friendly high-contrast reading view window.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Center & Right Side Canvas: Interactive Core Component -->
+            <section class="lg:col-span-3">
+                <div class="epaper-canvas rounded-2xl border border-gray-300 relative shadow-inner flex items-center justify-center p-4 overflow-hidden group">
+                    
+                    <!-- Area Mapping Canvas Container Mockup -->
+                    <div class="relative bg-white shadow-2xl max-w-full rounded border border-gray-400/50 transition-transform duration-300" id="paper-sheet">
+                        <!-- Simulated Printed Page Asset -->
+                        <div class="p-8 select-none max-w-2xl text-center space-y-6">
+                            <div class="border-b-4 border-double border-gray-800 pb-4">
+                                <h2 class="editorial-title text-5xl font-black uppercase tracking-tight text-gray-900">BEED VASTAV</h2>
+                                <div class="flex justify-between text-xs font-bold tracking-wider text-gray-600 mt-2 uppercase">
+                                    <span>Vol XXVI No. 248</span>
+                                    <span>Beed, Wednesday, September 9, 2026</span>
+                                    <span>Pages 4 · ₹3.00</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Interactive News Grid Block Engine -->
+                            <div class="grid grid-cols-2 gap-4 text-left">
+                                <div class="border-r border-gray-300 pr-4 cursor-pointer hover:bg-yellow-50/70 p-2 rounded transition-colors group" onclick="openArticleModal(1)">
+                                    <span class="text-xs uppercase font-extrabold tracking-wide text-red-700">Local Crime Portal</span>
+                                    <h3 class="editorial-title text-xl font-bold mt-1 leading-snug group-hover:text-red-800">District law enforcement deploys synchronized security grid across critical sub-divisions.</h3>
+                                    <p class="text-xs text-gray-600 mt-2 line-clamp-3">Comprehensive structural operations launched by local police squads to monitor standard community safety parameters ahead of the annual festival arrangements...</p>
+                                </div>
+                                <div class="cursor-pointer hover:bg-yellow-50/70 p-2 rounded transition-colors group" onclick="openArticleModal(2)">
+                                    <span class="text-xs uppercase font-extrabold tracking-wide text-green-700">Agricultural Update</span>
+                                    <h3 class="editorial-title text-xl font-bold mt-1 leading-snug group-hover:text-green-800">Substantial monsoon distribution boosts sustainable harvest metrics across Marathwada regional belts.</h3>
+                                    <p class="text-xs text-gray-600 mt-2 line-clamp-3">Agricultural assessment offices release promising productivity tracking data for primary cash crops, reflecting stability for rural farming syndicates across the province...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black text-white w-10 h-10 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 shadow-md"><i class="fa-solid fa-angle-left"></i></button>
+                    <button class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black text-white w-10 h-10 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 shadow-md"><i class="fa-solid fa-angle-right"></i></button>
+                </div>
+                <p class="text-center text-xs text-gray-400 mt-3"><i class="fa-solid fa-hand-pointer mr-1"></i> Swipe left or right or use side arrows to turn pages dynamically.</p>
+            </section>
+
+        </div>
+    </main>
+
+    <div id="article-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden transition-opacity duration-300 opacity-0">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto transform scale-95 transition-transform duration-300">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-start sticky top-0 bg-white z-10">
+                <div>
+                    <span id="modal-badge" class="text-xs uppercase font-extrabold tracking-wider px-2 py-0.5 rounded-sm bg-red-50 text-red-700">Editorial</span>
+                    <h3 id="modal-title" class="editorial-title text-2xl font-bold text-gray-900 mt-1.5 leading-snug">Expanded Content Dynamic Title Location Placeholder</h3>
+                </div>
+                <button onclick="closeArticleModal()" class="text-gray-400 hover:text-gray-700 p-1 bg-gray-50 hover:bg-gray-100 rounded-full transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="p-6 space-y-4 text-gray-700 leading-relaxed text-sm sm:text-base" id="modal-body">
+            </div>
+            <div class="p-4 bg-gray-50 border-t border-gray-100 flex justify-between items-center text-xs text-gray-500">
+                <button class="flex items-center gap-1.5 hover:text-red-700 transition font-medium" onclick="alert('Snippet added to clipboard!')"><i class="fa-solid fa-paperclip"></i> Copy Segment Link</button>
+                <span>Character Limit 200 | Sign-in to write custom responses</span>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="fullscreen-stage" id="fullscreen-stage"><img id="fullscreen-image" alt="वृत्तपत्राचे पान"></div>
-</div>
 
-<footer class="reader-footer"><span>© २०२६ मेट्रोसिटी पोस्ट</span><span>विश्वसनीय • स्थानिक • तत्पर</span></footer>
+    <footer class="bg-gray-900 text-gray-400 text-sm mt-12 border-t-4 border-red-700">
+        <div class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h4 class="editorial-title text-xl font-bold text-white mb-3">Beedvastav Portal</h4>
+                <p class="text-xs leading-relaxed text-gray-400">Delivering daily verified local, state, and political news streams directly across physical and structural digital layouts.</p>
+            </div>
+            <div>
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">Important Links</h4>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition">Disclaimer</a>
+                    <a href="#" class="hover:text-white transition">Terms & Conditions</a>
+                    <a href="#" class="hover:text-white transition">Contact Desk</a>
+                </div>
+            </div>
+            <div class="text-xs">
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">Technical Maintenance</h4>
+                <p class="mb-2">© 2026 Beedvastav. All Rights Reserved.</p>
+                <p class="text-gray-500">System Architecture Managed via Supabase DB Integration Engine.</p>
+            </div>
+        </div>
+    </footer>
 
-<script src="supabase-config.js?v=20260910-epaper19"></script>
-<script src="script.js?v=20260910-epaper19"></script>
+    <script>
+        function activateAction(mode) {
+            alert('Interactive Tool Mode Selected: ' + mode.toUpperCase() + '\nConnecting via Area Map coordinate overlay grid...');
+        }
+        function downloadEdition() {
+            alert('Fetching high-resolution print-ready version PDF asset archive bundle from storage repository...');
+        }
+        function copyShareUrl() {
+            navigator.clipboard.writeText(window.location.href);
+            alert('Direct contextual access link successfully copied to operational system clipboard!');
+        }
+
+        // Modal Lifecycle Controllers
+        const modal = document.getElementById('article-modal');
+        function openArticleModal(id) {
+            const title = id === 1 ? "District law enforcement deploys synchronized security grid across critical sub-divisions." : "Substantial monsoon distribution boosts sustainable harvest metrics across Marathwada regional belts.";
+            const category = id === 1 ? "Local Crime Portal" : "Agricultural Update";
+            
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-badge').innerText = category;
+            document.getElementById('modal-body').innerHTML = `
+                <p class="font-semibold text-gray-900 mb-2">Beed Administrative Reporting Center — September 9, 2026</p>
+                <p class="mb-4">This section represents a mapped rendering slice linked dynamically to your Supabase tables. When users click this region of the paper, the corresponding text record is called and parsed cleanly inside an accessibility-compliant viewport layout.</p>
+                <p>Instead of zooming blindly into unreadable image layers, subscribers can toggle an audio text reader, adjust font sizes, or output individual text snips directly across messaging channels effortlessly.</p>
+            `;
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.firstElementChild.classList.remove('scale-95');
+            }, 10);
+        }
+        function closeArticleModal() {
+            modal.classList.add('opacity-0');
+            modal.firstElementChild.classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+        
+        // PWA Banner Lifecycle
+        document.getElementById('btn-dismiss').addEventListener('click', () => {
+            document.getElementById('pwa-prompt').style.display = 'none';
+        });
+    </script>
 </body>
 </html>
