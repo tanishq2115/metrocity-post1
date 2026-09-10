@@ -70,7 +70,7 @@
   async function init(){
     $('#today-label').textContent=dateLabel(new Date());
     try{
-      const rows=await get('/news?select=id,slug,headline,subheadline,content,location,main_image_url,epaper_layout,published_at,created_at,categories(name)&status=eq.published&order=published_at.desc&limit=200');
+      const rows=await get('/news?select=id,slug,headline,subheadline,content,location,main_image_url,epaper_layout,published_at,created_at,categories(name)&status=eq.published&order=published_at.desc.nullslast,created_at.desc.nullslast&limit=200');
       const all=rows||[];
       const epaperRows=all.filter(n=>n.epaper_layout==='direct-newspaper');
       const written=all.filter(n=>n.epaper_layout!=='direct-newspaper');

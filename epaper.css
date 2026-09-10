@@ -42,3 +42,21 @@ button,a{font:inherit}
  .below-reader{margin-top:12px}.page-switcher button{width:46px;height:42px}.page-counter{height:42px;min-width:84px}.page-list-card{padding:11px}.page-list-head span{max-width:230px}.thumbnails-bottom .thumb{width:88px;min-width:88px}.recent-editions{padding-top:4px}.recent-grid{grid-template-columns:1fr}.date-panel{padding:18px;width:min(420px,94vw)}.fs-center b{display:none}.fs-download{display:none}.fullscreen-bar{height:54px;flex-basis:54px}.fullscreen-stage{padding:10px 8px 24px}.fullscreen-stage img{max-width:100%;box-shadow:none}
 }
 @media(max-width:430px){.stage-toolbar #fit-btn{display:inline-block}.stage-toolbar button{min-width:29px;padding:0 6px}.stage-toolbar span{min-width:38px}.recent-thumb{width:62px;flex-basis:62px;height:80px}}
+
+/* V28 public reader polish */
+.reader-topbar{height:70px;background:rgba(255,255,255,.96);border-bottom:1px solid #e3e5e8;position:sticky;top:0;z-index:40;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.topbar-inner{height:100%;width:min(1500px,100%);margin:0 auto;padding:0 clamp(14px,3vw,42px);display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand-mark{font-size:29px;font-weight:700;letter-spacing:-.03em;color:#171717;text-decoration:none;white-space:nowrap}.brand-mark b{color:#b91c1c}
+.reader-actions{display:flex;align-items:center;gap:7px}.tool-btn{height:42px;min-width:74px;border:1px solid #d6d9de;border-radius:4px;background:#fff;color:#20252c;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:0 12px;text-decoration:none;font-size:12px;font-weight:800;cursor:pointer}.tool-btn:hover{border-color:#b91c1c;color:#991b1b;background:#fffafa}.tool-icon{font-size:18px;line-height:1}
+.reader-breadcrumb{display:flex;gap:8px;align-items:center;color:#858b93;font-size:10px;margin:2px 0 12px}.reader-breadcrumb a{color:#858b93;text-decoration:none}.reader-breadcrumb strong{color:#b91c1c}
+.reader-shell{padding-top:18px}.edition-heading{min-width:0}.edition-head h1{letter-spacing:-.025em}.edition-head{padding:0 2px 2px}
+.paper-reader{box-shadow:0 10px 35px rgba(17,24,39,.08);border:1px solid #d9dde2}.paper-stage{background:#e9ebee}.reader-canvas-bg{position:absolute;inset:0;background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.95),rgba(233,235,238,.96) 58%,rgba(222,225,229,.98));pointer-events:none}
+.paper-viewport{z-index:1}.stage-toolbar{top:12px;right:12px;box-shadow:0 8px 22px rgba(17,24,39,.12)}
+.reader-side-nav{z-index:9}.paper-viewport>img{position:relative;z-index:2}
+.mobile-page-nav{position:relative;z-index:4}
+.below-reader{padding-top:2px}.page-switcher{background:#fff;border:1px solid #e1e4e8;padding:8px 10px}.page-switcher button{width:auto;min-width:72px;padding:0 13px;font-size:12px}.page-switcher .page-counter{border:0;background:transparent}
+.page-list-card{box-shadow:0 5px 20px rgba(17,24,39,.04)}
+.recent-editions{padding-top:18px}.recent-head{border-bottom:1px solid #e1e4e8;margin-bottom:12px}.recent-card{transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease}.recent-card:hover{transform:translateY(-1px);box-shadow:0 7px 20px rgba(17,24,39,.07)}
+.zoom-view{background:#121416}.zoom-view-backdrop{opacity:.65}.zoom-view-topbar{box-shadow:0 4px 18px rgba(0,0,0,.15)}
+@media(max-width:800px){.reader-topbar{height:62px}.topbar-inner{padding:0 10px}.brand-mark{font-size:25px}.reader-actions{gap:4px}.tool-btn{height:38px;min-width:40px;padding:0 8px;font-size:10px}.tool-btn .tool-icon{font-size:16px}.login-tool{min-width:40px}.reader-shell{padding-top:13px}.reader-breadcrumb{margin-bottom:8px}.edition-heading .eyebrow{font-size:9px}.edition-head h1{font-size:22px}.reader-canvas-bg{background:linear-gradient(180deg,#eef0f2,#e5e7ea)}.stage-toolbar{top:8px;right:8px}.page-switcher{padding:7px}.page-switcher button{min-width:70px}.recent-editions{padding-top:12px}}
+@media(max-width:430px){.brand-mark{font-size:22px}.tool-btn span:not(.tool-icon){display:none}.tool-btn{min-width:36px;padding:0 8px}.edition-head h1{font-size:20px}}
