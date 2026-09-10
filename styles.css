@@ -10,3 +10,28 @@
 /* current3 logo refinement */
 .lokmadat-logo{overflow:visible;}
 .logo-lok,.logo-madat{box-shadow:none;}
+
+
+/* current4 logo geometry: no gap; black header aligned directly over मदत */
+.lokmadat-logo{gap:0;display:flex;align-items:flex-end;width:276px;height:72px;letter-spacing:-3px;overflow:visible;}
+.lokmadat-logo .logo-lok{width:142px;min-width:142px;height:55px;margin:0;padding:0 8px 0 8px;justify-content:center;align-items:center;}
+.lokmadat-logo .logo-madat{width:134px;min-width:134px;height:55px;margin:0;padding:0;justify-content:center;align-items:center;}
+.lokmadat-logo .logo-lok:before{top:-18px;height:20px;left:0;width:142px;}
+.lokmadat-logo .logo-madat:before{top:-18px;height:20px;left:0;width:134px;right:auto;}
+.lokmadat-logo .logo-lok:after{top:-18px;right:43%;width:15px;height:31px;}
+@media(max-width:900px){
+  .lokmadat-logo{width:228px;height:62px;}
+  .lokmadat-logo .logo-lok{width:117px;min-width:117px;height:48px;font-size:39px;padding:0;}
+  .lokmadat-logo .logo-madat{width:111px;min-width:111px;height:48px;font-size:39px;}
+  .lokmadat-logo .logo-lok:before{top:-14px;height:16px;width:117px;}
+  .lokmadat-logo .logo-madat:before{top:-14px;height:16px;width:111px;}
+  .lokmadat-logo .logo-lok:after{top:-14px;height:26px;}
+}
+@media(max-width:560px){
+  .lokmadat-logo{width:176px;height:54px;letter-spacing:-2px;}
+  .lokmadat-logo .logo-lok{width:90px;min-width:90px;height:40px;font-size:31px;padding:0;}
+  .lokmadat-logo .logo-madat{width:86px;min-width:86px;height:40px;font-size:31px;}
+  .lokmadat-logo .logo-lok:before{top:-10px;height:12px;width:90px;}
+  .lokmadat-logo .logo-madat:before{top:-10px;height:12px;width:86px;}
+  .lokmadat-logo .logo-lok:after{top:-10px;height:20px;width:11px;}
+}
