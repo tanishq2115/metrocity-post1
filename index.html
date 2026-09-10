@@ -71,7 +71,7 @@ body{font-family:'Noto Sans Devanagari',sans-serif;background:#f5f5f4;color:var(
     <div class="hidden md:flex items-center gap-6 text-sm text-gray-600"><span><i class="fa-regular fa-calendar-days mr-1"></i> <strong id="current-date-display">आजचा अंक</strong></span><span class="bg-red-50 text-red-700 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">मुख्य आवृत्ती</span></div>
     <div class="flex items-center gap-2 sm:gap-3">
       <div class="text-right hidden sm:block"><p class="text-[11px] text-gray-400">स्वागत आहे,</p><p class="text-xs font-bold text-gray-700">अतिथी (Guest)</p></div>
-      <a href="login.html" class="bg-gray-100 text-gray-700 hover:bg-red-700 hover:text-white px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2"><i class="fa-solid fa-right-to-bracket"></i><span class="hidden xs:inline">लॉगिन</span></a>
+      <a href="login.html" class="bg-gray-100 text-gray-700 hover:bg-red-700 hover:text-white px-4 py-2 rounded-sm text-sm font-semibold transition flex items-center gap-2"><i class="fa-solid fa-right-to-bracket"></i><span class="hidden xs:inline">लॉगिन</span></a>
     </div>
   </div>
 </header>
@@ -79,7 +79,7 @@ body{font-family:'Noto Sans Devanagari',sans-serif;background:#f5f5f4;color:var(
 <section class="bg-white border-b border-gray-200 py-2.5 shadow-sm">
   <div class="max-w-7xl mx-auto px-4 flex items-center justify-between gap-3">
     <div class="text-xs text-gray-500"><span class="font-bold text-red-700">मेट्रोसिटी पोस्ट</span> • दैनिक ई-पेपर</div>
-    <button id="date-open" type="button" class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm bg-gray-50 font-medium"><i class="fa-regular fa-calendar-days mr-1"></i> अंक निवडा</button>
+    <button id="date-open" type="button" class="border border-gray-300 rounded-sm px-3 py-1.5 text-sm bg-gray-50 font-medium"><i class="fa-regular fa-calendar-days mr-1"></i> अंक निवडा</button>
   </div>
 </section>
 
@@ -92,7 +92,7 @@ body{font-family:'Noto Sans Devanagari',sans-serif;background:#f5f5f4;color:var(
 
   <!-- Reader first: the newspaper is the primary focus. -->
   <section>
-    <div class="reader-card rounded-2xl overflow-hidden relative">
+    <div class="reader-card overflow-hidden relative">
       <div class="paper-viewport" id="paper-viewport">
         <div class="stage-toolbar">
           <button id="zoom-out-top" type="button" aria-label="लहान करा">−</button>
@@ -122,7 +122,7 @@ body{font-family:'Noto Sans Devanagari',sans-serif;background:#f5f5f4;color:var(
       <div class="page-list-head"><div><b>दैनिक ई-पेपरची पाने</b><span>पान निवडण्यासाठी खालील थंबनेलवर टॅप करा</span></div><strong><span id="rail-count">—</span> पाने</strong></div>
       <div id="thumbnails" class="thumbnails-bottom"><div class="text-xs text-gray-500 text-center py-5">पाने लोड होत आहेत…</div></div>
     </div>
-    <div class="bg-amber-50 rounded-xl border border-amber-200 p-3.5 text-xs text-amber-800 flex gap-2.5 items-start"><i class="fa-solid fa-circle-info text-base mt-0.5 text-amber-600"></i><div><h4 class="font-bold mb-1">महत्त्वाची टीप</h4><p class="leading-relaxed">पान मोठे करून वाचण्यासाठी झूम वापरा. मोबाईलवर पान बदलण्यासाठी डावीकडे किंवा उजवीकडे स्वाइप करा.</p></div></div>
+    <div class="bg-amber-50 rounded-sm border border-amber-200 p-3.5 text-xs text-amber-800 flex gap-2.5 items-start"><i class="fa-solid fa-circle-info text-base mt-0.5 text-amber-600"></i><div><h4 class="font-bold mb-1">महत्त्वाची टीप</h4><p class="leading-relaxed">झूम, डाउनलोड आणि पूर्ण स्क्रीनसाठी वरील साधने वापरा. पान बदलण्यासाठी डावीकडे किंवा उजवीकडे स्वाइप करा.</p></div></div>
   </section>
 </main>
 
@@ -133,7 +133,7 @@ body{font-family:'Noto Sans Devanagari',sans-serif;background:#f5f5f4;color:var(
 
 <div class="date-drawer" id="date-drawer" aria-hidden="true">
   <div class="date-panel">
-    <div class="flex items-start justify-between gap-4"><div><span class="text-xs font-bold text-red-700 uppercase tracking-widest">ई-पेपर ARCHIVE</span><h2 class="text-2xl font-bold mt-1">अलीकडील दैनिक अंक</h2></div><button id="date-close" type="button" class="w-9 h-9 rounded-lg border border-gray-200 bg-gray-50 text-2xl">×</button></div>
+    <div class="flex items-start justify-between gap-4"><div><span class="text-xs font-bold text-red-700 uppercase tracking-widest">ई-पेपर ARCHIVE</span><h2 class="text-2xl font-bold mt-1">अलीकडील दैनिक अंक</h2></div><button id="date-close" type="button" class="w-9 h-9 rounded-sm border border-gray-200 bg-gray-50 text-2xl">×</button></div>
     <p class="text-xs text-gray-500 mt-3 mb-5">प्रत्येक दिवसाचा ई-पेपर एका अंकात दाखवला जातो. नवीन अपलोड त्या दिवसातील सर्वात आधीचे पान बनते.</p>
     <div id="edition-list" class="grid gap-2"><div class="text-xs text-gray-500 text-center py-6">अंक लोड होत आहेत…</div></div>
   </div>
@@ -146,19 +146,44 @@ body{font-family:'Noto Sans Devanagari',sans-serif;background:#f5f5f4;color:var(
 
 <footer class="bg-gray-900 text-gray-400 text-sm mt-8 border-t-4 border-red-700"><div class="max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row justify-between gap-3"><div><h4 class="brand-title text-xl font-bold text-white">मेट्रोसिटी पोस्ट</h4><p class="text-xs mt-1">डिजिटल मराठी ई-पेपर</p></div><div class="text-xs">© २०२६ मेट्रोसिटी पोस्ट. सर्व हक्क सुरक्षित.</div></div></footer>
 
-<script src="supabase-config.js?v=20260910-epaper21"></script>
-<script src="script.js?v=20260910-epaper21"></script>
+<script src="supabase-config.js?v=20260910-epaper22"></script>
+<script src="script.js?v=20260910-epaper22"></script>
 <script>
 (function(){
-  const pairs=[['zoom-out-top','zoom-out'],['zoom-in-top','zoom-in'],['fit-top','fit-btn'],['download-top','download-btn'],['fullscreen-top','fullscreen-btn']];
-  pairs.forEach(([a,b])=>document.getElementById(a)?.addEventListener('click',()=>document.getElementById(b)?.click()));
   document.getElementById('btn-dismiss')?.addEventListener('click',()=>{document.getElementById('pwa-prompt').style.display='none'});
   const dateDisplay=document.getElementById('current-date-display');
-  const obs=new MutationObserver(()=>{if(dateDisplay&&document.getElementById('edition-date')?.textContent)dateDisplay.textContent=document.getElementById('edition-date').textContent});
-  obs.observe(document.getElementById('edition-date'),{childList:true,subtree:true});
-  const syncZoom=new MutationObserver(()=>{const v=document.getElementById('zoom-value')?.textContent||'100%';document.getElementById('zoom-value-top').textContent=v});
-  syncZoom.observe(document.getElementById('zoom-value'),{childList:true,characterData:true,subtree:true});
+  const dateEl=document.getElementById('edition-date');
+  if(dateDisplay&&dateEl){const obs=new MutationObserver(()=>{dateDisplay.textContent=dateEl.textContent});obs.observe(dateEl,{childList:true,subtree:true,characterData:true});}
+  const zoomEl=document.getElementById('zoom-value');
+  const zoomTop=document.getElementById('zoom-value-top');
+  if(zoomEl&&zoomTop){const sync=()=>zoomTop.textContent=zoomEl.textContent||'100%';sync();new MutationObserver(sync).observe(zoomEl,{childList:true,characterData:true,subtree:true});}
 })();
+</script>
+<!-- V22 interaction/layout overrides -->
+<style>
+.reader-card,.page-switcher button,.page-counter,.page-list-card,.recent-card,.edition-item,.stage-toolbar,.fs-nav,.fs-download,.fs-close,.date-panel button{border-radius:4px!important}
+.stage-toolbar button{border-radius:3px!important}
+.page-thumb,.page-thumb img,.recent-thumb,.recent-card,.edition-item{border-radius:4px!important}
+.paper-viewport{scroll-behavior:auto!important}
+.paper-viewport>img{transition:none!important}
+.fullscreen-reader.open{display:flex!important}
+.fullscreen-stage{overscroll-behavior:contain;scroll-behavior:auto}
+.fullscreen-stage img{max-height:none!important;width:auto}
+body.fullscreen-active{overflow:hidden}
+@media(max-width:800px){
+ .reader-card{border-radius:4px!important}
+ .paper-viewport{overflow:visible!important;padding:58px 8px 18px!important}
+ .paper-viewport.is-zoomed{overflow:auto!important;max-height:calc(100vh - 150px)!important}
+ .paper-viewport>img{max-width:none!important;box-shadow:0 8px 22px rgba(0,0,0,.16)!important}
+ .stage-toolbar{border-radius:4px!important}
+ .page-switcher{gap:8px}
+ .page-switcher button,.page-counter{border-radius:4px!important}
+ .recent-card{border-radius:4px!important}
+}
+</style>
+<script>
+// V22 keeps the zoom percentage in sync with the visible toolbar.
+window.addEventListener('load',()=>{if(window.innerWidth<=800){const i=document.getElementById('paper-image');if(i?.complete&&i.naturalWidth){setTimeout(()=>window.dispatchEvent(new Event('resize')),50)}}});
 </script>
 </body>
 </html>
