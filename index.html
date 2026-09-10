@@ -1,75 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beedvastav Premium Digital ePaper</title>
-    <!-- Tailwind CSS Engine for sleek utility layouts -->
+    <title>मेट्रोसिटी पोस्ट | Metrocity Post ePaper</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for visual navigation anchors -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Premium Editorial Typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .editorial-title { font-family: 'Playfair Display', serif; }
-        .epaper-canvas { background-color: #f4f3ef; min-height: 75vh; }
+        body { font-family: 'Noto Sans Devanagari', sans-serif; }
+        .brand-title { font-family: 'Yatra One', 'Playfair Display', serif; }
+        .epaper-canvas { background-color: #f5f4f0; min-height: 75vh; }
+        .newspaper-border { border-bottom: 4px double #1f2937; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 transition-colors duration-300">
+<body class="bg-stone-100 text-gray-900 transition-colors duration-300">
 
-    <!-- 📌 TOP NOTIFICATION / APP PWA PROMPT -->
-    <div id="pwa-prompt" class="bg-gradient-to-r from-red-700 to-red-900 text-white text-sm px-4 py-2 flex justify-between items-center z-50 shadow-md">
+    <div id="pwa-prompt" class="bg-gradient-to-r from-red-700 to-red-900 text-white text-sm px-4 py-2.5 flex justify-between items-center z-50 shadow-md">
         <div class="flex items-center gap-2">
             <i class="fa-solid fa-mobile-screen-button text-base animate-pulse"></i>
-            <span>Add <strong>Beedvastav</strong> to your home screen for a lightning-fast experience!</span>
+            <span>अधिक चांगल्या अनुभवासाठी <strong>मेट्रोसिटी पोस्ट</strong> ॲप होम स्क्रीनवर जोडा!</span>
         </div>
         <div class="flex gap-4">
-            <button id="btn-install" class="bg-white text-red-900 px-3 py-1 rounded-md text-xs font-bold hover:bg-gray-100 transition">Install</button>
+            <button id="btn-install" class="bg-white text-red-900 px-3 py-1 rounded-md text-xs font-bold hover:bg-gray-100 transition">इन्स्टॉल करा</button>
             <button id="btn-dismiss" class="text-white/80 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
 
-    <!-- 🔍 SYSTEM NAVIGATION HEADER -->
     <header class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
             <div class="flex items-center gap-4">
                 <button class="text-gray-600 hover:text-gray-900 md:hidden"><i class="fa-solid fa-bars text-xl"></i></button>
-                <h1 class="editorial-title text-3xl font-extrabold tracking-tight text-red-700 select-none">Beedvastav</h1>
+                <div class="flex flex-col">
+                    <h1 class="brand-title text-3xl md:text-4xl font-extrabold tracking-tight text-red-700 select-none">मेट्रोसिटी पोस्ट</h1>
+                    <span class="text-[10px] text-gray-500 uppercase tracking-widest font-bold -mt-1 hidden sm:block">Metrocity Post</span>
+                </div>
             </div>
             
-            <!-- Quick Context Controls -->
             <div class="hidden md:flex items-center gap-6 text-sm text-gray-600">
-                <span><i class="fa-regular fa-calendar-days mr-1"></i> <strong id="current-date-display">09 September 2026</strong></span>
-                <span class="bg-red-50 text-red-700 px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">Main Edition</span>
+                <span><i class="fa-regular fa-calendar-days mr-1"></i> <strong id="current-date-display">१० सप्टेंबर २०२६</strong></span>
+                <span class="bg-red-50 text-red-700 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">मुख्य आवृत्ती</span>
             </div>
 
-            <!-- Profile / Admin Trigger Gateway -->
             <div class="flex items-center gap-3">
                 <div class="text-right hidden sm:block">
-                    <p class="text-xs text-gray-400">Welcome,</p>
-                    <p class="text-xs font-bold text-gray-700" id="user-status">Guest Account</p>
+                    <p class="text-[11px] text-gray-400">स्वागत आहे,</p>
+                    <p class="text-xs font-bold text-gray-700" id="user-status">अतिथी (Guest)</p>
                 </div>
                 <a href="login.html" class="bg-gray-100 text-gray-700 hover:bg-red-700 hover:text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center gap-2">
-                    <i class="fa-solid fa-right-to-bracket"></i> Login
+                    <i class="fa-solid fa-right-to-bracket"></i> लॉगिन
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- 🛠 EPAPER CONTROL COCKPIT -->
     <section class="bg-white border-b border-gray-200 py-3 shadow-xs">
         <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-3">
-            <!-- Edition Selector & Historical Archives -->
             <div class="flex items-center gap-2">
                 <select id="edition-select" class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-600 font-medium">
-                    <option value="main">MAIN EDITION</option>
-                    <option value="marathwada">Regional Bulletin</option>
+                    <option value="main">मुख्य आवृत्ती (Main Edition)</option>
+                    <option value="mumbai">मुंबई विशेष</option>
+                    <option value="pune">पुणे उपनगर</option>
                 </select>
-                <input type="date" id="archive-date" value="2026-09-09" class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-600 text-gray-600">
+                <input type="date" id="archive-date" value="2026-09-10" class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-600 text-gray-600">
             </div>
 
-            <!-- Functional Interaction Canvas Utilities -->
             <div class="flex items-center gap-1 bg-gray-100 p-1 rounded-xl">
                 <button title="Crop Snippet" class="p-2 text-gray-600 hover:bg-white rounded-lg hover:text-red-700 transition" onclick="activateAction('crop')"><i class="fa-solid fa-scissors"></i></button>
                 <button title="Zoom Page" class="p-2 text-gray-600 hover:bg-white rounded-lg hover:text-red-700 transition" onclick="activateAction('zoom')"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
@@ -77,72 +72,65 @@
                 <button title="Share Link" class="p-2 text-gray-600 hover:bg-white rounded-lg hover:text-red-700 transition" onclick="copyShareUrl()"><i class="fa-solid fa-share-nodes"></i></button>
             </div>
 
-            <!-- Page Selection Map Dots -->
             <div class="flex items-center gap-1.5" id="page-pagination">
                 <button class="px-2.5 py-1.5 text-xs font-bold rounded-md bg-gray-200 text-gray-500 cursor-not-allowed"><i class="fa-solid fa-chevron-left"></i></button>
-                <button class="px-3.5 py-1.5 text-xs font-bold rounded-md transition bg-red-700 text-white shadow-sm">1</button>
-                <button class="px-3.5 py-1.5 text-xs font-bold rounded-md transition bg-white border border-gray-300 hover:bg-gray-50">2</button>
-                <button class="px-3.5 py-1.5 text-xs font-bold rounded-md transition bg-white border border-gray-300 hover:bg-gray-50">3</button>
-                <button class="px-3.5 py-1.5 text-xs font-bold rounded-md transition bg-white border border-gray-300 hover:bg-gray-50">4</button>
+                <button class="px-3.5 py-1.5 text-xs font-bold rounded-md transition bg-red-700 text-white shadow-sm">१</button>
+                <button class="px-3.5 py-1.5 text-xs font-bold rounded-md transition bg-white border border-gray-300 hover:bg-gray-50">२</button>
+                <button class="px-3.5 py-1.5 text-xs font-bold rounded-md transition bg-white border border-gray-300 hover:bg-gray-50">३</button>
+                <button class="px-3.5 py-1.5 text-xs font-bold rounded-md transition bg-white border border-gray-300 hover:bg-gray-50">४</button>
                 <button class="px-2.5 py-1.5 text-xs font-bold rounded-md transition bg-white border border-gray-300 hover:bg-gray-50 text-red-700"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
 
-    <!-- 🗺 MAIN INTERACTIVE EPAPER DESK -->
     <main class="max-w-7xl mx-auto px-4 py-6">
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
             
-            <!-- Left Side Feed: Live breaking bulletins -->
             <aside class="space-y-4 lg:col-span-1">
                 <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-xs">
                     <h3 class="text-xs font-bold text-red-700 uppercase tracking-widest mb-3 flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span> Latest Archives
+                        <span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span> मागील अंक
                     </h3>
                     <ul class="space-y-2.5 text-sm" id="latest-editions-list">
-                        <li><a href="#" class="block p-2 rounded-lg bg-gray-50 font-medium border border-transparent hover:border-red-200 hover:bg-red-50/30 text-gray-700 transition">09 Sep 2026 Edition</a></li>
-                        <li><a href="#" class="block p-2 rounded-lg bg-gray-50 hover:bg-gray-100 text-gray-600 transition">08 Sep 2026 Edition</a></li>
-                        <li><a href="#" class="block p-2 rounded-lg bg-gray-50 hover:bg-gray-100 text-gray-600 transition">07 Sep 2026 Edition</a></li>
+                        <li><a href="#" class="block p-2 rounded-lg bg-gray-50 font-medium border border-transparent hover:border-red-200 hover:bg-red-50/30 text-gray-700 transition">१० सप्टें २०२६ आवृत्ती</a></li>
+                        <li><a href="#" class="block p-2 rounded-lg bg-gray-50 hover:bg-gray-100 text-gray-600 transition">०९ सप्टें २०२६ आवृत्ती</a></li>
+                        <li><a href="#" class="block p-2 rounded-lg bg-gray-50 hover:bg-gray-100 text-gray-600 transition">०८ सप्टें २०२६ आवृत्ती</a></li>
                     </ul>
                 </div>
 
                 <div class="bg-amber-50/60 rounded-xl border border-amber-200/70 p-4 text-xs text-amber-800 flex gap-2.5 items-start shadow-xs">
                     <i class="fa-solid fa-circle-info text-base mt-0.5 text-amber-600"></i>
                     <div>
-                        <h4 class="font-bold mb-1">💡 Reading Tip</h4>
-                        <p class="leading-relaxed">Click directly on any article block on the news canvas layout to expand a mobile-friendly high-contrast reading view window.</p>
+                        <h4 class="font-bold mb-1">💡 महत्त्वाची टीप</h4>
+                        <p class="leading-relaxed">मुख्य वर्तमानपत्रातील कोणत्याही बातमीवर क्लिक करून तुम्ही ती बातमी मोठ्या आणि सुटसुटीत अक्षरात वाचू शकता.</p>
                     </div>
                 </div>
             </aside>
 
-            <!-- Center & Right Side Canvas: Interactive Core Component -->
             <section class="lg:col-span-3">
                 <div class="epaper-canvas rounded-2xl border border-gray-300 relative shadow-inner flex items-center justify-center p-4 overflow-hidden group">
                     
-                    <!-- Area Mapping Canvas Container Mockup -->
                     <div class="relative bg-white shadow-2xl max-w-full rounded border border-gray-400/50 transition-transform duration-300" id="paper-sheet">
-                        <!-- Simulated Printed Page Asset -->
                         <div class="p-8 select-none max-w-2xl text-center space-y-6">
-                            <div class="border-b-4 border-double border-gray-800 pb-4">
-                                <h2 class="editorial-title text-5xl font-black uppercase tracking-tight text-gray-900">BEED VASTAV</h2>
-                                <div class="flex justify-between text-xs font-bold tracking-wider text-gray-600 mt-2 uppercase">
-                                    <span>Vol XXVI No. 248</span>
-                                    <span>Beed, Wednesday, September 9, 2026</span>
-                                    <span>Pages 4 · ₹3.00</span>
+                            <div class="newspaper-border pb-4">
+                                <h2 class="brand-title text-5xl font-black tracking-tight text-gray-900">मेट्रोसिटी पोस्ट</h2>
+                                <div class="flex justify-between text-xs font-bold tracking-wider text-gray-600 mt-3 uppercase">
+                                    <span>वर्ष १ ले · अंक २५०</span>
+                                    <span>महाराष्ट्र, गुरुवार, १० सप्टेंबर २०२६</span>
+                                    <span>पाने ४ · किंमत ₹३.००</span>
                                 </div>
                             </div>
                             
-                            <!-- Interactive News Grid Block Engine -->
-                            <div class="grid grid-cols-2 gap-4 text-left">
-                                <div class="border-r border-gray-300 pr-4 cursor-pointer hover:bg-yellow-50/70 p-2 rounded transition-colors group" onclick="openArticleModal(1)">
-                                    <span class="text-xs uppercase font-extrabold tracking-wide text-red-700">Local Crime Portal</span>
-                                    <h3 class="editorial-title text-xl font-bold mt-1 leading-snug group-hover:text-red-800">District law enforcement deploys synchronized security grid across critical sub-divisions.</h3>
-                                    <p class="text-xs text-gray-600 mt-2 line-clamp-3">Comprehensive structural operations launched by local police squads to monitor standard community safety parameters ahead of the annual festival arrangements...</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                                <div class="border-b md:border-b-0 md:border-r border-gray-300 pb-4 md:pb-0 md:pr-6 cursor-pointer hover:bg-yellow-50/60 p-2 rounded transition-colors group" onclick="openArticleModal(1)">
+                                    <span class="text-xs uppercase font-extrabold tracking-wide text-red-700">स्थानिक घडामोडी</span>
+                                    <h3 class="brand-title text-2xl font-bold mt-1 leading-snug text-gray-900 group-hover:text-red-800">मेट्रोसिटी पायाभूत सुविधांच्या विकासाला गती; नवीन उड्डाणपुलाचे काम अंतिम टप्प्यात</h3>
+                                    <p class="text-sm text-gray-600 mt-2 leading-relaxed line-clamp-4">शहरातील वाहतूक कोंडी सोडवण्यासाठी हाती घेण्यात आलेल्या महत्त्वाकांक्षी उड्डाणपुलाचे बांधकाम पुढील महिन्याभरात पूर्ण होणार असल्याचे प्रशासनाकडून सांगण्यात आले आहे. यामुळे मुख्य बाजारपेठ आणि जोडणाऱ्या महामार्गांवरील वाहतूक वेगाने सुरळीत होण्यास मोठी मदत मिळणार आहे...</p>
                                 </div>
-                                <div class="cursor-pointer hover:bg-yellow-50/70 p-2 rounded transition-colors group" onclick="openArticleModal(2)">
-                                    <span class="text-xs uppercase font-extrabold tracking-wide text-green-700">Agricultural Update</span>
-                                    <h3 class="editorial-title text-xl font-bold mt-1 leading-snug group-hover:text-green-800">Substantial monsoon distribution boosts sustainable harvest metrics across Marathwada regional belts.</h3>
-                                    <p class="text-xs text-gray-600 mt-2 line-clamp-3">Agricultural assessment offices release promising productivity tracking data for primary cash crops, reflecting stability for rural farming syndicates across the province...</p>
+                                <div class="cursor-pointer hover:bg-yellow-50/60 p-2 rounded transition-colors group" onclick="openArticleModal(2)">
+                                    <span class="text-xs uppercase font-extrabold tracking-wide text-green-700">कृषी आणि हवामान</span>
+                                    <h3 class="brand-title text-2xl font-bold mt-1 leading-snug text-gray-900 group-hover:text-green-800">राज्यात समाधानकारक मान्सून; धरणसाठ्यात लक्षणीय वाढ झाल्याने शेतकरी वर्गात आनंदाचे वातावरण</h3>
+                                    <p class="text-sm text-gray-600 mt-2 leading-relaxed line-clamp-4">यावर्षी झालेल्या दमदार पावसामुळे राज्यातील बहुतांश प्रमुख आणि मध्यम सिंचन प्रकल्पांमधील पाणीसाठ्याने सुरक्षित पातळी ओलांडली आहे. कृषी विभागाने दिलेल्या अहवालानुसार, रब्बी हंगामातील पेरण्यांसाठी ही परिस्थिती अत्यंत पोषक असून उत्पादनात वाढ होण्याची शक्यता वर्तवली आहे...</p>
                                 </div>
                             </div>
                         </div>
@@ -151,7 +139,7 @@
                     <button class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black text-white w-10 h-10 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 shadow-md"><i class="fa-solid fa-angle-left"></i></button>
                     <button class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black text-white w-10 h-10 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 shadow-md"><i class="fa-solid fa-angle-right"></i></button>
                 </div>
-                <p class="text-center text-xs text-gray-400 mt-3"><i class="fa-solid fa-hand-pointer mr-1"></i> Swipe left or right or use side arrows to turn pages dynamically.</p>
+                <p class="text-center text-xs text-gray-400 mt-3"><i class="fa-solid fa-hand-pointer mr-1"></i> पाने बदलण्यासाठी स्क्रीन डावीकडे किंवा उजवीकडे स्वाइप करा.</p>
             </section>
 
         </div>
@@ -161,16 +149,16 @@
         <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto transform scale-95 transition-transform duration-300">
             <div class="p-6 border-b border-gray-100 flex justify-between items-start sticky top-0 bg-white z-10">
                 <div>
-                    <span id="modal-badge" class="text-xs uppercase font-extrabold tracking-wider px-2 py-0.5 rounded-sm bg-red-50 text-red-700">Editorial</span>
-                    <h3 id="modal-title" class="editorial-title text-2xl font-bold text-gray-900 mt-1.5 leading-snug">Expanded Content Dynamic Title Location Placeholder</h3>
+                    <span id="modal-badge" class="text-xs uppercase font-extrabold tracking-wider px-2 py-0.5 rounded-sm bg-red-50 text-red-700">विभाग</span>
+                    <h3 id="modal-title" class="brand-title text-2xl font-bold text-gray-900 mt-1.5 leading-snug">बातमीचे शीर्षक</h3>
                 </div>
                 <button onclick="closeArticleModal()" class="text-gray-400 hover:text-gray-700 p-1 bg-gray-50 hover:bg-gray-100 rounded-full transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <div class="p-6 space-y-4 text-gray-700 leading-relaxed text-sm sm:text-base" id="modal-body">
+            <div class="p-6 space-y-4 text-gray-700 leading-relaxed text-base" id="modal-body">
             </div>
             <div class="p-4 bg-gray-50 border-t border-gray-100 flex justify-between items-center text-xs text-gray-500">
-                <button class="flex items-center gap-1.5 hover:text-red-700 transition font-medium" onclick="alert('Snippet added to clipboard!')"><i class="fa-solid fa-paperclip"></i> Copy Segment Link</button>
-                <span>Character Limit 200 | Sign-in to write custom responses</span>
+                <button class="flex items-center gap-1.5 hover:text-red-700 transition font-medium" onclick="alert('लिंक क्लिपबोर्डवर सेव्ह झाली!')"><i class="fa-solid fa-paperclip"></i> बातमी शेअर करा</button>
+                <span>कमाल मर्यादा २०० अक्षरे | प्रतिक्रिया नोंदवण्यासाठी लग्न करा</span>
             </div>
         </div>
     </div>
@@ -178,50 +166,49 @@
     <footer class="bg-gray-900 text-gray-400 text-sm mt-12 border-t-4 border-red-700">
         <div class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
-                <h4 class="editorial-title text-xl font-bold text-white mb-3">Beedvastav Portal</h4>
-                <p class="text-xs leading-relaxed text-gray-400">Delivering daily verified local, state, and political news streams directly across physical and structural digital layouts.</p>
+                <h4 class="brand-title text-xl font-bold text-white mb-3">मेट्रोसिटी पोस्ट</h4>
+                <p class="text-xs leading-relaxed text-gray-400">तुमच्या शहरातील आणि राज्यातील ताज्या घडामोडी, राजकारण, आणि क्रीडा विश्वातील अचूक वृत्त देणारे अग्रगण्य डिजिटल ई-पेपर माध्यम.</p>
             </div>
             <div>
-                <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">Important Links</h4>
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">महत्त्वाच्या लिंक्स</h4>
                 <div class="grid grid-cols-2 gap-2 text-xs">
-                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
-                    <a href="#" class="hover:text-white transition">Disclaimer</a>
-                    <a href="#" class="hover:text-white transition">Terms & Conditions</a>
-                    <a href="#" class="hover:text-white transition">Contact Desk</a>
+                    <a href="#" class="hover:text-white transition">गोपनीयता धोरण (Privacy)</a>
+                    <a href="#" class="hover:text-white transition">अस्वीकरण (Disclaimer)</a>
+                    <a href="#" class="hover:text-white transition">अटी आणि शर्ती</a>
+                    <a href="#" class="hover:text-white transition">संपर्क कक्ष</a>
                 </div>
             </div>
             <div class="text-xs">
-                <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">Technical Maintenance</h4>
-                <p class="mb-2">© 2026 Beedvastav. All Rights Reserved.</p>
-                <p class="text-gray-500">System Architecture Managed via Supabase DB Integration Engine.</p>
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">तांत्रिक व्यवस्थापन</h4>
+                <p class="mb-2">© २०२६ मेट्रोसिटी पोस्ट. सर्व हक्क सुरक्षित.</p>
+                <p class="text-gray-500">Supabase डेटाबेस आणि क्लाउड स्टोरेज इंजिनद्वारे सुरक्षित संकालीत.</p>
             </div>
         </div>
     </footer>
 
     <script>
         function activateAction(mode) {
-            alert('Interactive Tool Mode Selected: ' + mode.toUpperCase() + '\nConnecting via Area Map coordinate overlay grid...');
+            alert('पर्याय निवडला: ' + mode.toUpperCase() + '\nमॅप को-ऑर्डिनेट्सनुसार सिस्टीम जोडली जात आहे...');
         }
         function downloadEdition() {
-            alert('Fetching high-resolution print-ready version PDF asset archive bundle from storage repository...');
+            alert('उच्च दर्जाची प्रिंट-रेडी PDF फाईल मुख्य सर्व्हरवरून डाउनलोड होत आहे...');
         }
         function copyShareUrl() {
             navigator.clipboard.writeText(window.location.href);
-            alert('Direct contextual access link successfully copied to operational system clipboard!');
+            alert('या पानाची थेट प्रवेश लिंक तुमच्या सिस्टीम क्लिपबोर्डवर कॉपी झाली आहे!');
         }
 
-        // Modal Lifecycle Controllers
         const modal = document.getElementById('article-modal');
         function openArticleModal(id) {
-            const title = id === 1 ? "District law enforcement deploys synchronized security grid across critical sub-divisions." : "Substantial monsoon distribution boosts sustainable harvest metrics across Marathwada regional belts.";
-            const category = id === 1 ? "Local Crime Portal" : "Agricultural Update";
+            const title = id === 1 ? "मेट्रोसिटी पायाभूत सुविधांच्या विकासाला गती; नवीन उड्डाणपुलाचे काम अंतिम टप्प्यात" : "राज्यात समाधानकारक मान्सून; धरणसाठ्यात लक्षणीय वाढ झाल्याने शेतकरी वर्गात आनंदाचे वातावरण";
+            const category = id === 1 ? "स्थानिक घडामोडी" : "कृषी आणि हवामान";
             
             document.getElementById('modal-title').innerText = title;
             document.getElementById('modal-badge').innerText = category;
             document.getElementById('modal-body').innerHTML = `
-                <p class="font-semibold text-gray-900 mb-2">Beed Administrative Reporting Center — September 9, 2026</p>
-                <p class="mb-4">This section represents a mapped rendering slice linked dynamically to your Supabase tables. When users click this region of the paper, the corresponding text record is called and parsed cleanly inside an accessibility-compliant viewport layout.</p>
-                <p>Instead of zooming blindly into unreadable image layers, subscribers can toggle an audio text reader, adjust font sizes, or output individual text snips directly across messaging channels effortlessly.</p>
+                <p class="font-semibold text-gray-900 mb-2">मेट्रोसिटी पोस्ट विशेष प्रतिनिधी वृत्त — १० सप्टेंबर २०२६</p>
+                <p class="mb-4">हा भाग थेट तुमच्या बॅकएंड Supabase मधील डेटाबेस टेबल्समधून रिअल-टाइम रेंडर केला जातो. वापरकर्त्याने जेव्हा वर्तमानपत्राच्या मॅप केलेल्या भागावर क्लिक केले, तेव्हा सिस्टीमने आयडी मॅच करून स्वच्छ फॉन्ट स्वरूपात बातमी दाखवली आहे.</p>
+                <p>या रचनेचा सर्वात मोठा फायदा म्हणजे मोबाईल युजर्सना संपूर्ण पेपर झूम करून वाचण्याची कसरत करावी लागत नाही. ते थेट फॉन्ट साईझ बदलू शकतात, किंवा ऑडिओ रीडर ऑन करून बातमी ऐकू शकतात.</p>
             `;
             
             modal.classList.remove('hidden');
@@ -236,7 +223,6 @@
             setTimeout(() => modal.classList.add('hidden'), 300);
         }
         
-        // PWA Banner Lifecycle
         document.getElementById('btn-dismiss').addEventListener('click', () => {
             document.getElementById('pwa-prompt').style.display = 'none';
         });
