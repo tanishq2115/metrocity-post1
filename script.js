@@ -3,17 +3,40 @@ const API_KEY=window.METROCITY_SUPABASE_KEY;
 async function publicGet(path){const r=await fetch(API_BASE+path,{headers:{apikey:API_KEY,Authorization:`Bearer ${API_KEY}`},cache:'no-store'});if(!r.ok){let d='';try{d=await r.text()}catch{}throw new Error(`Supabase ${r.status}: ${d||r.statusText}`)}return r.json()}
 async function publicPost(path,body){const r=await fetch(API_BASE+path,{method:'POST',headers:{apikey:API_KEY,Authorization:`Bearer ${API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw new Error(`Supabase ${r.status}`);return r.text()}
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const marathiDate=d=>new Intl.DateTimeFormat('mr-IN',{day:'numeric',month:'long',year:'numeric'}).format(d);
-const dateKey=d=>{const x=new Date(d);return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`};
+const marathiDate=d=>new Intl.DateTimeFormat('mr-IN',{day:'numeric',month:'long',year:'numeric',timeZone:'Asia/Kolkata'}).format(d);
+const istParts=d=>{const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Kolkata',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(d));const o=Object.fromEntries(parts.map(x=>[x.type,x.value]));return `${o.year}-${o.month}-${o.day}`};
+const dateKey=d=>istParts(d);
+const timeLabel=d=>new Intl.DateTimeFormat('mr-IN',{hour:'numeric',minute:'2-digit',hour12:true,timeZone:'Asia/Kolkata'}).format(new Date(d));
 let editions=[];let selectedEdition=null;let currentPage=0;let zoom=1;let pages=[];let drag=null;
 const $=s=>document.querySelector(s);
 function setText(id,text){const e=document.getElementById(id);if(e)e.textContent=text}
 function openDates(){const d=$('#date-drawer');if(!d)return;d.classList.add('open');d.setAttribute('aria-hidden','false')}
 function closeDates(){const d=$('#date-drawer');if(!d)return;d.classList.remove('open');d.setAttribute('aria-hidden','true')}
-function editionLabel(item){return marathiDate(new Date(item.published_at||item.created_at))}
-function groupEditions(rows){return [...(rows||[])].sort((a,b)=>new Date(b.published_at||b.created_at)-new Date(a.published_at||a.created_at))}
-function renderEditionList(){const box=$('#edition-list');if(!box)return;if(!editions.length){box.innerHTML='<div class="rail-loading">अंक उपलब्ध नाहीत.</div>';return}box.innerHTML=editions.map((n,i)=>{const active=selectedEdition&&selectedEdition.id===n.id;return `<button class="edition-item ${active?'active':''}" data-index="${i}"><span><b>${esc(n.headline||'मेट्रोसिटी पोस्ट — ई-पेपर')}</b><small>${editionLabel(n)} • ${new Intl.DateTimeFormat('mr-IN',{hour:'numeric',minute:'2-digit'}).format(new Date(n.published_at||n.created_at))}${n.location?' • '+esc(n.location):''}</small></span><span class="edition-arrow">›</span></button>`}).join('');box.querySelectorAll('.edition-item').forEach((b,i)=>b.addEventListener('click',()=>{selectEdition(editions[i]);closeDates()}))}
-function renderRecentEditions(){const box=$('#recent-editions-list');if(!box)return;if(!editions.length){box.innerHTML='<div class="rail-loading">अजून कोणताही ई-पेपर प्रकाशित झालेला नाही.</div>';return}box.innerHTML=editions.slice(0,12).map((n,i)=>`<button class="recent-card" type="button" data-recent-index="${i}"><span class="recent-thumb">${n.main_image_url?`<img src="${esc(n.main_image_url)}" alt="" loading="lazy">`:'📰'}</span><span><b>${esc(n.headline||'मेट्रोसिटी पोस्ट — ई-पेपर')}</b><small>${editionLabel(n)} • ${new Intl.DateTimeFormat('mr-IN',{hour:'numeric',minute:'2-digit'}).format(new Date(n.published_at||n.created_at))}${n.location?' • '+esc(n.location):''}</small></span><span class="recent-arrow">›</span></button>`).join('');box.querySelectorAll('[data-recent-index]').forEach(b=>b.addEventListener('click',()=>{selectEdition(editions[Number(b.dataset.recentIndex)]);window.scrollTo({top:0,behavior:'smooth'})}))}
+function editionLabel(item){return item.dateKey?marathiDate(new Date(`${item.dateKey}T00:00:00+05:30`)):marathiDate(new Date(item.published_at||item.created_at))}
+function groupEditions(rows){
+ const sorted=[...(rows||[])].sort((a,b)=>new Date(b.published_at||b.created_at)-new Date(a.published_at||a.created_at));
+ const map=new Map();
+ for(const row of sorted){
+   const key=dateKey(row.published_at||row.created_at);
+   if(!map.has(key))map.set(key,{id:`day-${key}`,dateKey:key,items:[],headline:row.headline,location:row.location,latestAt:row.published_at||row.created_at});
+   map.get(key).items.push(row);
+ }
+ return [...map.values()];
+}
+function groupPageCount(group){return group?.items?.length||0}
+function groupTitle(group){return group?.headline||'मेट्रोसिटी पोस्ट — ई-पेपर'}
+function renderEditionList(){
+ const box=$('#edition-list');if(!box)return;
+ if(!editions.length){box.innerHTML='<div class="rail-loading">अंक उपलब्ध नाहीत.</div>';return}
+ box.innerHTML=editions.map((g,i)=>{const active=selectedEdition&&selectedEdition.id===g.id;return `<button class="edition-item ${active?'active':''}" data-index="${i}"><span><b>${esc(groupTitle(g))}</b><small>${editionLabel(g)} • ${groupPageCount(g)} ${groupPageCount(g)===1?'पान':'पाने'} • शेवटचे अपलोड ${timeLabel(g.latestAt)}${g.location?' • '+esc(g.location):''}</small></span><span class="edition-arrow">›</span></button>`}).join('');
+ box.querySelectorAll('.edition-item').forEach((b,i)=>b.addEventListener('click',()=>{selectEdition(editions[i]);closeDates()}));
+}
+function renderRecentEditions(){
+ const box=$('#recent-editions-list');if(!box)return;
+ if(!editions.length){box.innerHTML='<div class="rail-loading">अजून कोणताही ई-पेपर प्रकाशित झालेला नाही.</div>';return}
+ box.innerHTML=editions.slice(0,12).map((g,i)=>{const first=g.items[0]||{};return `<button class="recent-card" type="button" data-recent-index="${i}"><span class="recent-thumb">${first.main_image_url?`<img src="${esc(first.main_image_url)}" alt="" loading="lazy">`:'📰'}</span><span><b>${esc(groupTitle(g))}</b><small>${editionLabel(g)} • ${groupPageCount(g)} ${groupPageCount(g)===1?'पान':'पाने'} • शेवटचे अपलोड ${timeLabel(g.latestAt)}</small></span><span class="recent-arrow">›</span></button>`}).join('');
+ box.querySelectorAll('[data-recent-index]').forEach(b=>b.addEventListener('click',()=>{selectEdition(editions[Number(b.dataset.recentIndex)]);window.scrollTo({top:0,behavior:'smooth'})}));
+}
 function getPages(n){const urls=[];if(n.main_image_url)urls.push(n.main_image_url);if(Array.isArray(n.news_photos))for(const p of n.news_photos)if(p.image_url&&!urls.includes(p.image_url))urls.push(p.image_url);return urls}
 async function enrichEdition(n){let photos=[];try{photos=await publicGet(`/news_photos?select=image_url,sort_order&news_id=eq.${encodeURIComponent(n.id)}&order=sort_order.asc`)}catch(e){console.warn('photo list',e)}return {...n,news_photos:photos||[]}}
 function resetZoom(){zoom=1;applyZoom()}
@@ -21,8 +44,22 @@ function applyZoom(){const img=$('#paper-image'),view=$('#paper-viewport');if(!i
 function selectPage(i){if(!pages.length)return;currentPage=Math.max(0,Math.min(i,pages.length-1));const img=$('#paper-image'),loading=$('#paper-loading');if(!img)return;loading.style.display='flex';img.style.visibility='hidden';resetZoom();img.onload=()=>{loading.style.display='none';img.style.visibility='visible'};img.onerror=()=>{loading.innerHTML='<span>हे पान लोड करता आले नाही. पुन्हा प्रयत्न करा.</span>';img.style.visibility='hidden'};img.src=pages[currentPage];setText('page-current',String(currentPage+1));setText('page-total',String(pages.length));setText('mobile-page-label',`पान ${currentPage+1}`);setText('rail-count',String(pages.length));setText('fullscreen-label',`पान ${currentPage+1} / ${pages.length}`);document.querySelectorAll('.thumb').forEach((x,i2)=>x.classList.toggle('active',i2===currentPage));const active=document.querySelector('.thumb.active');active?.scrollIntoView({block:'nearest'});updateNav()}
 function updateNav(){const prev=$('#prev-page'),next=$('#next-page'),mp=$('#mobile-prev'),mn=$('#mobile-next'),fp=$('#fs-prev'),fn=$('#fs-next');[prev,mp,fp].forEach(x=>{if(x)x.disabled=currentPage<=0});[next,mn,fn].forEach(x=>{if(x)x.disabled=currentPage>=pages.length-1})}
 function renderThumbnails(){const box=$('#thumbnails');if(!box)return;if(!pages.length){box.innerHTML='<div class="rail-loading">पाने उपलब्ध नाहीत.</div>';return}box.innerHTML=pages.map((u,i)=>`<button class="thumb ${i===currentPage?'active':''}" type="button" aria-label="पान ${i+1}"><img src="${esc(u)}" alt="पान ${i+1}" loading="lazy"><span>पान ${i+1}</span></button>`).join('');box.querySelectorAll('.thumb').forEach((b,i)=>b.addEventListener('click',()=>selectPage(i)))}
-async function selectEdition(n){selectedEdition=await enrichEdition(n);n=selectedEdition;setText('edition-title',n.headline||'आजचा अंक');setText('edition-date',editionLabel(n));pages=getPages(n);currentPage=0;renderEditionList();renderThumbnails();if(!pages.length){$('#paper-image').style.display='none';$('#paper-empty').hidden=false;$('#paper-loading').style.display='none';updateNav();return}$('#paper-image').style.display='block';$('#paper-empty').hidden=true;$('#paper-loading').innerHTML='<div class="spinner"></div><span>ई-पेपर लोड होत आहे…</span>';selectPage(0)}
-async function loadSingle(){const slug=new URLSearchParams(location.search).get('slug');if(!slug)return false;try{const rows=await publicGet(`/news?select=id,slug,headline,location,main_image_url,epaper_layout,published_at,created_at&status=eq.published&slug=eq.${encodeURIComponent(slug)}&limit=1`);if(!rows?.length){setText('edition-title','ई-पेपर उपलब्ध नाही');setText('edition-date','ही आवृत्ती सापडली नाही.');$('#paper-loading').style.display='none';$('#paper-empty').hidden=false;return true}await selectEdition(rows[0]);return true}catch(e){console.error(e);setText('edition-title','ई-पेपर लोड झाले नाही');$('#paper-loading').innerHTML='<span>ही आवृत्ती लोड करताना अडचण आली.</span>';return true}}
+async function selectEdition(group){
+ selectedEdition=group;
+ setText('edition-title',groupTitle(group));
+ setText('edition-date',editionLabel(group));
+ const enriched=await Promise.all((group.items||[]).map(enrichEdition));
+ pages=[];
+ // Each upload during a day is a page, newest upload first. If an upload contains
+ // additional photos, those remain attached after its main page.
+ for(const item of enriched){pages.push(...getPages(item))}
+ currentPage=0;
+ renderEditionList();
+ renderThumbnails();
+ if(!pages.length){$('#paper-image').style.display='none';$('#paper-empty').hidden=false;$('#paper-loading').style.display='none';updateNav();return}
+ $('#paper-image').style.display='block';$('#paper-empty').hidden=true;$('#paper-loading').innerHTML='<div class="spinner"></div><span>ई-पेपर लोड होत आहे…</span>';selectPage(0);
+}
+async function loadSingle(){const slug=new URLSearchParams(location.search).get('slug');if(!slug)return false;try{const rows=await publicGet(`/news?select=id,slug,headline,location,main_image_url,epaper_layout,published_at,created_at&status=eq.published&slug=eq.${encodeURIComponent(slug)}&limit=1`);if(!rows?.length){setText('edition-title','ई-पेपर उपलब्ध नाही');setText('edition-date','ही आवृत्ती सापडली नाही.');$('#paper-loading').style.display='none';$('#paper-empty').hidden=false;return true}const groups=groupEditions(rows);await selectEdition(groups[0]);return true}catch(e){console.error(e);setText('edition-title','ई-पेपर लोड झाले नाही');$('#paper-loading').innerHTML='<span>ही आवृत्ती लोड करताना अडचण आली.</span>';return true}}
 async function loadHome(){try{const rows=await publicGet('/news?select=id,slug,headline,location,main_image_url,epaper_layout,published_at,created_at&status=eq.published&epaper_layout=eq.direct-newspaper&order=published_at.desc&limit=100');editions=groupEditions(rows||[]);renderEditionList();renderRecentEditions();if(editions.length)await selectEdition(editions[0]);else{setText('edition-date','अजून कोणताही ई-पेपर प्रकाशित झालेला नाही.');$('#paper-loading').style.display='none';$('#paper-empty').hidden=false}}catch(e){console.error(e);$('#paper-loading').innerHTML='<span>ई-पेपर लोड करताना अडचण आली. कृपया पुन्हा प्रयत्न करा.</span>'}}
 async function shareCurrent(){try{await (navigator.share?navigator.share({title:`${selectedEdition?.headline||'मेट्रोसिटी पोस्ट'} — ई-पेपर`,url:location.href}):navigator.clipboard.writeText(location.href));if(!navigator.share)alert('ई-पेपरची लिंक कॉपी झाली आहे.')}catch(e){}}
 async function downloadCurrentPage(){

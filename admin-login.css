@@ -305,3 +305,37 @@ body.news-site .searchbar{border-bottom:1px solid #d3d5d8}
 /* V8 professional utility drawer */
 .drawer-label{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#8a8a8a;font-weight:900;padding:0 0 8px}.drawer-nav>a,.drawer-search{display:flex;align-items:center;gap:12px;width:100%;padding:13px 0;border:0;border-bottom:1px solid #eee;background:none;text-align:left;color:#151515}.drawer-nav>a>span,.drawer-search>span{width:30px;height:30px;display:grid;place-items:center;border:1px solid #ddd;border-radius:8px;color:var(--red);font-weight:900;flex:none}.drawer-nav>a>div,.drawer-search>div{flex:1;min-width:0}.drawer-nav>a b,.drawer-search b{display:block;font-size:12px}.drawer-nav>a small,.drawer-search small{display:block;color:#888;font-size:9px;margin-top:2px}.drawer-nav>a>strong,.drawer-search>strong{color:#aaa;font-size:18px}.drawer-nav>a:hover,.drawer-search:hover{color:var(--red);background:#fafafa}.drawer-login{display:flex!important;align-items:center;gap:12px;padding:15px!important;border:1px solid #e6b6bd!important;border-left:4px solid var(--red)!important;background:#fff7f8!important;border-radius:10px}.drawer-login>span{width:34px;height:34px;display:grid;place-items:center;background:var(--red);color:#fff;border-radius:8px}.drawer-login div{flex:1}.drawer-login b{display:block;font-size:12px}.drawer-login small{display:block;color:#777;font-size:9px;margin-top:3px}.drawer-foot{margin-top:auto;padding-top:16px;border-top:1px solid #eee;color:#888;font-size:9px}.drawer-foot b,.drawer-foot span{display:block}.drawer-foot span{margin-top:3px}
 @media(max-width:720px){.side-menu{width:min(88vw,360px);padding:20px 18px}.side-menu-head{margin-bottom:18px}.drawer-nav>a,.drawer-search{padding:11px 0}.drawer-nav>a b,.drawer-search b{font-size:11px}}
+
+/* ===== Login page (scoped — does not affect admin dashboard) ===== */
+.login-page{background:#f2ede2;min-height:100vh}
+.login-page .auth-wrap{min-height:100vh;display:grid;place-items:center;padding:24px}
+.login-page .auth-card{
+  width:min(420px,100%);background:#fff;border:1px solid #e7e0d3;border-top:none;
+  border-radius:20px;padding:34px 32px 30px;box-shadow:0 24px 60px rgba(40,28,18,.14);
+}
+.login-page .auth-card .brand{
+  font-family:'Noto Serif Devanagari','Noto Sans Devanagari',serif;font-size:26px;
+  letter-spacing:-.3px;display:inline-flex;align-items:baseline;gap:2px;position:relative;color:#121212;
+}
+.login-page .auth-card .brand b{color:var(--red)}
+.login-page .auth-card .brand small{position:static;display:block;margin-top:6px;font-family:'Noto Sans Devanagari',Arial,sans-serif;font-size:11px;color:#8b8375;font-weight:500;letter-spacing:0}
+.login-page .newsroom-tag{
+  display:inline-flex;align-items:center;gap:6px;margin-top:26px;padding:5px 10px;
+  border-radius:999px;background:#fbeaea;color:var(--red);font-size:10px;font-weight:800;letter-spacing:.04em;
+}
+.login-page .auth-card h1{font-family:'Noto Serif Devanagari','Noto Sans Devanagari',serif;font-size:26px;margin:12px 0 4px;font-weight:700;color:#181818}
+.login-page .auth-card>p{color:#807a6d;font-size:12.5px;line-height:1.6;margin:0}
+.login-page .auth-card label{font-size:11.5px;font-weight:700;color:#37332c;margin:18px 0 7px}
+.login-page .auth-card input{
+  border:1.5px solid #e2dccf;border-radius:11px;padding:12px 13px;background:#fbf9f5;
+  transition:.15s ease;font-size:13.5px;
+}
+.login-page .auth-card input:focus{outline:none;border-color:var(--red);background:#fff;box-shadow:0 0 0 3px #fbeaea}
+.login-page .primary{
+  border-radius:11px;background:var(--red);padding:13px;font-weight:800;font-size:13.5px;
+  box-shadow:0 10px 22px rgba(180,0,24,.24);transition:.15s ease;
+}
+.login-page .primary:hover{background:#8f1c22;transform:translateY(-1px)}
+.login-page .status{min-height:16px}
+.login-page .back-link{display:inline-flex;align-items:center;gap:5px;color:#807a6d;font-size:11.5px;font-weight:600;margin-top:20px}
+.login-page .back-link:hover{color:var(--red)}

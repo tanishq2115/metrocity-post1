@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0d0e11">
+<meta name="theme-color" content="#f6f3ed">
 <meta name="description" content="मेट्रोसिटी पोस्ट — आधुनिक डिजिटल मराठी ई-पेपर.">
 <title>मेट्रोसिटी पोस्ट | ई-पेपर</title>
-<link rel="stylesheet" href="epaper.css?v=20260909-epaper10">
+<link rel="stylesheet" href="epaper.css?v=20260910-epaper20">
 </head>
 <body class="epaper-site">
 <header class="reader-topbar">
@@ -16,9 +16,18 @@
     <span class="edition-label">डिजिटल ई-पेपर</span>
   </div>
   <div class="reader-actions">
-    <button class="tool-btn" id="date-open" type="button" aria-label="अंक निवडा">📅 <span>अंक</span></button>
-    <button class="tool-btn" id="share-btn" type="button" aria-label="शेअर करा">↗ <span>शेअर</span></button>
-    <a class="tool-btn login-tool" href="login.html" aria-label="लॉगिन">⇥ <span>लॉगिन</span></a>
+    <button class="tool-btn" id="date-open" type="button" aria-label="अंक निवडा">
+      <span class="icon"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="3"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg></span>
+      <span>अंक</span>
+    </button>
+    <button class="tool-btn" id="share-btn" type="button" aria-label="शेअर करा">
+      <span class="icon"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      <span>शेअर</span>
+    </button>
+    <a class="tool-btn login-tool" href="login.html" aria-label="लॉगिन">
+      <span class="icon"><svg viewBox="0 0 24 24"><path d="M13 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4M10 8l4 4-4 4M14 12H3"/></svg></span>
+      <span>लॉगिन</span>
+    </a>
   </div>
 </header>
 
@@ -49,15 +58,22 @@
         <button type="button" id="zoom-in" aria-label="मोठे करा">+</button>
         <span class="toolbar-sep"></span>
         <button type="button" id="fit-btn">फिट</button>
-        <button type="button" id="download-btn" aria-label="पान डाउनलोड करा">↓</button><button type="button" id="fullscreen-btn" aria-label="पूर्ण स्क्रीन">⛶</button>
+        <button type="button" id="download-btn" aria-label="पान डाउनलोड करा">
+          <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 4v12m0 0 4.5-4.5M12 16l-4.5-4.5M5 20h14"/></svg></span>
+        </button>
+        <button type="button" id="fullscreen-btn" aria-label="पूर्ण स्क्रीन">
+          <span class="icon"><svg viewBox="0 0 24 24"><path d="M9 4H5a1 1 0 0 0-1 1v4M15 4h4a1 1 0 0 1 1 1v4M9 20H5a1 1 0 0 1-1-1v-4M15 20h4a1 1 0 0 0 1-1v-4"/></svg></span>
+        </button>
       </div>
       <div class="paper-viewport" id="paper-viewport">
         <div class="paper-loading" id="paper-loading"><div class="spinner"></div><span>ई-पेपर लोड होत आहे…</span></div>
         <img id="paper-image" alt="मेट्रोसिटी पोस्ट वृत्तपत्राचे पान" draggable="false">
         <div class="paper-empty" id="paper-empty" hidden>
-          <div class="empty-icon">📰</div>
-          <h2>ई-पेपर उपलब्ध नाही</h2>
-          <p>या अंकासाठी अजून वृत्तपत्राचे पान प्रकाशित झालेले नाही.</p>
+          <div>
+            <div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 5h13a2 2 0 0 1 2 2v11a1.5 1.5 0 0 1-3 0V7H4a1.5 1.5 0 0 1 0-3Z"/><path d="M4 5v11a1.5 1.5 0 0 0 1.5 1.5H16M7 9h8M7 12h8M7 15h5"/></svg></div>
+            <h2>ई-पेपर उपलब्ध नाही</h2>
+            <p>या अंकासाठी अजून वृत्तपत्राचे पान प्रकाशित झालेले नाही.</p>
+          </div>
         </div>
       </div>
       <div class="mobile-page-nav">
@@ -70,14 +86,14 @@
 </main>
 
 <section class="recent-editions" aria-labelledby="recent-title">
-  <div class="recent-head"><div><span class="eyebrow">LATEST UPLOADS</span><h2 id="recent-title">अलीकडे प्रकाशित ई-पेपर</h2><p>नवीन अंक उपलब्ध होताच येथे दिसेल — वेळ किंवा पानांची संख्या निश्चित नाही.</p></div></div>
+  <div class="recent-head"><div><span class="eyebrow">LATEST UPLOADS</span><h2 id="recent-title">अलीकडे प्रकाशित ई-पेपर</h2><p>दिवसभरातील सर्व अपलोड्स एकाच ई-पेपरमध्ये एकत्रितपणे उपलब्ध आहेत.</p></div></div>
   <div id="recent-editions-list" class="recent-grid"><div class="rail-loading">अंक लोड होत आहेत…</div></div>
 </section>
 
 <div class="date-drawer" id="date-drawer" aria-hidden="true">
   <div class="date-panel">
     <div class="date-panel-head"><div><span class="eyebrow">ई-पेपर</span><h2>अलीकडील अंक</h2></div><button id="date-close" type="button" aria-label="बंद करा">×</button></div>
-    <p class="date-help">सर्वात अलीकडे अपलोड केलेले ई-पेपर येथे दिसतात. एकाच दिवशी अनेक अंक असले तरी प्रत्येक स्वतंत्रपणे दिसेल.</p>
+    <p class="date-help">प्रत्येक दिवसाचा ई-पेपर एका अंकात दाखवला जातो. त्या दिवशीचे नवीन अपलोड सर्वात आधीचे पान बनतात.</p>
     <div id="edition-list" class="edition-list"><div class="rail-loading">अंक लोड होत आहेत…</div></div>
   </div>
 </div>
@@ -97,7 +113,7 @@
 
 <footer class="reader-footer"><span>© २०२६ मेट्रोसिटी पोस्ट</span><span>विश्वसनीय • स्थानिक • तत्पर</span></footer>
 
-<script src="supabase-config.js?v=20260909-epaper10"></script>
-<script src="script.js?v=20260909-epaper10"></script>
+<script src="supabase-config.js?v=20260910-epaper19"></script>
+<script src="script.js?v=20260910-epaper19"></script>
 </body>
 </html>
