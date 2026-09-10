@@ -3,97 +3,87 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#ffffff">
-<meta name="description" content="मेट्रोसिटी पोस्ट — मराठी बातम्या आणि डिजिटल ई-पेपर.">
-<title>मेट्रोसिटी पोस्ट | मराठी बातम्या</title>
+<meta name="theme-color" content="#b40018">
+<meta name="description" content="लोकमत — ताज्या मराठी बातम्या, स्थानिक घडामोडी आणि डिजिटल ई-पेपर.">
+<title>लोकमत | मराठी बातम्या</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&family=Yatra+One&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260910-v29">
-<link rel="stylesheet" href="homepage.css?v=20260910-v29">
-<link rel="stylesheet" href="epaper.css?v=20260910-v29">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20260910-lokmat1">
+<link rel="stylesheet" href="epaper.css?v=20260910-lokmat1">
 </head>
-<body class="news-site home-page home-reader">
-<header class="masthead">
-  <div class="topline"><span>महाराष्ट्रातील स्थानिक बातम्यांचे डिजिटल व्यासपीठ</span><span id="today-label"></span></div>
-  <div class="brandbar">
-    <a href="index.html" class="brand" aria-label="मेट्रोसिटी पोस्ट मुख्यपृष्ठ"><span>मेट्रोसिटी</span> <b>पोस्ट</b><small>विश्वसनीय • स्थानिक • तत्पर</small></a>
-    <div class="brandtools">
-      <a class="epaper-head-btn" href="#epaper-section">📰 ई-पेपर</a>
-      <a class="reporter-link" href="login.html">लॉगिन</a>
-    </div>
+<body class="lokmat-home home-reader">
+<header class="site-header">
+  <div class="utility"><div class="container utility-inner"><span>महाराष्ट्रातील स्थानिक बातम्यांचे डिजिटल व्यासपीठ</span><span id="today-label"></span></div></div>
+  <div class="masthead container">
+    <button class="menu-btn" id="menu-btn" aria-label="मेनू">☰</button>
+    <a class="lokmat-logo" href="index.html" aria-label="लोकमत मुख्यपृष्ठ"><span>लोक</span><b>मत</b><small>विश्वसनीय बातम्या • तुमच्या जवळच्या</small></a>
+    <div class="mast-actions"><a href="#epaper-section" class="epaper-top">📰 ई-पेपर</a><a href="login.html" class="login-top">लॉगिन</a></div>
   </div>
-  <nav class="mainnav" aria-label="मुख्य मेनू">
-    <a class="active" href="index.html">मुख्यपृष्ठ</a>
-    <a href="#epaper-section">ई-पेपर</a>
-    <a href="#latest">ताज्या बातम्या</a>
-    <a href="#written">लिखित बातम्या</a>
-    <a href="#contact">संपर्क</a>
-  </nav>
+  <nav class="category-nav" id="category-nav"><div class="container nav-inner">
+    <a class="active" href="index.html">मुख्यपृष्ठ</a><a href="#latest">ताज्या बातम्या</a><a href="#maharashtra">महाराष्ट्र</a><a href="#local">स्थानिक</a><a href="#politics">राजकारण</a><a href="#sports">क्रीडा</a><a href="#business">व्यवसाय</a><a href="#entertainment">मनोरंजन</a><a href="#epaper-section">ई-पेपर</a>
+  </div></nav>
+  <div class="breaking"><div class="container breaking-inner"><strong>ताज्या घडामोडी</strong><div id="ticker"><span>ताज्या बातम्या लोड होत आहेत…</span></div><span class="breaking-arrow">›</span></div></div>
 </header>
 
-<main class="home-main">
-  <div class="breaking-strip"><span class="breaking-label">ताज्या घडामोडी</span><div id="ticker"><span>बातम्या लोड होत आहेत…</span></div></div>
+<main>
+<section class="container latest-wrap" id="latest">
+  <div class="section-heading"><div><span class="eyebrow">LATEST</span><h1>सर्वात नवीन</h1></div><span id="latest-updated" class="updated"></span></div>
+  <div id="latest-content" class="latest-grid"><div class="skeleton lead-skeleton"></div><div class="side-skeleton"><i></i><i></i></div></div>
+</section>
 
-  <section id="latest" class="latest-section">
-    <div class="section-rule"><div><span class="section-kicker">LATEST</span><h1>सर्वात नवीन</h1></div><span id="latest-updated">—</span></div>
-    <div id="latest-content" class="latest-content"><div class="loading">ताजी माहिती लोड होत आहे…</div></div>
-  </section>
+<section class="container news-band" id="maharashtra">
+  <div class="section-heading compact"><div><span class="eyebrow">TOP STORIES</span><h2>महाराष्ट्रातील प्रमुख बातम्या</h2></div><a href="#written">सर्व बातम्या ›</a></div>
+  <div id="top-stories" class="story-grid"><div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div></div>
+</section>
 
-  <section id="written" class="front-section">
-    <div class="section-rule"><div><span class="section-kicker">WRITTEN NEWS</span><h2>लिखित बातम्या</h2></div></div>
-    <div id="written-list" class="news-feed"><div class="loading">लिखित बातम्या लोड होत आहेत…</div></div>
-  </section>
+<section class="container split-section" id="written">
+  <div class="main-column">
+    <div class="section-heading compact"><div><span class="eyebrow">WRITTEN NEWS</span><h2>लिखित बातम्या</h2></div><span class="section-mark">●</span></div>
+    <div id="written-list" class="written-list"><div class="loading-box">लिखित बातम्या लोड होत आहेत…</div></div>
+  </div>
+  <aside class="sidebar">
+    <div class="side-module" id="local"><div class="module-head"><h3>स्थानिक</h3><span>›</span></div><div id="local-list" class="mini-list"><div class="loading-box">लोड होत आहे…</div></div></div>
+    <div class="side-module" id="trending"><div class="module-head"><h3>ट्रेंडिंग</h3><span>↗</span></div><ol id="trending-list" class="rank-list"><li>बातम्या लोड होत आहेत…</li></ol></div>
+  </aside>
+</section>
 
-  <section id="epaper-section" class="front-section epaper-home-section">
-    <div class="section-rule"><div><span class="section-kicker">DIGITAL EDITION</span><h2>ई-पेपर</h2></div><span id="epaper-section-status">दैनिक अंक</span></div>
-    <div id="epaper-reader-mount">
-      <div class="reader-shell embedded-reader-shell">
-        <div class="reader-breadcrumb"><a href="#latest">सर्वात नवीन</a><span>›</span><strong>ई-पेपर</strong></div>
-        <section class="edition-head">
-          <div class="edition-heading"><span class="eyebrow">मेट्रोसिटी पोस्ट • डिजिटल आवृत्ती</span><h1 id="edition-title">मेट्रोसिटी पोस्ट • ई-पेपर</h1><p id="edition-date">अंक लोड होत आहे…</p></div>
-          <div class="edition-controls"><button class="round-control" id="prev-page" type="button" aria-label="मागील पान">‹</button><div class="page-counter"><strong id="page-current">1</strong><span>/</span><span id="page-total">1</span></div><button class="round-control" id="next-page" type="button" aria-label="पुढील पान">›</button></div>
-        </section>
-        <section class="paper-reader" id="reader">
-          <aside class="page-rail"><div class="rail-title"><span>पाने</span><small id="rail-count">—</small></div><div id="thumbnails" class="thumbnails"><div class="rail-loading">पाने लोड होत आहेत…</div></div></aside>
-          <div class="paper-stage" id="paper-stage">
-            <div class="reader-canvas-bg" aria-hidden="true"></div>
-            <button class="reader-side-nav reader-side-prev" id="side-prev" type="button" aria-label="मागील पान">‹</button>
-            <button class="reader-side-nav reader-side-next" id="side-next" type="button" aria-label="पुढील पान">›</button>
-            <div class="stage-toolbar">
-              <button type="button" id="zoom-out" aria-label="लहान करा">−</button><span id="zoom-value">100%</span><button type="button" id="zoom-in" aria-label="मोठे करा">+</button><span class="toolbar-sep"></span><button type="button" id="zoom-view-btn" class="zoom-view-btn" aria-label="झूम व्ह्यू उघडा">⌕ <b>Zoom</b></button><span class="toolbar-sep"></span><button type="button" id="fit-btn">फिट</button><button type="button" id="download-btn" aria-label="पान डाउनलोड करा">↓</button><button type="button" id="fullscreen-btn" aria-label="पूर्ण स्क्रीन">⛶</button>
-            </div>
-            <div class="paper-viewport" id="paper-viewport"><div class="paper-loading" id="paper-loading"><div class="spinner"></div><span>ई-पेपर लोड होत आहे…</span></div><img id="paper-image" alt="मेट्रोसिटी पोस्ट वृत्तपत्राचे पान" draggable="false"><div class="paper-empty" id="paper-empty" hidden><div class="empty-icon">📰</div><h2>ई-पेपर उपलब्ध नाही</h2><p>या दिवसासाठी अजून वृत्तपत्र प्रकाशित झालेले नाही.</p></div></div>
-            <div class="mobile-page-nav"><button id="mobile-prev" type="button">‹ मागील</button><span id="mobile-page-label">पान 1</span><button id="mobile-next" type="button">पुढील ›</button></div>
-          </div>
-        </section>
-        <section class="below-reader">
-          <div class="page-switcher"><button id="below-prev" type="button" aria-label="मागील पान">‹ मागील</button><div class="page-counter"><strong id="below-current">1</strong><span>/</span><span id="below-total">1</span></div><button id="below-next" type="button" aria-label="पुढील पान">पुढील ›</button></div>
-          <div class="page-list-card"><div class="page-list-head"><div><b>या दैनिक अंकाची पाने</b><span>पान निवडण्यासाठी थंबनेलवर टॅप करा</span></div><strong><span id="rail-count-bottom">—</span> पाने</strong></div><div id="thumbnails-bottom" class="thumbnails-bottom"><div class="rail-loading">पाने लोड होत आहेत…</div></div></div>
-        </section>
-        <section class="recent-editions" aria-labelledby="recent-title"><div class="recent-head"><span class="eyebrow">ARCHIVE</span><h2 id="recent-title">अलीकडील दैनिक ई-पेपर</h2><p>प्रत्येक तारीख एक दैनिक अंक आहे. त्या दिवशीचे सर्व अपलोड त्याच अंकातील पाने आहेत.</p></div><div id="recent-editions-list" class="recent-grid"><div class="rail-loading">अंक लोड होत आहेत…</div></div></section>
-      </div>
+<section class="epaper-promo container" id="epaper-promo">
+  <div><span class="eyebrow">DIGITAL EDITION</span><h2>आजचा ई-पेपर</h2><p>संपूर्ण अंक वाचा • पानानुसार नेव्हिगेट करा • झूम करा</p></div><a href="#epaper-section">ई-पेपर वाचा <span>→</span></a>
+</section>
+
+<section class="container epaper-section" id="epaper-section">
+  <div class="section-heading compact"><div><span class="eyebrow">DIGITAL EDITION</span><h2>ई-पेपर</h2></div><span id="epaper-section-status">दैनिक अंक</span></div>
+  <div id="epaper-reader-mount">
+    <div class="reader-shell embedded-reader-shell">
+      <div class="reader-topline"><div><span class="reader-kicker">लोकमत • डिजिटल आवृत्ती</span><h2 id="edition-title">लोकमत • ई-पेपर</h2><p id="edition-date">अंक लोड होत आहे…</p></div><button id="date-open" type="button" class="date-button">📅 अंक निवडा</button></div>
+      <section class="paper-reader" id="reader">
+        <aside class="page-rail"><div class="rail-title"><span>पाने</span><small id="rail-count">—</small></div><div id="thumbnails" class="thumbnails"><div class="rail-loading">पाने लोड होत आहेत…</div></div></aside>
+        <div class="paper-stage" id="paper-stage">
+          <div class="reader-canvas-bg" aria-hidden="true"></div>
+          <button class="reader-side-nav reader-side-prev" id="side-prev" type="button" aria-label="मागील पान">‹</button><button class="reader-side-nav reader-side-next" id="side-next" type="button" aria-label="पुढील पान">›</button>
+          <div class="stage-toolbar"><button id="zoom-out" type="button">−</button><span id="zoom-value">100%</span><button id="zoom-in" type="button">+</button><span class="toolbar-sep"></span><button id="zoom-view-btn" class="zoom-view-btn" type="button">⌕ <b>Zoom</b></button><button id="fit-btn" type="button">फिट</button><button id="download-btn" type="button">↓</button><button id="fullscreen-btn" type="button">⛶</button></div>
+          <div class="paper-viewport" id="paper-viewport"><div class="paper-loading" id="paper-loading"><div class="spinner"></div><span>ई-पेपर लोड होत आहे…</span></div><img id="paper-image" alt="लोकमत वृत्तपत्राचे पान" draggable="false"><div class="paper-empty" id="paper-empty" hidden><div class="empty-icon">📰</div><h2>ई-पेपर उपलब्ध नाही</h2><p>अजून डिजिटल अंक प्रकाशित झालेला नाही.</p></div></div>
+          <div class="mobile-page-nav"><button id="mobile-prev" type="button">‹ मागील</button><span id="mobile-page-label">पान 1</span><button id="mobile-next" type="button">पुढील ›</button></div>
+        </div>
+      </section>
+      <div class="below-reader"><div class="page-switcher"><button id="below-prev" type="button">‹ मागील</button><div><strong id="below-current">1</strong><span>/</span><span id="below-total">1</span></div><button id="below-next" type="button">पुढील ›</button></div><div class="page-list-card"><div class="page-list-head"><div><b>या दैनिक अंकाची पाने</b><span>पान निवडण्यासाठी थंबनेलवर टॅप करा</span></div><strong><span id="rail-count-bottom">—</span> पाने</strong></div><div id="thumbnails-bottom" class="thumbnails-bottom"><div class="rail-loading">पाने लोड होत आहेत…</div></div></div></div>
+      <div class="recent-editions"><div class="recent-head"><span class="eyebrow">ARCHIVE</span><h3>अलीकडील दैनिक ई-पेपर</h3><p>प्रत्येक तारीख एक दैनिक अंक आहे.</p></div><div id="recent-editions-list" class="recent-grid"><div class="rail-loading">अंक लोड होत आहेत…</div></div></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="contact" class="home-contact">
-    <div><span class="section-kicker">CONTACT</span><h2>मेट्रोसिटी पोस्ट</h2><p>स्थानिक बातम्या आणि डिजिटल ई-पेपर — एका ठिकाणी.</p></div>
-    <a href="mailto:metrocitypost@gmail.com">संपर्क करा →</a>
-  </section>
+<section class="container lower-sections">
+ <div class="lower-card" id="politics"><span class="eyebrow">POLITICS</span><h2>राजकारण</h2><div id="politics-list"></div></div>
+ <div class="lower-card" id="sports"><span class="eyebrow">SPORTS</span><h2>क्रीडा</h2><div id="sports-list"></div></div>
+ <div class="lower-card" id="business"><span class="eyebrow">BUSINESS</span><h2>व्यवसाय</h2><div id="business-list"></div></div>
+ <div class="lower-card" id="entertainment"><span class="eyebrow">ENTERTAINMENT</span><h2>मनोरंजन</h2><div id="entertainment-list"></div></div>
+</section>
 </main>
 
-<div class="date-drawer" id="date-drawer" aria-hidden="true"><div class="date-panel"><div class="date-panel-head"><div><span class="eyebrow">ई-पेपर</span><h2>दैनिक अंक निवडा</h2></div><button id="date-close" type="button" aria-label="बंद करा">×</button></div><p class="date-help">प्रत्येक दिवसातील सर्व अपलोड एकाच दैनिक ई-पेपरच्या पानांमध्ये दाखवले जातात.</p><div id="edition-list" class="edition-list"><div class="rail-loading">अंक लोड होत आहेत…</div></div></div></div>
-<div class="zoom-view" id="zoom-view" aria-hidden="true"><div class="zoom-view-backdrop" id="zoom-view-backdrop"></div><div class="zoom-view-topbar"><div class="zoom-view-title"><b>मेट्रोसिटी पोस्ट</b><span id="zoom-view-label">पान 1 / 1</span></div><div class="zoom-view-actions"><button id="zoom-view-download" type="button" aria-label="पान डाउनलोड करा">↓</button><button id="zoom-view-close" type="button" aria-label="झूम व्ह्यू बंद करा">×</button></div></div><button class="zoom-view-nav zoom-view-prev" id="zoom-view-prev" type="button" aria-label="मागील पान">‹</button><div class="zoom-view-stage" id="zoom-view-stage"><img id="zoom-view-image" alt="मेट्रोसिटी पोस्ट वृत्तपत्राचे पान"></div><button class="zoom-view-nav zoom-view-next" id="zoom-view-next" type="button" aria-label="पुढील पान">›</button></div>
-<div class="fullscreen-reader" id="fullscreen-reader" aria-hidden="true"><div class="fullscreen-bar"><button class="fs-nav" id="fs-prev" type="button" aria-label="मागील पान">‹</button><div class="fs-center"><b>मेट्रोसिटी पोस्ट</b><span id="fullscreen-label">पान 1 / 1</span></div><div class="fs-actions"><button class="fs-nav" id="fs-next" type="button" aria-label="पुढील पान">›</button><button class="fs-zoom" id="fs-zoom-out" type="button" aria-label="लहान करा">−</button><span class="fs-zoom-value" id="fs-zoom-value">100%</span><button class="fs-zoom" id="fs-zoom-in" type="button" aria-label="मोठे करा">+</button><button class="fs-fit" id="fs-fit" type="button" aria-label="फिट">फिट</button><button class="fs-download" id="fs-download" type="button" aria-label="पान डाउनलोड करा">↓</button><button class="fs-close" id="fullscreen-close" type="button" aria-label="बंद करा">×</button></div></div><div class="fullscreen-stage" id="fullscreen-stage"><img id="fullscreen-image" alt="वृत्तपत्राचे पान"></div></div>
-
-<footer class="footer home-footer">
-  <div><div class="brand"><span>मेट्रोसिटी</span> <b>पोस्ट</b></div><p>विश्वसनीय • स्थानिक • तत्पर</p></div>
-  <div><b>वाचा</b><a href="#latest">सर्वात नवीन</a><a href="#epaper-section">ई-पेपर</a></div>
-  <div><b>संपर्क</b><a href="mailto:metrocitypost@gmail.com">ई-मेल</a><a href="login.html">प्रशासक लॉगिन</a></div>
-</footer>
-<div class="copyright">© २०२६ मेट्रोसिटी पोस्ट</div>
-<script src="supabase-config.js?v=20260910-v29"></script>
-<script src="script.js?v=20260910-v29"></script>
-<script src="homepage.js?v=20260910-v30"></script>
-</body>
-</html>
+<div class="date-drawer" id="date-drawer" aria-hidden="true"><div class="date-panel"><div class="date-panel-head"><div><span class="eyebrow">ई-पेपर</span><h2>दैनिक अंक निवडा</h2></div><button id="date-close" type="button">×</button></div><div id="edition-list" class="edition-list"><div class="rail-loading">अंक लोड होत आहेत…</div></div></div></div>
+<div class="zoom-view" id="zoom-view" aria-hidden="true"><div class="zoom-view-backdrop" id="zoom-view-backdrop"></div><div class="zoom-view-topbar"><div><b>लोकमत</b><span id="zoom-view-label">पान 1 / 1</span></div><div><button id="zoom-view-download" type="button">↓</button><button id="zoom-view-close" type="button">×</button></div></div><button class="zoom-view-nav zoom-view-prev" id="zoom-view-prev" type="button">‹</button><div class="zoom-view-stage" id="zoom-view-stage"><img id="zoom-view-image" alt="लोकमत वृत्तपत्राचे पान"></div><button class="zoom-view-nav zoom-view-next" id="zoom-view-next" type="button">›</button></div>
+<div class="fullscreen-reader" id="fullscreen-reader" aria-hidden="true"><div class="fullscreen-bar"><button class="fs-nav" id="fs-prev" type="button">‹</button><div><b>लोकमत</b><span id="fullscreen-label">पान 1 / 1</span></div><div class="fs-actions"><button class="fs-nav" id="fs-next" type="button">›</button><button id="fs-zoom-out" type="button">−</button><span id="fs-zoom-value">100%</span><button id="fs-zoom-in" type="button">+</button><button id="fs-fit" type="button">फिट</button><button id="fs-download" type="button">↓</button><button id="fullscreen-close" type="button">×</button></div></div><div class="fullscreen-stage" id="fullscreen-stage"><img id="fullscreen-image" alt="लोकमत वृत्तपत्राचे पान"></div></div>
+<footer><div class="container footer-grid"><div><div class="footer-logo"><span>लोक</span><b>मत</b></div><p>विश्वसनीय बातम्या • स्थानिक घडामोडी</p></div><div><b>वाचा</b><a href="#latest">ताज्या बातम्या</a><a href="#epaper-section">ई-पेपर</a></div><div><b>संपर्क</b><a href="mailto:info@example.com">ई-मेल</a><a href="login.html">प्रशासक लॉगिन</a></div></div><div class="copyright">© २०२६ लोकमत • सर्व हक्क राखीव</div></footer>
+<script src="supabase-config.js?v=20260910-lokmat1"></script><script src="reader.js?v=20260910-lokmat1"></script><script src="homepage.js?v=20260910-lokmat1"></script>
+</body></html>

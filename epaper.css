@@ -70,3 +70,11 @@ button,a{font:inherit}
 .fullscreen-stage img.fs-zoomed{max-width:none;cursor:grab}
 @media(max-width:800px){.fs-actions{gap:3px}.fs-zoom,.fs-fit{width:34px;height:34px;min-width:34px;padding:0}.fs-zoom-value{height:34px;min-width:40px;font-size:10px}.fs-download{display:inline-flex;width:34px;height:34px;align-items:center;justify-content:center}.fullscreen-bar{padding:0 5px}.fs-actions{right:5px}.fs-nav{width:34px;height:34px}.fs-center{font-size:10px}}
 @media(max-width:430px){.fs-center{display:none}.fs-actions{left:50%;right:auto;transform:translateX(-50%)}.fullscreen-bar>#fs-prev{position:absolute;left:5px}.fs-zoom,.fs-fit,.fs-download,.fs-close,.fs-nav{width:32px;height:32px;min-width:32px}.fs-zoom-value{height:32px;min-width:38px}}
+
+/* Lokmat integration polish */
+.epaper-section .reader-shell{border:1px solid #d3d5d8;background:#f0f1f3}
+.epaper-section .reader-topline{display:flex;justify-content:space-between;gap:18px;align-items:center;background:#fff;border:1px solid #d8d8d8;border-bottom:0;padding:18px 20px}
+.epaper-section .reader-kicker{display:block;color:#b40018;font-weight:900;font-size:12px}
+.epaper-section .reader-topline h2{margin:4px 0;font-size:25px}.epaper-section .reader-topline p{margin:0;color:#777;font-size:13px}
+.date-button{border:1px solid #cfd1d4;background:#fff;padding:11px 14px;font-weight:800;cursor:pointer}.date-button:hover{border-color:#b40018;color:#b40018}
+@media(max-width:700px){.epaper-section .reader-topline{align-items:flex-start}.epaper-section .reader-topline h2{font-size:20px}.date-button{font-size:12px;padding:9px}.epaper-section .page-rail{display:none}}

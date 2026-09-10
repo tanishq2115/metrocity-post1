@@ -1,105 +1,26 @@
 (() => {
-  const URL = window.METROCITY_SUPABASE_URL;
-  const KEY = window.METROCITY_SUPABASE_KEY;
-  const API = `${URL}/rest/v1`;
+  const URL = window.METROCITY_SUPABASE_URL, KEY = window.METROCITY_SUPABASE_KEY, API = `${URL}/rest/v1`;
   const $ = s => document.querySelector(s);
-  const esc = v => String(v ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
-  const safeUrl = v => { try { const u = new URL(v, location.href); return /^https?:$/.test(u.protocol) ? u.href : ''; } catch { return ''; } };
-  const get = async path => { const r = await fetch(API + path, { headers: { apikey: KEY, Authorization: `Bearer ${KEY}` }, cache: 'no-store' }); if (!r.ok) throw new Error(`Supabase ${r.status}`); return r.json(); };
-  const stamp = v => { const t = new Date(v || 0).getTime(); return Number.isFinite(t) ? t : 0; };
-  const dateKey = v => { const d = new Date(v); if (Number.isNaN(d.getTime())) return ''; return new Intl.DateTimeFormat('en-CA', { timeZone:'Asia/Kolkata', year:'numeric', month:'2-digit', day:'2-digit' }).format(d); };
-  const dateLabel = v => { const d = new Date(v); if (Number.isNaN(d.getTime())) return ''; return new Intl.DateTimeFormat('mr-IN', { timeZone:'Asia/Kolkata', day:'numeric', month:'long', year:'numeric' }).format(d); };
-  const timeLabel = v => { const d = new Date(v); if (Number.isNaN(d.getTime())) return ''; return new Intl.DateTimeFormat('mr-IN', { timeZone:'Asia/Kolkata', hour:'numeric', minute:'2-digit', hour12:true }).format(d); };
-  const shortText = (v, n=160) => { const s = String(v || '').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim(); return s.length > n ? s.slice(0,n-1) + '…' : s; };
-  const slugLink = slug => `news.html?slug=${encodeURIComponent(slug || '')}`;
-
-  function normalize(row) {
-    const category = row.categories;
-    return { ...row, category_name: typeof category === 'object' && category ? category.name : '' };
-  }
-
-  function groupEpapers(rows) {
-    const map = new Map();
-    [...(rows || [])].sort((a,b) => stamp(b.published_at || b.created_at) - stamp(a.published_at || a.created_at)).forEach(row => {
-      const key = dateKey(row.published_at || row.created_at); if (!key) return;
-      if (!map.has(key)) map.set(key, { type:'epaper', dateKey:key, items:[], latestAt:row.published_at || row.created_at, first:row });
-      map.get(key).items.push(row);
-    });
-    return [...map.values()];
-  }
-
-  function unified(epapers, written) {
-    return [
-      ...epapers.map(g => ({ type:'epaper', sortAt:g.latestAt, group:g })),
-      ...written.map(row => ({ type:'written', sortAt:row.published_at || row.created_at, row }))
-    ].sort((a,b) => stamp(b.sortAt) - stamp(a.sortAt));
-  }
-
-  function writtenCard(n) {
-    const img = safeUrl(n.main_image_url), href = slugLink(n.slug);
-    return `<article class="home-story"><a href="${esc(href)}" class="written-card-link"><span class="home-story-media ${img?'':'no-image'}">${img?`<img src="${esc(img)}" alt="" loading="lazy">`:'📝'}</span><span class="home-story-body"><span class="story-meta"><span class="tag">${esc(n.category_name || 'बातमी')}</span><span class="story-time">${esc(timeLabel(n.published_at || n.created_at))}</span></span><h3>${esc(n.headline || 'बातमी')}</h3><p>${esc(shortText(n.subheadline || n.content || '',120))}</p><span class="read-more">बातमी वाचा <span>→</span></span></span></a></article>`;
-  }
-
-  function renderWritten(items) {
-    const box = $('#written-list'); if (!box) return;
-    if (!items.length) { box.innerHTML = '<div class="empty written-empty">अजून लिखित बातम्या प्रकाशित झालेल्या नाहीत.</div>'; return; }
-    box.innerHTML = items.slice(0,8).map(writtenCard).join('');
-  }
-
-  function writtenLatest(item) {
-    const n=item.row, img=safeUrl(n.main_image_url), href=slugLink(n.slug);
-    return `<article class="latest-written"><a class="latest-visual" href="${esc(href)}">${img?`<img src="${esc(img)}" alt="${esc(n.headline || 'बातमी')}" fetchpriority="high">`:'📝'}<span class="latest-type">📝 लिखित बातमी</span></a><div class="latest-copy"><span class="section-kicker">${esc(n.category_name || 'ताजी बातमी')}</span><h2>${esc(n.headline || 'ताजी बातमी')}</h2><p>${esc(shortText(n.subheadline || n.content || '',220))}</p><div class="meta-line">प्रकाशित ${esc(dateLabel(n.published_at || n.created_at))} • ${esc(timeLabel(n.published_at || n.created_at))}</div><a class="latest-action" href="${esc(href)}">संपूर्ण बातमी वाचा →</a></div></article>`;
-  }
-
-  function renderLatest(item) {
-    const box=$('#latest-content'), ep=$('#epaper-section'), written=$('#written');
-    if (!box || !ep) return;
-    if (!item) { box.innerHTML='<div class="empty">अजून कोणतेही प्रकाशित कंटेंट उपलब्ध नाही.</div>'; return; }
-    if (item.type === 'epaper') {
-      // The reader itself is the latest item. Do not show a placeholder card or open another page.
-      box.innerHTML='';
-      ep.classList.add('latest-embedded-epaper');
-      box.appendChild(ep);
-      $('#epaper-section-status').textContent='सर्वात नवीन • ई-पेपर';
-    } else {
-      box.innerHTML=writtenLatest(item);
-      ep.classList.remove('latest-embedded-epaper');
-      if (written) written.insertAdjacentElement('afterend',ep);
-      $('#epaper-section-status').textContent='दैनिक अंक';
-    }
-  }
-
-  function renderTicker(items) {
-    const box=$('#ticker'); if (!box) return;
-    const top=items.slice(0,5);
-    if (!top.length) { box.innerHTML='<span>अजून बातम्या उपलब्ध नाहीत.</span>'; return; }
-    box.innerHTML=top.map(item => {
-      const label=item.type==='epaper' ? 'ई-पेपर' : (item.row.category_name || 'बातमी');
-      const title=item.type==='epaper' ? `मेट्रोसिटी पोस्ट • ${dateLabel(item.group.latestAt)} चा ई-पेपर` : (item.row.headline || 'ताजी बातमी');
-      return `<span class="ticker-item"><b>${esc(label)}</b> ${esc(title)}</span>`;
-    }).join('');
-  }
-
-  async function init() {
-    const today=$('#today-label'); if (today) today.textContent=dateLabel(new Date());
-    try {
-      const rows=await get('/news?select=id,slug,headline,subheadline,content,location,main_image_url,epaper_layout,published_at,created_at,categories(name)&status=eq.published&order=published_at.desc.nullslast,created_at.desc.nullslast&limit=200');
-      const all=(rows||[]).map(normalize).sort((a,b)=>stamp(b.published_at||b.created_at)-stamp(a.published_at||a.created_at));
-      const epapers=all.filter(n=>n.epaper_layout==='direct-newspaper');
-      const written=all.filter(n=>n.epaper_layout!=='direct-newspaper');
-      const groups=groupEpapers(epapers);
-      const feed=unified(groups,written);
-      renderLatest(feed[0]);
-      renderWritten(written);
-      renderTicker(feed);
-      const updated=$('#latest-updated'); if(updated && feed[0]) updated.textContent=`अपडेट ${timeLabel(feed[0].sortAt)}`;
-      if (window.MetroEpaper && typeof window.MetroEpaper.loadRows==='function') await window.MetroEpaper.loadRows(epapers);
-    } catch (e) {
-      console.error('Metrocity homepage load failed:', e);
-      const latest=$('#latest-content'); if(latest) latest.innerHTML='<div class="load-error">माहिती लोड करता आली नाही. कृपया इंटरनेट कनेक्शन तपासा आणि पुन्हा प्रयत्न करा.</div>';
-      const written=$('#written-list'); if(written) written.innerHTML='<div class="load-error">लिखित बातम्या लोड करता आल्या नाहीत.</div>';
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', init);
+  const esc = v => String(v ?? '').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+  const safeUrl=v=>{try{const u=new URL(v,location.href);return /^https?:$/.test(u.protocol)?u.href:''}catch{return ''}};
+  const get=async path=>{const r=await fetch(API+path,{headers:{apikey:KEY,Authorization:`Bearer ${KEY}`},cache:'no-store'});if(!r.ok)throw new Error(`Supabase ${r.status}`);return r.json()};
+  const stamp=v=>{const n=new Date(v||0).getTime();return Number.isFinite(n)?n:0};
+  const time=v=>new Intl.DateTimeFormat('mr-IN',{timeZone:'Asia/Kolkata',hour:'numeric',minute:'2-digit',hour12:true}).format(new Date(v));
+  const date=v=>new Intl.DateTimeFormat('mr-IN',{timeZone:'Asia/Kolkata',day:'numeric',month:'long',year:'numeric'}).format(new Date(v));
+  const dateKey=v=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Kolkata',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(v));
+  const text=(v,n=170)=>{const s=String(v||'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();return s.length>n?s.slice(0,n-1)+'…':s};
+  const normalize=r=>({...r,category_name:r.categories&&typeof r.categories==='object'?r.categories.name:''});
+  const groupEpapers=rows=>{const map=new Map();[...(rows||[])].sort((a,b)=>stamp(b.published_at||b.created_at)-stamp(a.published_at||a.created_at)).forEach(r=>{const k=dateKey(r.published_at||r.created_at);if(!map.has(k))map.set(k,{type:'epaper',dateKey:k,items:[],latestAt:r.published_at||r.created_at});map.get(k).items.push(r)});return [...map.values()]};
+  const unified=(groups,written)=>[...groups.map(g=>({type:'epaper',sortAt:g.latestAt,group:g})),...written.map(r=>({type:'written',sortAt:r.published_at||r.created_at,row:r}))].sort((a,b)=>stamp(b.sortAt)-stamp(a.sortAt));
+  const link=r=>`news.html?slug=${encodeURIComponent(r.slug||'')}`;
+  function card(r,large=false){const img=safeUrl(r.main_image_url);return `<article class="story-card ${large?'large':''}"><a href="${esc(link(r))}"><div class="story-img ${img?'':'no-img'}">${img?`<img src="${esc(img)}" alt="" loading="lazy">`:'📰'}</div><div class="story-content"><div class="story-meta"><span>${esc(r.category_name||'बातमी')}</span><time>${esc(time(r.published_at||r.created_at))}</time></div><h3>${esc(r.headline||'बातमी')}</h3><p>${esc(text(r.subheadline||r.content||'',large?180:105))}</p></div></a></article>`}
+  function renderWritten(rows){const box=$('#written-list');if(!box)return;if(!rows.length){box.innerHTML='<div class="loading-box">अजून लिखित बातम्या प्रकाशित झालेल्या नाहीत.</div>';return}box.innerHTML=rows.slice(0,10).map((r,i)=>card(r,i===0)).join('')}
+  function renderTop(rows){const box=$('#top-stories');if(!box)return;box.innerHTML=rows.slice(0,3).map(r=>card(r)).join('')||'<div class="loading-box">प्रमुख बातम्या लोड होत आहेत…</div>'}
+  function renderMini(target,rows){const box=$(target);if(!box)return;box.innerHTML=rows.slice(0,4).map(r=>{const img=safeUrl(r.main_image_url);return `<a class="mini-story" href="${esc(link(r))}">${img?`<img src="${esc(img)}" alt="" loading="lazy">`:'<span class="mini-placeholder">•</span>'}<span><b>${esc(r.headline||'बातमी')}</b><small>${esc(time(r.published_at||r.created_at))}</small></span></a>`}).join('')||'<div class="loading-box">अजून बातम्या नाहीत.</div>'}
+  function renderRanks(rows){const box=$('#trending-list');if(!box)return;box.innerHTML=rows.slice(0,5).map((r,i)=>`<li><a href="${esc(link(r))}"><span>${String(i+1).padStart(2,'0')}</span><b>${esc(r.headline||'बातमी')}</b></a></li>`).join('')||'<li>अजून बातम्या नाहीत.</li>'}
+  function renderCategory(id,rows,name){const box=$(id);if(!box)return;box.innerHTML=rows.filter(r=>(r.category_name||'').toLowerCase().includes(name)).slice(0,2).map(r=>`<a href="${esc(link(r))}">${esc(r.headline||'बातमी')} <span>→</span></a>`).join('')||'<span class="muted">लवकरच बातम्या.</span>'}
+  function renderLatest(item){const box=$('#latest-content'),ep=$('#epaper-section');if(!box||!ep)return;if(!item){box.innerHTML='<div class="empty-latest">अजून प्रकाशित कंटेंट उपलब्ध नाही.</div>';return}if(item.type==='written'){const r=item.row,img=safeUrl(r.main_image_url);box.className='latest-grid latest-written-first';box.innerHTML=`<article class="lead-story"><a href="${esc(link(r))}"><div class="lead-image ${img?'':'no-img'}">${img?`<img src="${esc(img)}" alt="${esc(r.headline||'')}" fetchpriority="high">`:'📰' }<span>📝 लिखित बातमी</span></div><div class="lead-body"><div class="story-meta"><b>${esc(r.category_name||'ताजी बातमी')}</b><time>${esc(date(r.published_at||r.created_at))} • ${esc(time(r.published_at||r.created_at))}</time></div><h2>${esc(r.headline||'ताजी बातमी')}</h2><p>${esc(text(r.subheadline||r.content||'',260))}</p><strong>संपूर्ण बातमी वाचा →</strong></div></a></article>`;ep.classList.remove('latest-mounted');}else{box.className='latest-grid latest-epaper-first';box.innerHTML='';box.appendChild(ep);ep.classList.add('latest-mounted');$('#epaper-section-status').textContent='सर्वात नवीन • ई-पेपर';}}
+  function ticker(feed){const box=$('#ticker');if(!box)return;box.innerHTML=feed.slice(0,7).map(x=>`<span class="ticker-item"><b>${x.type==='epaper'?'ई-पेपर':esc(x.row.category_name||'बातमी')}</b> ${esc(x.type==='epaper'?`आजचा डिजिटल अंक — ${date(x.sortAt)}`:(x.row.headline||'ताजी बातमी'))}</span>`).join('')||'<span>अजून बातम्या उपलब्ध नाहीत.</span>'}
+  async function init(){const t=$('#today-label');if(t)t.textContent=date(new Date());try{const rows=(await get('/news?select=id,slug,headline,subheadline,content,location,main_image_url,epaper_layout,published_at,created_at,categories(name)&status=eq.published&order=published_at.desc.nullslast,created_at.desc.nullslast&limit=200')).map(normalize).sort((a,b)=>stamp(b.published_at||b.created_at)-stamp(a.published_at||a.created_at));const written=rows.filter(r=>r.epaper_layout!=='direct-newspaper'),epapers=rows.filter(r=>r.epaper_layout==='direct-newspaper'),groups=groupEpapers(epapers),feed=unified(groups,written);renderLatest(feed[0]);renderTop(written);renderWritten(written);renderMini('#local-list',written);renderRanks(written);renderCategory('#politics-list',written,'राज');renderCategory('#sports-list',written,'क्री');renderCategory('#business-list',written,'व्यव');renderCategory('#entertainment-list',written,'मनोर');ticker(feed);if(feed[0])$('#latest-updated').textContent=`अपडेट ${time(feed[0].sortAt)}`;if(window.MetroEpaper?.loadRows)await window.MetroEpaper.loadRows(epapers);}catch(e){console.error('Lokmat homepage error',e);$('#latest-content').innerHTML='<div class="error-box">माहिती लोड करता आली नाही. कृपया पुन्हा प्रयत्न करा.</div>';$('#written-list').innerHTML='<div class="error-box">बातम्या लोड करता आल्या नाहीत.</div>';}}
+  document.addEventListener('DOMContentLoaded',()=>{init();$('#menu-btn')?.addEventListener('click',()=>$('#category-nav')?.classList.toggle('open'));});
 })();
