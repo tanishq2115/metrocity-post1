@@ -1,222 +1,48 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="mr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#b91c1c">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
 <meta name="description" content="मेट्रोसिटी पोस्ट — आधुनिक डिजिटल मराठी ई-पेपर.">
-<title>मेट्रोसिटी पोस्ट | Metrocity Post ePaper</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
-<style>
-:root{--red:#b91c1c;--red-dark:#991b1b;--line:#e5e7eb;--ink:#1f2937;--muted:#6b7280}
-body{font-family:'Noto Sans Devanagari',sans-serif;background:#f5f5f4;color:var(--ink)}
-.brand-title,.brand-mark{font-family:'Yatra One','Playfair Display',serif}
-.paper-wrap{background:#f5f4f0;min-height:72vh}
-.reader-card{background:#fff;border:1px solid #d1d5db;box-shadow:0 10px 35px rgba(0,0,0,.08)}
-.newspaper-border{border-bottom:4px double #1f2937}
-.page-thumb{border:1px solid #d1d5db;background:#fff;border-radius:9px;padding:3px;transition:.18s;cursor:pointer}
-.page-thumb:hover{border-color:#ef4444}.page-thumb.active{border:2px solid #b91c1c;padding:2px;box-shadow:0 0 0 2px rgba(185,28,28,.12)}
-.page-thumb img{display:block;width:100%;height:auto;border-radius:5px;object-fit:contain}.page-thumb span{display:block;font-size:10px;text-align:center;padding:4px 0 2px;color:#6b7280}.page-thumb.active span{color:#b91c1c;font-weight:800}
-.paper-viewport{position:relative;min-height:calc(100vh - 310px);display:flex;align-items:flex-start;justify-content:center;padding:76px 28px 34px;overflow:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y pan-x}
-.paper-viewport>img{display:block;width:auto;height:auto;max-width:100%;max-height:calc(100vh - 360px);object-fit:contain;background:#fff;box-shadow:0 12px 38px rgba(0,0,0,.16);user-select:none;-webkit-user-drag:none;transform-origin:top center;transition:transform .12s ease}
-.paper-viewport>img.zoomed{max-width:none;max-height:none;cursor:grab}.paper-viewport.is-zoomed{align-items:flex-start}
-.paper-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:10px;color:#6b7280;font-size:12px;background:rgba(255,255,255,.75);z-index:2}.spinner{width:28px;height:28px;border:3px solid #e5e7eb;border-top-color:#b91c1c;border-radius:50%;animation:spin .75s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
-.paper-empty[hidden]{display:none!important}.paper-empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:30px;color:#6b7280}.paper-empty h2{color:#1f2937;font-size:20px;margin:8px 0 4px}.paper-empty p{font-size:12px;margin:0}
-.stage-toolbar{position:absolute;z-index:5;top:12px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:3px;padding:5px;background:rgba(255,255,255,.96);border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.10);backdrop-filter:blur(10px)}
-.stage-toolbar button{height:32px;min-width:34px;padding:0 8px;border:0;border-radius:8px;background:transparent;color:#1f2937;font-weight:800}.stage-toolbar button:hover{background:#f3f4f6}.stage-toolbar span{font-size:11px;color:#6b7280;min-width:42px;text-align:center}.toolbar-sep{width:1px;height:18px;background:#e5e7eb;margin:0 3px}
-.mobile-page-nav{display:none}
-.date-drawer{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.28);opacity:0;pointer-events:none;transition:.2s;display:flex;justify-content:flex-end}.date-drawer.open{opacity:1;pointer-events:auto}.date-panel{height:100%;width:min(430px,92vw);background:#fff;padding:24px;overflow:auto;transform:translateX(20px);transition:.22s}.date-drawer.open .date-panel{transform:none}.edition-item{width:100%;text-align:left;border:1px solid #e5e7eb;background:#fff;border-radius:12px;padding:13px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px}.edition-item:hover,.edition-item.active{border-color:#ef4444;background:#fff5f5}.edition-item b{font-size:13px}.edition-item small{display:block;color:#6b7280;font-size:10px;margin-top:3px}.edition-arrow{font-size:20px;color:#888}
-.fullscreen-reader{position:fixed;inset:0;z-index:999;background:#111;display:none;flex-direction:column}.fullscreen-reader.open{display:flex}.fullscreen-bar{height:56px;flex:0 0 56px;display:flex;align-items:center;justify-content:center;position:relative;padding:0 12px;background:rgba(255,255,255,.98);border-bottom:1px solid #e5e7eb}.fs-center{display:flex;align-items:center;gap:10px;font-size:12px}.fs-center span{color:#6b7280;font-weight:700}.fs-actions{position:absolute;right:10px;display:flex;gap:6px}.fs-nav,.fs-download,.fs-close{width:38px;height:38px;border:1px solid #d1d5db;background:#fff;color:#1f2937;border-radius:9px;font-size:21px;font-weight:800}.fs-nav:disabled{opacity:.35}.fullscreen-stage{flex:1;min-height:0;overflow:auto;display:flex;align-items:flex-start;justify-content:center;padding:16px 14px 28px;-webkit-overflow-scrolling:touch;touch-action:pan-y pan-x}.fullscreen-stage img{display:block;width:auto;height:auto;max-width:min(100%,1200px);object-fit:contain;background:#fff;box-shadow:0 12px 45px rgba(0,0,0,.4)}
-.recent-card{display:flex;align-items:center;gap:12px;text-align:left;border:1px solid #e5e7eb;background:#fff;border-radius:13px;padding:10px;transition:.18s;color:#1f2937;width:100%}.recent-card:hover{border-color:#fca5a5;transform:translateY(-1px)}.recent-thumb{width:64px;height:82px;flex:0 0 64px;background:#f3f4f6;border-radius:7px;overflow:hidden;display:flex;align-items:flex-start;justify-content:center}.recent-thumb img{width:100%;height:auto;display:block}.recent-card b{display:block;font-size:12px;line-height:1.45}.recent-card small{display:block;color:#6b7280;font-size:10px;margin-top:4px}.recent-arrow{margin-left:auto;color:#888;font-size:19px}
-@media(max-width:800px){.paper-viewport{min-height:0;overflow:visible;padding:58px 10px 18px}.paper-viewport>img{width:100%;max-width:100%;max-height:none;box-shadow:0 8px 28px rgba(0,0,0,.14)}.paper-viewport.is-zoomed{overflow:auto;max-height:calc(100vh - 190px)}.paper-viewport>img.zoomed{width:auto;max-width:none}.mobile-page-nav{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;border-top:1px solid #e5e7eb;background:#fff}.mobile-page-nav button{border:0;background:#f3f4f6;color:#1f2937;border-radius:8px;padding:7px 10px;font-size:11px;font-weight:800}.mobile-page-nav span{font-size:11px;color:#6b7280}.stage-toolbar{top:8px;left:auto;right:8px;transform:none}.stage-toolbar .toolbar-sep{display:none}.fullscreen-bar{height:54px;flex-basis:54px}.fs-center b{display:none}.fs-download{display:none}.fullscreen-stage{padding:12px 8px 26px}.fullscreen-stage img{max-width:100%;box-shadow:none}.date-panel{padding:18px;width:min(420px,94vw)}}
-
-/* V21: reader-first layout */
-.reader-card{overflow-anchor:none;}
-.below-reader{display:grid;gap:12px;}
-.page-switcher{display:flex;align-items:center;justify-content:center;gap:12px;}
-.page-switcher button{width:48px;height:44px;border:1px solid #d1d5db;border-radius:12px;background:#fff;color:#1f2937;font-size:28px;font-weight:800;box-shadow:0 3px 10px rgba(0,0,0,.05);}
-.page-switcher button:not(:disabled):hover{border-color:#b91c1c;color:#b91c1c;background:#fff7f7;}
-.page-switcher button:disabled{opacity:.35;cursor:not-allowed;}
-.page-counter{min-width:92px;height:44px;display:flex;align-items:center;justify-content:center;gap:7px;border:1px solid #e5e7eb;border-radius:12px;background:#fff;color:#6b7280;font-size:14px;box-shadow:0 3px 10px rgba(0,0,0,.04);}
-.page-counter strong{font-size:17px;color:#1f2937;}
-.page-list-card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:13px;}
-.page-list-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;}
-.page-list-head b{display:block;font-size:13px;color:#1f2937;}
-.page-list-head span{display:block;color:#8a9099;font-size:10px;font-weight:500;margin-top:2px;}
-.page-list-head>strong{font-size:11px;color:#6b7280;white-space:nowrap;}
-.thumbnails-bottom{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 5px;scrollbar-width:thin;}
-.thumbnails-bottom .thumb{width:92px;min-width:92px;}
-@media(min-width:801px){.thumbnails-bottom{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));overflow:visible;}.thumbnails-bottom .thumb{width:auto;min-width:0;}.below-reader{margin-top:14px;}}
-@media(max-width:800px){.paper-viewport{overflow:visible!important;}.reader-card{overflow:hidden;}.page-list-card{padding:11px;}.page-list-head{align-items:flex-end;}.page-list-head span{max-width:230px;}.thumbnails-bottom .thumb{width:88px;min-width:88px;}.page-switcher button{width:46px;height:42px;}.page-counter{height:42px;min-width:86px;}}
-</style>
-
-/* V24: strict mobile fit. At 100%, the newspaper is exactly the available viewport width. */
-@media (max-width: 800px){
-  html,body{width:100%;max-width:100%;overflow-x:hidden!important;}
-  .reader-shell{width:100%!important;max-width:100%!important;overflow:visible!important;}
-  .reader-card{width:100%!important;max-width:100%!important;min-width:0!important;overflow:hidden!important;}
-  .paper-stage{width:100%!important;max-width:100%!important;min-width:0!important;overflow:visible!important;}
-  .paper-viewport{width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;display:block!important;overflow-x:hidden!important;overflow-y:visible!important;padding-left:8px!important;padding-right:8px!important;}
-  .paper-viewport>img{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;height:auto!important;margin:0!important;transform:none!important;}
-  .paper-viewport.is-zoomed{overflow:auto!important;max-width:100%!important;}
-  .paper-viewport.is-zoomed>img{max-width:none!important;}
-}
-
+<title>मेट्रोसिटी पोस्ट | ई-पेपर</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="epaper.css?v=20260910-v25">
 </head>
-<body class="bg-stone-100 text-gray-900">
-
-<div id="pwa-prompt" class="bg-gradient-to-r from-red-700 to-red-900 text-white text-sm px-4 py-2.5 flex justify-between items-center z-50 shadow-md">
-  <div class="flex items-center gap-2"><i class="fa-solid fa-mobile-screen-button"></i><span>अधिक चांगल्या अनुभवासाठी <strong>मेट्रोसिटी पोस्ट</strong> ॲप होम स्क्रीनवर जोडा!</span></div>
-  <div class="flex gap-4 items-center"><button id="btn-install" class="bg-white text-red-900 px-3 py-1 rounded-md text-xs font-bold">इन्स्टॉल करा</button><button id="btn-dismiss" class="text-white/80"><i class="fa-solid fa-xmark"></i></button></div>
-</div>
-
-<header class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
-  <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-    <div class="flex items-center gap-4">
-      <button class="text-gray-600 md:hidden" type="button" aria-label="मेनू"><i class="fa-solid fa-bars text-xl"></i></button>
-      <a href="index.html" class="flex flex-col no-underline">
-        <h1 class="brand-title text-3xl md:text-4xl font-extrabold tracking-tight text-red-700 select-none">मेट्रोसिटी पोस्ट</h1>
-        <span class="text-[10px] text-gray-500 uppercase tracking-widest font-bold -mt-1 hidden sm:block">Metrocity Post</span>
-      </a>
-    </div>
-    <div class="hidden md:flex items-center gap-6 text-sm text-gray-600"><span><i class="fa-regular fa-calendar-days mr-1"></i> <strong id="current-date-display">आजचा अंक</strong></span><span class="bg-red-50 text-red-700 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">मुख्य आवृत्ती</span></div>
-    <div class="flex items-center gap-2 sm:gap-3">
-      <div class="text-right hidden sm:block"><p class="text-[11px] text-gray-400">स्वागत आहे,</p><p class="text-xs font-bold text-gray-700">अतिथी (Guest)</p></div>
-      <a href="login.html" class="bg-gray-100 text-gray-700 hover:bg-red-700 hover:text-white px-4 py-2 rounded-sm text-sm font-semibold transition flex items-center gap-2"><i class="fa-solid fa-right-to-bracket"></i><span class="hidden xs:inline">लॉगिन</span></a>
-    </div>
+<body class="epaper-site">
+<header class="reader-topbar" style="height:64px;background:#fff;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(14px,3vw,42px);position:sticky;top:0;z-index:40">
+  <a href="index.html" class="brand-mark" aria-label="मेट्रोसिटी पोस्ट मुख्यपृष्ठ" style="font-size:28px;color:#1f2937;text-decoration:none"><span>मेट्रोसिटी</span> <b style="color:#b91c1c">पोस्ट</b></a>
+  <div class="reader-actions" style="display:flex;gap:6px">
+    <button class="tool-btn" id="date-open" type="button" aria-label="अंक निवडा" style="height:40px;border:1px solid #d1d5db;border-radius:4px;background:#fff;padding:0 12px">📅 <span>अंक</span></button>
+    <button class="tool-btn" id="share-btn" type="button" aria-label="शेअर करा" style="height:40px;border:1px solid #d1d5db;border-radius:4px;background:#fff;padding:0 12px">↗ <span>शेअर</span></button>
+    <a class="tool-btn login-tool" href="login.html" aria-label="लॉगिन" style="height:40px;border:1px solid #d1d5db;border-radius:4px;background:#fff;padding:0 12px;text-decoration:none;color:#1f2937">⇥ <span>लॉगिन</span></a>
   </div>
 </header>
-
-<section class="bg-white border-b border-gray-200 py-2.5 shadow-sm">
-  <div class="max-w-7xl mx-auto px-4 flex items-center justify-between gap-3">
-    <div class="text-xs text-gray-500"><span class="font-bold text-red-700">मेट्रोसिटी पोस्ट</span> • दैनिक ई-पेपर</div>
-    <button id="date-open" type="button" class="border border-gray-300 rounded-sm px-3 py-1.5 text-sm bg-gray-50 font-medium"><i class="fa-regular fa-calendar-days mr-1"></i> अंक निवडा</button>
-  </div>
-</section>
-
-<main class="max-w-7xl mx-auto px-4 py-5">
-  <div class="mb-4">
-    <span class="text-xs font-bold text-red-700 uppercase tracking-widest">मेट्रोसिटी पोस्ट • ई-पेपर</span>
-    <h2 id="edition-title" class="brand-title text-3xl md:text-4xl font-black text-gray-900 mt-1">आजचा अंक</h2>
-    <p id="edition-date" class="text-sm text-gray-500 mt-1">अंक लोड होत आहे…</p>
-  </div>
-
-  <!-- Reader first: the newspaper is the primary focus. -->
-  <section>
-    <div class="reader-card overflow-hidden relative">
-      <div class="paper-viewport" id="paper-viewport">
-        <div class="stage-toolbar">
-          <button id="zoom-out-top" type="button" aria-label="लहान करा">−</button>
-          <span id="zoom-value-top">100%</span>
-          <button id="zoom-in-top" type="button" aria-label="मोठे करा">+</button>
-          <span class="toolbar-sep"></span>
-          <button id="fit-top" type="button">फिट</button>
-          <button id="download-top" type="button" aria-label="डाउनलोड">↓</button>
-          <button id="fullscreen-top" type="button" aria-label="पूर्ण स्क्रीन">⛶</button>
-        </div>
-        <div class="paper-loading" id="paper-loading"><div class="spinner"></div><span>ई-पेपर लोड होत आहे…</span></div>
-        <img id="paper-image" alt="मेट्रोसिटी पोस्ट वृत्तपत्राचे पान" draggable="false">
-        <div class="paper-empty" id="paper-empty" hidden><div><div class="text-4xl">📰</div><h2>ई-पेपर उपलब्ध नाही</h2><p>या दिवसासाठी अजून वृत्तपत्र प्रकाशित झालेले नाही.</p></div></div>
-      </div>
-    </div>
-    <p class="text-center text-xs text-gray-400 mt-2"><i class="fa-solid fa-hand-pointer mr-1"></i> पाने बदलण्यासाठी स्क्रीन डावीकडे किंवा उजवीकडे स्वाइप करा.</p>
+<main class="reader-shell">
+  <section class="edition-head">
+    <div><span class="eyebrow">मेट्रोसिटी पोस्ट • ई-पेपर</span><h1 id="edition-title">आजचा अंक</h1><p id="edition-date">अंक लोड होत आहे…</p></div>
+    <div class="edition-controls"><button class="round-control" id="prev-page" type="button" aria-label="मागील पान">‹</button><div class="page-counter"><strong id="page-current">1</strong><span>/</span><span id="page-total">1</span></div><button class="round-control" id="next-page" type="button" aria-label="पुढील पान">›</button></div>
   </section>
-
-  <!-- Page controls deliberately live below the reader. -->
-  <section class="below-reader mt-4">
-    <div class="page-switcher">
-      <button id="prev-page" type="button" aria-label="मागील पान">‹</button>
-      <div class="page-counter"><strong id="page-current">1</strong><span>/</span><span id="page-total">1</span></div>
-      <button id="next-page" type="button" aria-label="पुढील पान">›</button>
+  <section class="paper-reader" id="reader">
+    <aside class="page-rail"><div class="rail-title"><span>पाने</span><small id="rail-count">—</small></div><div id="thumbnails" class="thumbnails"><div class="rail-loading">पाने लोड होत आहेत…</div></div></aside>
+    <div class="paper-stage" id="paper-stage">
+      <div class="stage-toolbar">
+        <button type="button" id="zoom-out" aria-label="लहान करा">−</button><span id="zoom-value">100%</span><button type="button" id="zoom-in" aria-label="मोठे करा">+</button><span class="toolbar-sep"></span><button type="button" id="fit-btn">फिट</button><button type="button" id="download-btn" aria-label="पान डाउनलोड करा">↓</button><button type="button" id="fullscreen-btn" aria-label="पूर्ण स्क्रीन">⛶</button>
+      </div>
+      <div class="paper-viewport" id="paper-viewport"><div class="paper-loading" id="paper-loading"><div class="spinner"></div><span>ई-पेपर लोड होत आहे…</span></div><img id="paper-image" alt="मेट्रोसिटी पोस्ट वृत्तपत्राचे पान" draggable="false"><div class="paper-empty" id="paper-empty" hidden><div class="empty-icon">📰</div><h2>ई-पेपर उपलब्ध नाही</h2><p>या दिवसासाठी अजून वृत्तपत्र प्रकाशित झालेले नाही.</p></div></div>
+      <div class="mobile-page-nav"><button id="mobile-prev" type="button">‹ मागील</button><span id="mobile-page-label">पान 1</span><button id="mobile-next" type="button">पुढील ›</button></div>
     </div>
-    <div class="page-list-card">
-      <div class="page-list-head"><div><b>दैनिक ई-पेपरची पाने</b><span>पान निवडण्यासाठी खालील थंबनेलवर टॅप करा</span></div><strong><span id="rail-count">—</span> पाने</strong></div>
-      <div id="thumbnails" class="thumbnails-bottom"><div class="text-xs text-gray-500 text-center py-5">पाने लोड होत आहेत…</div></div>
-    </div>
-    <div class="bg-amber-50 rounded-sm border border-amber-200 p-3.5 text-xs text-amber-800 flex gap-2.5 items-start"><i class="fa-solid fa-circle-info text-base mt-0.5 text-amber-600"></i><div><h4 class="font-bold mb-1">महत्त्वाची टीप</h4><p class="leading-relaxed">झूम, डाउनलोड आणि पूर्ण स्क्रीनसाठी वरील साधने वापरा. पान बदलण्यासाठी डावीकडे किंवा उजवीकडे स्वाइप करा.</p></div></div>
+  </section>
+  <section class="below-reader">
+    <div class="page-switcher"><button id="below-prev" type="button" aria-label="मागील पान">‹</button><div class="page-counter"><strong id="below-current">1</strong><span>/</span><span id="below-total">1</span></div><button id="below-next" type="button" aria-label="पुढील पान">›</button></div>
+    <div class="page-list-card"><div class="page-list-head"><div><b>दैनिक ई-पेपरची पाने</b><span>पान निवडण्यासाठी थंबनेलवर टॅप करा</span></div><strong><span id="rail-count-bottom">—</span> पाने</strong></div><div id="thumbnails-bottom" class="thumbnails-bottom"><div class="rail-loading">पाने लोड होत आहेत…</div></div></div>
   </section>
 </main>
-
-<section class="max-w-7xl mx-auto px-4 pb-8" aria-labelledby="recent-title">
-  <div class="border-t border-gray-200 pt-7 mb-4"><span class="text-xs font-bold text-red-700 uppercase tracking-widest">ARCHIVE</span><h2 id="recent-title" class="brand-title text-2xl md:text-3xl font-bold mt-1">अलीकडील दैनिक ई-पेपर</h2><p class="text-xs text-gray-500 mt-1">प्रत्येक तारीख एक स्वतंत्र दैनिक अंक आहे. त्या दिवशीचे सर्व अपलोड त्याच अंकातील पाने आहेत.</p></div>
-  <div id="recent-editions-list" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3"><div class="text-xs text-gray-500 py-6">अंक लोड होत आहेत…</div></div>
-</section>
-
-<div class="date-drawer" id="date-drawer" aria-hidden="true">
-  <div class="date-panel">
-    <div class="flex items-start justify-between gap-4"><div><span class="text-xs font-bold text-red-700 uppercase tracking-widest">ई-पेपर ARCHIVE</span><h2 class="text-2xl font-bold mt-1">अलीकडील दैनिक अंक</h2></div><button id="date-close" type="button" class="w-9 h-9 rounded-sm border border-gray-200 bg-gray-50 text-2xl">×</button></div>
-    <p class="text-xs text-gray-500 mt-3 mb-5">प्रत्येक दिवसाचा ई-पेपर एका अंकात दाखवला जातो. नवीन अपलोड त्या दिवसातील सर्वात आधीचे पान बनते.</p>
-    <div id="edition-list" class="grid gap-2"><div class="text-xs text-gray-500 text-center py-6">अंक लोड होत आहेत…</div></div>
-  </div>
-</div>
-
-<div class="fullscreen-reader" id="fullscreen-reader" aria-hidden="true">
-  <div class="fullscreen-bar"><button class="fs-nav absolute left-3" id="fs-prev" type="button" aria-label="मागील पान">‹</button><div class="fs-center"><b>मेट्रोसिटी पोस्ट</b><span id="fullscreen-label">पान 1 / 1</span></div><div class="fs-actions"><button class="fs-nav" id="fs-next" type="button" aria-label="पुढील पान">›</button><button class="fs-download" id="fs-download" type="button" aria-label="डाउनलोड">↓</button><button class="fs-close" id="fullscreen-close" type="button" aria-label="बंद करा">×</button></div></div>
-  <div class="fullscreen-stage" id="fullscreen-stage"><img id="fullscreen-image" alt="मेट्रोसिटी पोस्ट वृत्तपत्राचे पान"></div>
-</div>
-
-<footer class="bg-gray-900 text-gray-400 text-sm mt-8 border-t-4 border-red-700"><div class="max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row justify-between gap-3"><div><h4 class="brand-title text-xl font-bold text-white">मेट्रोसिटी पोस्ट</h4><p class="text-xs mt-1">डिजिटल मराठी ई-पेपर</p></div><div class="text-xs">© २०२६ मेट्रोसिटी पोस्ट. सर्व हक्क सुरक्षित.</div></div></footer>
-
-<script src="supabase-config.js?v=20260910-epaper24"></script>
-<script src="script.js?v=20260910-epaper24"></script>
-<script>
-(function(){
-  document.getElementById('btn-dismiss')?.addEventListener('click',()=>{document.getElementById('pwa-prompt').style.display='none'});
-  const dateDisplay=document.getElementById('current-date-display');
-  const dateEl=document.getElementById('edition-date');
-  if(dateDisplay&&dateEl){const obs=new MutationObserver(()=>{dateDisplay.textContent=dateEl.textContent});obs.observe(dateEl,{childList:true,subtree:true,characterData:true});}
-  const zoomEl=document.getElementById('zoom-value');
-  const zoomTop=document.getElementById('zoom-value-top');
-  if(zoomEl&&zoomTop){const sync=()=>zoomTop.textContent=zoomEl.textContent||'100%';sync();new MutationObserver(sync).observe(zoomEl,{childList:true,characterData:true,subtree:true});}
-})();
-</script>
-<!-- V22 interaction/layout overrides -->
-<style>
-.reader-card,.page-switcher button,.page-counter,.page-list-card,.recent-card,.edition-item,.stage-toolbar,.fs-nav,.fs-download,.fs-close,.date-panel button{border-radius:4px!important}
-.stage-toolbar button{border-radius:3px!important}
-.page-thumb,.page-thumb img,.recent-thumb,.recent-card,.edition-item{border-radius:4px!important}
-.paper-viewport{scroll-behavior:auto!important}
-.paper-viewport>img{transition:none!important}
-.fullscreen-reader.open{display:flex!important}
-.fullscreen-stage{overscroll-behavior:contain;scroll-behavior:auto}
-.fullscreen-stage img{max-height:none!important;width:auto}
-body.fullscreen-active{overflow:hidden}
-@media(max-width:800px){
- .reader-card{border-radius:4px!important}
- .paper-viewport{overflow:visible!important;padding:58px 8px 18px!important}
- .paper-viewport.is-zoomed{overflow:auto!important;max-height:calc(100vh - 150px)!important}
- .paper-viewport>img{box-shadow:0 8px 22px rgba(0,0,0,.16)!important}
- .stage-toolbar{border-radius:4px!important}
- .page-switcher{gap:8px}
- .page-switcher button,.page-counter{border-radius:4px!important}
- .recent-card{border-radius:4px!important}
-}
-</style>
-<style>
-/* V23: fit-first reader. Never let the default page exceed the viewport. */
-.paper-viewport{min-width:0!important;max-width:100%!important;overflow-x:hidden;}
-.paper-viewport>img{display:block!important;width:100%!important;max-width:100%!important;height:auto!important;min-width:0!important;transform:none!important;}
-.paper-viewport>img.zoomed{width:auto!important;max-width:none!important;min-width:0!important;}
-@media(max-width:800px){
-  .paper-reader{width:100%!important;max-width:100%!important;min-height:0!important;height:auto!important;}
-  .paper-stage{width:100%!important;max-width:100%!important;min-height:0!important;height:auto!important;}
-  .paper-viewport{width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;overflow-x:hidden!important;overflow-y:visible!important;padding:58px 8px 18px!important;}
-  .paper-viewport.is-zoomed{max-height:calc(100vh - 150px)!important;overflow:auto!important;}
-  .paper-viewport>img{width:100%!important;max-width:100%!important;height:auto!important;margin:0 auto!important;}
-  .paper-viewport>img.zoomed{width:auto!important;max-width:none!important;height:auto!important;margin:0!important;}
-  .stage-toolbar{max-width:calc(100% - 16px);gap:1px;padding:3px;}
-  .stage-toolbar button{min-width:30px;height:31px;padding:0 6px;}
-}
-</style>
-<script>
-// V23 keeps the reader fit-first and responsive.
-window.addEventListener('load',()=>{const i=document.getElementById('paper-image');if(i?.complete&&i.naturalWidth){requestAnimationFrame(()=>applyZoom(false));}});
-</script>
-<script>
-// V22 keeps the zoom percentage in sync with the visible toolbar.
-window.addEventListener('load',()=>{if(window.innerWidth<=800){const i=document.getElementById('paper-image');if(i?.complete&&i.naturalWidth){setTimeout(()=>window.dispatchEvent(new Event('resize')),50)}}});
-</script>
-</body>
-</html>
+<section class="recent-editions" aria-labelledby="recent-title"><div class="recent-head"><span class="eyebrow">ARCHIVE</span><h2 id="recent-title">अलीकडील दैनिक ई-पेपर</h2><p>प्रत्येक तारीख एक दैनिक अंक आहे. त्या दिवशीचे सर्व अपलोड त्याच अंकातील पाने आहेत.</p></div><div id="recent-editions-list" class="recent-grid"><div class="rail-loading">अंक लोड होत आहेत…</div></div></section>
+<div class="date-drawer" id="date-drawer" aria-hidden="true"><div class="date-panel"><div class="date-panel-head"><div><span class="eyebrow">ई-पेपर</span><h2>अलीकडील दैनिक अंक</h2></div><button id="date-close" type="button" aria-label="बंद करा">×</button></div><p class="date-help">प्रत्येक दिवसातील सर्व अपलोड एकाच दैनिक ई-पेपरच्या पानांमध्ये दाखवले जातात.</p><div id="edition-list" class="edition-list"><div class="rail-loading">अंक लोड होत आहेत…</div></div></div></div>
+<div class="fullscreen-reader" id="fullscreen-reader" aria-hidden="true"><div class="fullscreen-bar"><button class="fs-nav" id="fs-prev" type="button" aria-label="मागील पान">‹</button><div class="fs-center"><b>मेट्रोसिटी पोस्ट</b><span id="fullscreen-label">पान 1 / 1</span></div><div class="fs-actions"><button class="fs-nav" id="fs-next" type="button" aria-label="पुढील पान">›</button><button class="fs-download" id="fs-download" type="button" aria-label="पान डाउनलोड करा">↓</button><button class="fs-close" id="fullscreen-close" type="button" aria-label="बंद करा">×</button></div></div><div class="fullscreen-stage" id="fullscreen-stage"><img id="fullscreen-image" alt="वृत्तपत्राचे पान"></div></div>
+<footer class="reader-footer"><span>© २०२६ मेट्रोसिटी पोस्ट</span><span>विश्वसनीय • स्थानिक • तत्पर</span></footer>
+<script src="supabase-config.js?v=20260910-v25"></script><script src="script.js?v=20260910-v25"></script>
+</body></html>
