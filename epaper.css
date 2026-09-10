@@ -60,3 +60,13 @@ button,a{font:inherit}
 .zoom-view{background:#121416}.zoom-view-backdrop{opacity:.65}.zoom-view-topbar{box-shadow:0 4px 18px rgba(0,0,0,.15)}
 @media(max-width:800px){.reader-topbar{height:62px}.topbar-inner{padding:0 10px}.brand-mark{font-size:25px}.reader-actions{gap:4px}.tool-btn{height:38px;min-width:40px;padding:0 8px;font-size:10px}.tool-btn .tool-icon{font-size:16px}.login-tool{min-width:40px}.reader-shell{padding-top:13px}.reader-breadcrumb{margin-bottom:8px}.edition-heading .eyebrow{font-size:9px}.edition-head h1{font-size:22px}.reader-canvas-bg{background:linear-gradient(180deg,#eef0f2,#e5e7ea)}.stage-toolbar{top:8px;right:8px}.page-switcher{padding:7px}.page-switcher button{min-width:70px}.recent-editions{padding-top:12px}}
 @media(max-width:430px){.brand-mark{font-size:22px}.tool-btn span:not(.tool-icon){display:none}.tool-btn{min-width:36px;padding:0 8px}.edition-head h1{font-size:20px}}
+/* V29 fullscreen zoom controls */
+.fs-actions{align-items:center}
+.fs-zoom{width:38px;height:38px;border:1px solid #d1d5db;background:#fff;color:var(--ink);border-radius:4px;font-size:22px;font-weight:800;cursor:pointer}
+.fs-zoom-value{height:38px;min-width:48px;display:flex;align-items:center;justify-content:center;border:1px solid #e1e4e8;background:#fafafa;color:#4b5563;font-size:11px;font-weight:800}
+.fs-fit{height:38px;min-width:48px;border:1px solid #d1d5db;background:#fff;color:var(--ink);border-radius:4px;font-size:11px;font-weight:800;cursor:pointer}
+.fs-zoom:hover,.fs-fit:hover{background:#f5f5f5;border-color:#b91c1c}
+.fullscreen-stage{overscroll-behavior:contain}
+.fullscreen-stage img.fs-zoomed{max-width:none;cursor:grab}
+@media(max-width:800px){.fs-actions{gap:3px}.fs-zoom,.fs-fit{width:34px;height:34px;min-width:34px;padding:0}.fs-zoom-value{height:34px;min-width:40px;font-size:10px}.fs-download{display:inline-flex;width:34px;height:34px;align-items:center;justify-content:center}.fullscreen-bar{padding:0 5px}.fs-actions{right:5px}.fs-nav{width:34px;height:34px}.fs-center{font-size:10px}}
+@media(max-width:430px){.fs-center{display:none}.fs-actions{left:50%;right:auto;transform:translateX(-50%)}.fullscreen-bar>#fs-prev{position:absolute;left:5px}.fs-zoom,.fs-fit,.fs-download,.fs-close,.fs-nav{width:32px;height:32px;min-width:32px}.fs-zoom-value{height:32px;min-width:38px}}
