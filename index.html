@@ -83,8 +83,16 @@
 </div>
 
 <div class="fullscreen-reader" id="fullscreen-reader" aria-hidden="true">
-  <div class="fullscreen-bar"><b>मेट्रोसिटी पोस्ट</b><span id="fullscreen-label">पान 1</span><button id="fullscreen-close" type="button" aria-label="बंद करा">×</button></div>
-  <div class="fullscreen-stage"><img id="fullscreen-image" alt="वृत्तपत्राचे पान"></div>
+  <div class="fullscreen-bar">
+    <button class="fs-nav" id="fs-prev" type="button" aria-label="मागील पान">‹</button>
+    <div class="fs-center"><b>मेट्रोसिटी पोस्ट</b><span id="fullscreen-label">पान 1 / 1</span></div>
+    <div class="fs-actions">
+      <button class="fs-nav" id="fs-next" type="button" aria-label="पुढील पान">›</button>
+      <button class="fs-download" id="fs-download" type="button" aria-label="पान डाउनलोड करा">↓</button>
+      <button class="fs-close" id="fullscreen-close" type="button" aria-label="बंद करा">×</button>
+    </div>
+  </div>
+  <div class="fullscreen-stage" id="fullscreen-stage"><img id="fullscreen-image" alt="वृत्तपत्राचे पान"></div>
 </div>
 
 <footer class="reader-footer"><span>© २०२६ मेट्रोसिटी पोस्ट</span><span>विश्वसनीय • स्थानिक • तत्पर</span></footer>
