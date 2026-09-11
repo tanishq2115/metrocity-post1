@@ -351,3 +351,193 @@ button,a{font:inherit}
     padding-top:64px !important;
   }
 }
+
+/* v19 — polished fullscreen reader ONLY */
+.fullscreen-reader{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:none;
+  flex-direction:column;
+  background:#101214;
+}
+.fullscreen-reader.open{display:flex}
+
+.fullscreen-bar{
+  position:relative;
+  z-index:50;
+  flex:0 0 auto;
+  width:100%;
+  min-height:58px;
+  box-sizing:border-box;
+  padding:8px 10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  background:rgba(255,255,255,.98);
+  border-bottom:1px solid #d9dde2;
+  box-shadow:0 3px 14px rgba(0,0,0,.16);
+}
+.fullscreen-bar .fs-nav,
+.fullscreen-bar .fs-close,
+.fullscreen-bar .fs-zoom,
+.fullscreen-bar .fs-download{
+  flex:0 0 auto;
+  height:42px;
+  min-width:42px;
+  box-sizing:border-box;
+  border:1px solid #cfd4da;
+  border-radius:7px;
+  background:#fff;
+  color:#202832;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  line-height:1;
+  cursor:pointer;
+  box-shadow:0 1px 2px rgba(0,0,0,.04);
+}
+.fullscreen-bar .fs-nav,
+.fullscreen-bar .fs-close{font-size:25px;font-weight:800}
+.fullscreen-bar .fs-zoom{font-size:24px;font-weight:800}
+.fullscreen-bar .fs-download{font-size:23px;font-weight:800}
+.fullscreen-bar button:hover{border-color:#b40018}
+.fullscreen-bar button:disabled{opacity:.35;cursor:default}
+
+.fullscreen-bar .fs-center{
+  min-width:66px;
+  max-width:180px;
+  height:42px;
+  padding:0 8px;
+  box-sizing:border-box;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  text-align:center;
+  white-space:nowrap;
+  overflow:hidden;
+}
+.fullscreen-bar .fs-center b{
+  max-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.fullscreen-bar .fs-center span{
+  color:#303842;
+  font-size:13px;
+  font-weight:800;
+}
+.fs-zoom-group{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  flex:0 0 auto;
+  height:42px;
+  padding:0;
+}
+.fs-zoom-group .fs-zoom-value{
+  width:58px;
+  min-width:58px;
+  height:42px;
+  box-sizing:border-box;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid #d7dbe0;
+  border-radius:7px;
+  background:#fafafa;
+  color:#4b5563;
+  font-size:12px;
+  font-weight:800;
+}
+
+.fullscreen-stage{
+  position:relative;
+  flex:1 1 auto;
+  min-height:0;
+  width:100%;
+  box-sizing:border-box;
+  display:block;
+  overflow:auto;
+  padding:18px 14px 24px;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  touch-action:pan-x pan-y;
+}
+.fullscreen-stage img{
+  display:block;
+  width:auto;
+  height:auto;
+  max-width:100%;
+  margin:0 auto;
+  object-fit:contain;
+  background:#fff;
+  box-shadow:0 8px 32px rgba(0,0,0,.42);
+  user-select:none;
+  -webkit-user-drag:none;
+  transform-origin:top center;
+}
+.fullscreen-stage img.fs-zoomed{
+  max-width:none;
+  cursor:grab;
+}
+.fullscreen-stage img.fs-zoomed:active{cursor:grabbing}
+
+@media(max-width:700px){
+  .fullscreen-bar{
+    min-height:54px;
+    padding:6px 7px;
+    gap:5px;
+    justify-content:space-between;
+  }
+  .fullscreen-bar .fs-nav,
+  .fullscreen-bar .fs-close,
+  .fullscreen-bar .fs-zoom,
+  .fullscreen-bar .fs-download{
+    width:38px;
+    min-width:38px;
+    height:38px;
+    border-radius:7px;
+  }
+  .fullscreen-bar .fs-center{
+    min-width:48px;
+    max-width:54px;
+    height:38px;
+    padding:0 2px;
+  }
+  .fullscreen-bar .fs-center b{display:none}
+  .fullscreen-bar .fs-center span{font-size:12px}
+  .fs-zoom-group{height:38px;gap:3px}
+  .fs-zoom-group .fs-zoom-value{
+    width:48px;
+    min-width:48px;
+    height:38px;
+    font-size:11px;
+  }
+  .fullscreen-stage{
+    padding:14px 8px 24px;
+  }
+}
+
+@media(max-width:390px){
+  .fullscreen-bar{gap:3px;padding-left:5px;padding-right:5px}
+  .fullscreen-bar .fs-nav,
+  .fullscreen-bar .fs-close,
+  .fullscreen-bar .fs-zoom,
+  .fullscreen-bar .fs-download{
+    width:34px;
+    min-width:34px;
+    height:34px;
+  }
+  .fullscreen-bar .fs-center{min-width:42px;max-width:45px}
+  .fullscreen-bar .fs-center span{font-size:11px}
+  .fs-zoom-group{height:34px}
+  .fs-zoom-group .fs-zoom-value{
+    width:42px;
+    min-width:42px;
+    height:34px;
+    font-size:10px;
+  }
+}
