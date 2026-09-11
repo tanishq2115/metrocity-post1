@@ -221,3 +221,81 @@ button,a{font:inherit}
   .epaper-toolbar button{min-width:40px;height:40px;padding:0 8px}
   .epaper-toolbar .zoom-value{min-width:52px;height:40px}
 }
+
+/* Requested e-paper toolbar polish only */
+.stage-toolbar{
+  gap:6px;
+  padding:6px;
+  border-radius:7px;
+  align-items:center;
+}
+.stage-toolbar button{
+  height:40px;
+  min-width:42px;
+  padding:0 10px;
+  border:1px solid #d1d5db;
+  border-radius:6px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  box-sizing:border-box;
+  line-height:1;
+  white-space:nowrap;
+  background:#fff;
+}
+.stage-toolbar #zoom-value{
+  min-width:58px;
+  height:40px;
+  padding:0 8px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  box-sizing:border-box;
+  border:1px solid #e1e4e8;
+  border-radius:6px;
+  background:#fafafa;
+  line-height:1;
+}
+.stage-toolbar #zoom-view-btn{
+  min-width:72px;
+  font-size:13px;
+  gap:5px;
+}
+.stage-toolbar #fit-btn{
+  min-width:62px;
+  font-size:13px;
+}
+.stage-toolbar #download-btn,
+.stage-toolbar #fullscreen-btn{
+  min-width:42px;
+  width:42px;
+  padding:0;
+  font-size:20px;
+}
+.stage-toolbar .toolbar-sep{
+  height:26px;
+  margin:0 1px;
+}
+@media(max-width:600px){
+  .stage-toolbar{
+    gap:5px;
+    padding:6px;
+  }
+  .stage-toolbar button{
+    height:38px;
+    min-width:40px;
+    padding:0 8px;
+    border-radius:6px;
+  }
+  .stage-toolbar #zoom-value{
+    min-width:54px;
+    height:38px;
+  }
+  .stage-toolbar #zoom-view-btn{min-width:68px}
+  .stage-toolbar #fit-btn{min-width:58px}
+  .stage-toolbar #download-btn,
+  .stage-toolbar #fullscreen-btn{
+    width:40px;
+    min-width:40px;
+  }
+}
