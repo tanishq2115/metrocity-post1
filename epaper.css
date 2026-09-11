@@ -344,3 +344,10 @@ button,a{font:inherit}
     margin-bottom:8px !important;
   }
 }
+
+/* v18 — actual small gap between toolbar and newspaper */
+@media(max-width:700px){
+  .paper-viewport{
+    padding-top:64px !important;
+  }
+}
