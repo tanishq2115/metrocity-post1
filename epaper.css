@@ -309,3 +309,28 @@ button,a{font:inherit}
     padding-top:2px !important;
   }
 }
+
+/* v16 — only the remaining zoom/download/fullscreen controls are balanced. */
+@media(max-width:700px){
+  .stage-toolbar{
+    left:8px !important;
+    right:8px !important;
+    width:auto !important;
+    justify-content:space-between !important;
+    gap:6px !important;
+    box-sizing:border-box !important;
+  }
+  .stage-toolbar #zoom-out,
+  .stage-toolbar #zoom-in,
+  .stage-toolbar #download-btn,
+  .stage-toolbar #fullscreen-btn{
+    flex:1 1 0;
+    min-width:0;
+    width:auto;
+    max-width:none;
+  }
+  .stage-toolbar #zoom-value{
+    flex:1 1 0;
+    min-width:0;
+  }
+}
