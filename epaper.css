@@ -299,3 +299,113 @@ button,a{font:inherit}
     min-width:40px;
   }
 }
+
+/* v13: widen the e-paper reader on mobile and balance the toolbar horizontally. */
+@media (max-width: 700px){
+  .epaper-reader,
+  .reader-shell,
+  .epaper-stage-wrap,
+  .paper-reader{
+    width: calc(100% + 24px);
+    max-width: none;
+    margin-left: -12px;
+    margin-right: -12px;
+  }
+
+  .stage-toolbar{
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: space-between;
+    gap: 4px;
+    padding: 6px 7px;
+  }
+
+  .stage-toolbar button{
+    flex: 0 0 auto;
+  }
+}
+
+/* If the reader uses the stage directly, let it use the full card width. */
+@media (min-width: 701px){
+  .stage-toolbar{
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: space-between;
+  }
+}
+
+/* v14 — reader width + toolbar spacing only */
+@media(max-width:700px){
+  /* Use the reader's available card width instead of leaving side padding. */
+  .epaper-section .embedded-reader-shell{
+    padding-left:0;
+    padding-right:0;
+  }
+
+  .epaper-section .paper-reader{
+    width:100%;
+    max-width:none;
+  }
+
+  .epaper-section .paper-stage{
+    width:100%;
+    max-width:none;
+  }
+
+  /* Let the toolbox span the reader rather than bunching up on the right. */
+  .epaper-section .stage-toolbar{
+    left:8px;
+    right:8px;
+    width:auto;
+    max-width:none;
+    justify-content:space-between;
+    gap:5px;
+    padding:6px 7px;
+    box-sizing:border-box;
+  }
+
+  .epaper-section .stage-toolbar button{
+    flex:0 0 auto;
+    min-width:40px;
+    height:40px;
+    padding:0 9px;
+    border:1px solid #d1d5db;
+    border-radius:6px;
+    background:#fff;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    line-height:1;
+  }
+
+  .epaper-section .stage-toolbar span{
+    min-width:52px;
+    height:40px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    box-sizing:border-box;
+    border:1px solid #e1e4e8;
+    border-radius:6px;
+    background:#fafafa;
+  }
+
+  .epaper-section .stage-toolbar .toolbar-sep{
+    display:none;
+  }
+
+  .epaper-section .stage-toolbar #zoom-view-btn{
+    min-width:76px;
+  }
+
+  .epaper-section .stage-toolbar #fit-btn{
+    min-width:62px;
+  }
+
+  .epaper-section .stage-toolbar #download-btn,
+  .epaper-section .stage-toolbar #fullscreen-btn{
+    width:40px;
+    min-width:40px;
+    padding:0;
+  }
+}
