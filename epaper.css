@@ -334,3 +334,13 @@ button,a{font:inherit}
     min-width:0;
   }
 }
+
+/* v17 — small visual separation between toolbar and newspaper only */
+.stage-toolbar{
+  margin-bottom:8px !important;
+}
+@media(max-width:600px){
+  .stage-toolbar{
+    margin-bottom:8px !important;
+  }
+}
