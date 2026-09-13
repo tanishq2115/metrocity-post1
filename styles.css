@@ -437,3 +437,167 @@ footer{
     border-bottom:1px solid #d5d9de;
   }
 }
+
+/* =========================================================
+   v21 — Actual editorial homepage redesign + mobile layout fix
+   Scope: homepage appearance only. Reader JS/CSS and content
+   structure are intentionally untouched.
+   ========================================================= */
+:root{
+  --red:#c8001d;
+  --ink:#101217;
+  --muted:#6b7078;
+  --line:#cfd3d8;
+  --soft:#f3f4f5;
+}
+
+body{background:#fff;overflow-x:hidden}
+.container{width:min(1280px,calc(100% - 48px))}
+
+/* Stronger newsroom masthead */
+.site-header{border-bottom:0}
+.utility{background:#0e1014;border-bottom:4px solid var(--red)}
+.utility-inner{height:36px;font-size:12px}
+.masthead{height:104px;grid-template-columns:58px 1fr auto;border-bottom:1px solid #d4d7db}
+.menu-btn{width:44px;height:44px;background:#f0f1f2;border:0;font-size:25px}
+.lokmadat-logo{width:300px}
+.lokmadat-text-logo{font-size:52px;letter-spacing:-3px}
+.epaper-top{padding:12px 18px;font-size:14px;box-shadow:none}
+.category-nav{border-bottom:3px solid #101217}
+.nav-inner{min-height:52px}
+.nav-inner a{padding:14px 18px 11px;font-size:15px}
+.nav-inner a.active,.nav-inner a:hover{color:#fff;background:var(--red);border-color:var(--red)}
+
+/* Breaking strip becomes a true newsroom ticker */
+.breaking{background:#101217}
+.breaking-inner{height:44px}
+.breaking-inner>strong{height:44px;padding:0 20px;font-size:14px;text-transform:none}
+.ticker-item{font-size:14px;padding:0 20px}
+.breaking-arrow{padding:0 18px}
+
+/* Section identity */
+.latest-wrap{padding-top:42px}
+.section-heading{border-bottom:3px solid #101217;margin-bottom:24px}
+.section-heading:after{height:5px;width:210px}
+.section-heading h1{font-size:44px;margin:2px 0 13px;letter-spacing:-1.5px}
+.section-heading h2{font-size:32px;margin:2px 0 12px;letter-spacing:-1px}
+.eyebrow{font-size:12px;letter-spacing:1.6px;color:var(--red)}
+.updated{font-size:13px;margin-bottom:14px}
+
+/* Lead story: strong editorial split rather than generic card */
+.latest-grid{gap:0;border-top:1px solid #101217}
+.lead-story{border:0;border-bottom:1px solid #bfc4c9}
+.lead-story>a{grid-template-columns:minmax(0,1.35fr) minmax(330px,.85fr)}
+.lead-image{min-height:430px}
+.lead-body{padding:34px 36px;background:#f7f7f6}
+.lead-body h2{font-size:38px;line-height:1.18}
+.lead-body p{font-size:15px;line-height:1.75}
+
+/* Top stories become a clean newspaper grid */
+.news-band{padding-top:52px}
+.story-grid{border-top:3px solid #101217}
+.story-card{border:0;border-right:1px solid #d2d6da;border-bottom:1px solid #cfd3d8;background:#fff}
+.story-card:hover{background:#f6f6f5}
+.story-img{height:210px}
+.story-content{padding:17px 18px 20px}
+.story-content h3{font-size:21px;line-height:1.32}
+
+/* Written news: desktop two-column newsroom, mobile one-column */
+.split-section{padding-top:54px;grid-template-columns:minmax(0,1.75fr) minmax(300px,.75fr);gap:34px;align-items:start}
+.written-list{border-top:3px solid #101217;gap:0}
+.written-list .story-card{border-right:1px solid #d2d6da;border-bottom:1px solid #cfd3d8}
+.written-list .story-card.large{border-right:0}
+.sidebar{gap:30px;min-width:0}
+.side-module{border:0;border-top:3px solid #101217;border-bottom:1px solid #cfd3d8;padding:0 0 14px;background:#fff}
+.module-head{border-bottom:1px solid #cfd3d8;padding:10px 0 9px;margin-bottom:0}
+.module-head h3{font-size:25px;font-weight:900}
+.module-head span{font-size:28px}
+.mini-story{padding:13px 0}
+.rank-list li{padding:14px 0}
+
+/* E-paper promo is visually separated from the news feed */
+.epaper-promo{margin-top:54px;padding:30px 34px;background:#101217;border-left:7px solid var(--red);min-height:128px}
+.epaper-promo h2{font-size:34px}
+.epaper-promo p{font-size:14px}
+.epaper-promo>a{padding:14px 22px;font-size:14px}
+
+.epaper-section{padding-top:54px}
+.epaper-section .section-heading{margin-bottom:22px}
+
+/* Lower topic rail */
+.lower-sections{padding:56px 0 64px;gap:0;border-top:3px solid #101217}
+.lower-card{padding:20px 18px;border:0;border-right:1px solid #d2d6da;border-bottom:1px solid #cfd3d8}
+.lower-card h2{font-size:27px}
+
+footer{margin-top:0;background:#101217}
+
+/* ---------- Mobile correction ---------- */
+@media(max-width:900px){
+  .container{width:calc(100% - 28px)}
+  .masthead{height:84px;grid-template-columns:50px 1fr auto}
+  .lokmadat-logo{width:210px}
+  .lokmadat-text-logo{font-size:40px}
+  .epaper-top{padding:10px 11px;font-size:12px}
+
+  /* CRITICAL: restore the intended single-column mobile flow. */
+  .split-section{grid-template-columns:1fr !important;display:grid;gap:34px;padding-top:40px}
+  .main-column,.sidebar{width:100%;min-width:0}
+  .written-list{width:100%;display:grid;grid-template-columns:1fr}
+  .written-list .story-card.large{grid-column:1/-1}
+  .sidebar{display:flex;flex-direction:column;gap:34px}
+  .side-module{width:100%;position:relative;display:block;float:none;clear:both}
+  .mini-list,.rank-list{width:100%;display:block;overflow:visible}
+  .epaper-promo{margin-top:42px}
+}
+
+@media(max-width:560px){
+  .container{width:calc(100% - 20px)}
+  .utility-inner{height:34px}
+  .masthead{height:82px;grid-template-columns:44px 1fr auto}
+  .menu-btn{width:40px;height:40px}
+  .lokmadat-logo{width:178px}
+  .lokmadat-text-logo{font-size:33px;letter-spacing:-2px}
+  .epaper-top{font-size:11px;padding:9px 8px}
+
+  .category-nav{border-bottom:2px solid #101217}
+  .nav-inner a{padding:11px 13px 9px;font-size:13px}
+  .breaking-inner{height:39px}
+  .breaking-inner>strong{height:39px;padding:0 11px;font-size:12px}
+  .ticker-item{font-size:12px;padding:0 12px}
+
+  .latest-wrap{padding-top:28px}
+  .section-heading{margin-bottom:18px}
+  .section-heading h1{font-size:33px;letter-spacing:-1px}
+  .section-heading h2{font-size:25px}
+  .section-heading:after{width:46%;min-width:120px}
+  .updated{font-size:11px}
+
+  .lead-story>a{display:block}
+  .lead-image{min-height:235px}
+  .lead-body{padding:20px 16px 23px}
+  .lead-body h2{font-size:28px}
+
+  .news-band{padding-top:36px}
+  .story-grid{grid-template-columns:1fr}
+  .story-card{border-right:0}
+  .story-img{height:205px}
+
+  /* Keep every written/sidebar block in normal document flow. */
+  .split-section{display:flex !important;flex-direction:column !important;gap:36px;padding-top:36px}
+  .main-column,.sidebar{display:block !important;width:100% !important}
+  .written-list{display:grid !important;grid-template-columns:1fr !important;gap:0}
+  .written-list .story-card.large{display:block;grid-column:auto}
+  .sidebar{margin:0;padding:0}
+  .side-module{display:block !important;width:100% !important;margin:0 0 30px !important;padding:0 0 14px !important;box-sizing:border-box}
+  .side-module:last-child{margin-bottom:0 !important}
+  .module-head{width:100%;margin:0}
+  .mini-list,.rank-list{width:100% !important;margin:0 !important;padding:0 !important}
+  .loading-box{width:100%;min-height:120px;padding:28px 16px}
+
+  .epaper-promo{margin-top:38px;padding:22px 18px}
+  .epaper-promo h2{font-size:29px}
+  .epaper-promo>a{width:max-content}
+  .epaper-section{padding-top:38px}
+  .lower-sections{padding:38px 0 48px;display:grid;grid-template-columns:1fr}
+  .lower-card{border-right:0}
+}
