@@ -11,3 +11,429 @@
 .madat-word{color:#17191d;margin-left:-2px;}
 @media(max-width:900px){.lokmadat-logo{width:220px}.lokmadat-text-logo{font-size:42px;letter-spacing:-2.5px;}}
 @media(max-width:560px){.lokmadat-logo{width:180px}.lokmadat-text-logo{font-size:34px;letter-spacing:-2px;}}
+
+/* =========================================================
+   v20 — Lokmadat editorial redesign inspired by modern
+   broadcast-news layouts (ABC News style), without copying
+   ABC branding. Reader functionality remains unchanged.
+   ========================================================= */
+:root{
+  --red:#c9001b;
+  --red2:#e0001f;
+  --ink:#111318;
+  --muted:#68707a;
+  --paper:#fff;
+  --bg:#fff;
+  --line:#d9dde2;
+  --soft:#f5f6f7;
+  --max:1280px;
+}
+
+body{
+  background:#fff;
+  color:var(--ink);
+  font-family:'Noto Sans Devanagari',system-ui,sans-serif;
+}
+
+.container{
+  width:min(var(--max),calc(100% - 40px));
+}
+
+.site-header{
+  background:#fff;
+  box-shadow:none;
+  border-bottom:1px solid #d9dde2;
+}
+
+.utility{
+  background:#111318;
+  color:#fff;
+  font-size:12px;
+  border-bottom:3px solid var(--red);
+}
+.utility-inner{
+  height:34px;
+}
+
+.masthead{
+  height:92px;
+  background:#fff;
+  grid-template-columns:52px 1fr auto;
+  border-bottom:1px solid #e1e4e8;
+}
+.menu-btn{
+  width:40px;
+  height:40px;
+  border:0;
+  background:#f4f5f6;
+  color:#111318;
+  font-size:22px;
+}
+.mast-actions{
+  gap:8px;
+}
+.epaper-top,
+.login-top{
+  padding:10px 15px;
+  border:1px solid #cfd4da;
+  background:#fff;
+  color:#111318;
+  font-size:13px;
+  font-weight:800;
+}
+.epaper-top{
+  background:var(--red);
+  border-color:var(--red);
+  color:#fff;
+}
+
+.lokmadat-logo{
+  width:250px;
+}
+.lokmadat-text-logo{
+  font-size:48px;
+  letter-spacing:-2.8px;
+}
+
+.category-nav{
+  background:#fff;
+  border-top:0;
+  border-bottom:1px solid #cfd4da;
+}
+.nav-inner{
+  min-height:48px;
+}
+.nav-inner a{
+  padding:13px 15px 11px;
+  font-size:14px;
+  font-weight:800;
+  border-bottom:3px solid transparent;
+}
+.nav-inner a.active,
+.nav-inner a:hover{
+  color:var(--red);
+  border-color:var(--red);
+}
+
+.breaking{
+  background:#111318;
+}
+.breaking-inner{
+  height:40px;
+}
+.breaking-inner>strong{
+  background:var(--red);
+  height:40px;
+  padding:0 16px;
+  font-size:13px;
+}
+.ticker-item{
+  font-size:13px;
+  padding:0 18px;
+}
+.breaking-arrow{
+  font-size:24px;
+}
+
+.latest-wrap{
+  padding-top:30px;
+}
+
+.section-heading{
+  border-bottom:2px solid #15171b;
+  margin-bottom:18px;
+}
+.section-heading:after{
+  height:4px;
+  width:150px;
+  background:var(--red);
+}
+.section-heading h1{
+  font-size:36px;
+  letter-spacing:-.8px;
+  margin:2px 0 10px;
+}
+.section-heading h2{
+  font-size:28px;
+  letter-spacing:-.5px;
+  margin:2px 0 10px;
+}
+.eyebrow{
+  color:var(--red);
+  font-size:12px;
+  letter-spacing:1.1px;
+}
+
+.latest-grid{
+  gap:20px;
+}
+.lead-story,
+.story-card,
+.side-module,
+.lower-card{
+  border:0;
+  border-top:1px solid #cfd4da;
+  border-bottom:1px solid #cfd4da;
+  border-radius:0;
+  box-shadow:none;
+  background:#fff;
+}
+.lead-story>a{
+  grid-template-columns:1.2fr 1fr;
+}
+.lead-image{
+  min-height:390px;
+}
+.lead-image>span{
+  left:12px;
+  top:12px;
+  background:var(--red);
+  padding:6px 10px;
+}
+.lead-body{
+  padding:24px 26px;
+}
+.lead-body h2{
+  font-size:32px;
+  line-height:1.22;
+}
+.lead-body p{
+  line-height:1.7;
+}
+
+.story-grid{
+  gap:0;
+  border-top:1px solid #cfd4da;
+}
+.story-card{
+  border-top:0;
+  border-right:1px solid #d5d9de;
+  border-bottom:1px solid #cfd4da;
+}
+.story-card:last-child{
+  border-right:0;
+}
+.story-card:hover{
+  transform:none;
+  box-shadow:none;
+  background:#fafafa;
+}
+.story-content{
+  padding:14px 16px 18px;
+}
+.story-content h3{
+  font-size:18px;
+}
+.story-content p{
+  line-height:1.6;
+}
+
+.news-band{
+  padding-top:38px;
+}
+.split-section{
+  padding-top:40px;
+  grid-template-columns:minmax(0,1.75fr) minmax(260px,.75fr);
+  gap:28px;
+}
+.written-list{
+  gap:0;
+  border-top:1px solid #cfd4da;
+}
+.written-list .story-card{
+  border-right:1px solid #d5d9de;
+  border-bottom:1px solid #cfd4da;
+}
+.written-list .story-card.large{
+  border-right:0;
+}
+.sidebar{
+  gap:20px;
+}
+.side-module{
+  padding:0 0 14px;
+}
+.module-head{
+  border-bottom:3px solid #111318;
+  padding:10px 0 8px;
+  margin-bottom:0;
+}
+.module-head h3{
+  font-size:20px;
+}
+.mini-story{
+  padding:11px 0;
+}
+.rank-list li{
+  padding:11px 0;
+}
+
+.epaper-promo{
+  margin-top:42px;
+  background:#111318;
+  border-left:5px solid var(--red);
+  padding:24px 28px;
+  border-radius:0;
+}
+.epaper-promo>a{
+  background:var(--red);
+  padding:12px 18px;
+}
+.epaper-section{
+  padding-top:42px;
+}
+.epaper-section .section-heading{
+  margin-bottom:18px;
+}
+
+.lower-sections{
+  gap:0;
+  padding:44px 0;
+}
+.lower-card{
+  padding:18px 16px;
+  border-right:1px solid #d5d9de;
+}
+.lower-card:last-child{
+  border-right:0;
+}
+.lower-card h2{
+  font-size:23px;
+}
+
+footer{
+  background:#111318;
+  margin-top:10px;
+}
+.footer-grid{
+  padding:40px 0;
+}
+.footer-logo{
+  font-size:36px;
+}
+
+@media(max-width:900px){
+  .container{
+    width:min(var(--max),calc(100% - 28px));
+  }
+  .masthead{
+    height:84px;
+  }
+  .lokmadat-logo{
+    width:210px;
+  }
+  .lokmadat-text-logo{
+    font-size:40px;
+  }
+  .story-grid{
+    grid-template-columns:1fr 1fr;
+  }
+  .story-card:nth-child(2n){
+    border-right:0;
+  }
+  .story-card:nth-child(3){
+    border-top:1px solid #cfd4da;
+  }
+}
+
+@media(max-width:560px){
+  .container{
+    width:calc(100% - 20px);
+  }
+  .utility-inner{
+    height:32px;
+  }
+  .masthead{
+    height:76px;
+    grid-template-columns:44px 1fr auto;
+  }
+  .menu-btn{
+    width:38px;
+    height:38px;
+  }
+  .lokmadat-logo{
+    width:170px;
+  }
+  .lokmadat-text-logo{
+    font-size:31px;
+    letter-spacing:-1.8px;
+  }
+  .mast-actions{
+    gap:4px;
+  }
+  .epaper-top{
+    padding:8px 9px;
+    font-size:11px;
+  }
+  .category-nav{
+    border-bottom:1px solid #cfd4da;
+  }
+  .nav-inner a{
+    padding:11px 12px 9px;
+    font-size:12px;
+  }
+  .breaking-inner{
+    height:37px;
+  }
+  .breaking-inner>strong{
+    height:37px;
+    padding:0 10px;
+    font-size:11px;
+  }
+  .ticker-item{
+    font-size:11px;
+    padding:0 10px;
+  }
+  .latest-wrap{
+    padding-top:24px;
+  }
+  .section-heading h1{
+    font-size:30px;
+  }
+  .section-heading h2{
+    font-size:24px;
+  }
+  .latest-grid{
+    gap:0;
+  }
+  .lead-story{
+    border-top:2px solid #111318;
+  }
+  .lead-image{
+    min-height:225px;
+  }
+  .lead-body{
+    padding:17px 15px 19px;
+  }
+  .lead-body h2{
+    font-size:26px;
+  }
+  .news-band{
+    padding-top:30px;
+  }
+  .story-grid{
+    grid-template-columns:1fr;
+  }
+  .story-card,
+  .story-card:nth-child(2n){
+    border-right:0;
+    border-top:0;
+  }
+  .story-card + .story-card{
+    border-top:1px solid #cfd4da;
+  }
+  .split-section{
+    padding-top:32px;
+  }
+  .epaper-promo{
+    margin-top:30px;
+    padding:20px 18px;
+  }
+  .lower-sections{
+    padding:32px 0;
+  }
+  .lower-card{
+    border-right:0;
+    border-bottom:1px solid #d5d9de;
+  }
+}
