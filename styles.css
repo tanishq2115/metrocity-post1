@@ -601,3 +601,304 @@ footer{margin-top:0;background:#101217}
   .lower-sections{padding:38px 0 48px;display:grid;grid-template-columns:1fr}
   .lower-card{border-right:0}
 }
+
+/* =========================================================
+   v22 TRIAL — Lokmadat clean broadcast/editorial redesign
+   Inspired by the visual discipline of modern news sites:
+   white canvas, restrained typography, image-led stories,
+   thin rules, generous spacing and one strong accent color.
+   No reader functionality changed.
+   ========================================================= */
+:root{
+  --red:#b3122d;
+  --red-dark:#8f0d23;
+  --ink:#111318;
+  --muted:#68707a;
+  --line:#e2e4e7;
+  --soft:#f6f7f8;
+  --warm:#fbfbfa;
+}
+
+html,body{background:#fff;color:var(--ink)}
+body{font-family:'Noto Sans Devanagari',system-ui,sans-serif}
+.container{width:min(1240px,calc(100% - 48px))}
+
+/* Header: clean, white and quiet. */
+.utility{
+  background:#fff;
+  color:#5e636a;
+  border-bottom:1px solid var(--line);
+  font-size:12px;
+}
+.utility-inner{height:32px}
+.masthead{
+  height:88px;
+  grid-template-columns:1fr auto;
+  background:#fff;
+  border-bottom:1px solid var(--line);
+}
+.menu-btn{display:none !important}
+.lokmadat-logo{
+  justify-self:start;
+  width:auto;
+  margin-left:0;
+}
+.lokmadat-text-logo{
+  font-size:49px;
+  letter-spacing:-3px;
+}
+.mast-actions{gap:10px}
+.login-top{display:none}
+.epaper-top{
+  padding:11px 17px;
+  background:var(--red);
+  border:0;
+  color:#fff;
+  border-radius:3px;
+  font-size:14px;
+  font-weight:900;
+}
+.epaper-top:hover{background:var(--red-dark)}
+
+/* Categories become a calm horizontal news rail. */
+.category-nav{
+  border:0;
+  border-bottom:1px solid var(--line);
+  background:#fff;
+}
+.nav-inner{min-height:50px}
+.nav-inner a{
+  padding:14px 18px 12px;
+  color:#20242a;
+  font-size:14px;
+  font-weight:800;
+  border:0;
+  position:relative;
+}
+.nav-inner a:after{
+  content:'';
+  position:absolute;
+  left:18px;
+  right:18px;
+  bottom:0;
+  height:3px;
+  background:transparent;
+}
+.nav-inner a.active{color:var(--red);background:#fff}
+.nav-inner a.active:after{background:var(--red)}
+.nav-inner a:hover{color:var(--red);background:#fafafa}
+
+/* Trending strip — deliberately lighter than the old black bar. */
+.breaking{background:#fff;color:var(--ink);border-bottom:1px solid var(--line)}
+.breaking-inner{height:46px}
+.breaking-inner>strong{
+  height:30px;
+  margin-right:10px;
+  padding:0 13px;
+  background:var(--red);
+  border-radius:2px;
+  font-size:12px;
+}
+.breaking #ticker{height:46px;align-items:center}
+.ticker-item{
+  padding:0 18px;
+  border-right:1px solid #d9dce0;
+  font-size:13px;
+}
+.ticker-item b{color:var(--red);margin-right:7px}
+.breaking-arrow{color:var(--red);font-size:27px;padding:0 8px}
+
+/* Section headings: editorial, not boxed. */
+.latest-wrap{padding-top:42px}
+.section-heading{
+  border-bottom:1px solid #17191d;
+  margin-bottom:22px;
+}
+.section-heading:after{height:3px;width:82px;background:var(--red);bottom:-2px}
+.section-heading h1,
+.section-heading h2{
+  color:#12151a;
+  letter-spacing:-1px;
+}
+.section-heading h1{font-size:42px;margin:2px 0 13px}
+.section-heading h2{font-size:30px;margin:2px 0 12px}
+.eyebrow{color:var(--red);font-size:12px;letter-spacing:1.4px}
+.updated{color:#7b8087;font-size:12px}
+
+/* Lead story: image first, clean text block, no card border. */
+.latest-grid{gap:28px;border:0}
+.lead-story{
+  border:0;
+  background:#fff;
+}
+.lead-story>a{grid-template-columns:minmax(0,1.5fr) minmax(320px,.9fr);gap:0}
+.lead-image{
+  min-height:430px;
+  border-radius:12px 0 0 12px;
+  background:#eef0f2;
+}
+.lead-image>span{
+  left:18px;top:18px;
+  background:var(--red);
+  border-radius:3px;
+}
+.lead-body{
+  padding:30px 34px;
+  background:#f5f6f7;
+  border-radius:0 12px 12px 0;
+  justify-content:center;
+}
+.lead-body h2{font-size:38px;line-height:1.2;color:#111318}
+.lead-body p{color:#555b63;font-size:15px;line-height:1.8}
+.lead-body strong{color:var(--red);font-size:14px}
+
+/* Story grids: images and typography do the work instead of boxes. */
+.news-band{padding-top:54px}
+.story-grid{
+  gap:26px;
+  border:0;
+}
+.story-card{
+  border:0;
+  border-top:1px solid var(--line);
+  border-radius:0;
+  background:#fff;
+}
+.story-card:hover{background:#fff;transform:none;box-shadow:none}
+.story-img{
+  height:220px;
+  border-radius:10px;
+  background:#eef0f2;
+}
+.story-content{padding:14px 2px 22px}
+.story-content h3{font-size:21px;line-height:1.35;margin:5px 0 8px}
+.story-content p{color:#686d74;font-size:13px;line-height:1.7}
+.story-meta{font-size:11px}
+
+/* Written news / side rails. */
+.split-section{
+  padding-top:58px;
+  grid-template-columns:minmax(0,1.65fr) minmax(270px,.7fr);
+  gap:48px;
+}
+.written-list{
+  border:0;
+  gap:0;
+}
+.written-list .story-card{
+  border:0;
+  border-top:1px solid var(--line);
+  padding:20px 0;
+}
+.written-list .story-card.large{border-top:0;padding-top:0}
+.written-list .story-card.large>a{grid-template-columns:1.25fr 1fr;gap:22px}
+.written-list .story-card.large .story-img{height:290px;border-radius:12px}
+.sidebar{gap:38px}
+.side-module{
+  border:0;
+  border-top:3px solid #15181d;
+  border-bottom:1px solid var(--line);
+  padding:0 0 12px;
+  background:#fff;
+}
+.module-head{
+  border-bottom:1px solid var(--line);
+  padding:11px 0 10px;
+  margin:0;
+}
+.module-head h3{font-size:24px}
+.module-head span{color:var(--red)}
+.mini-story{padding:13px 0}
+.mini-story img,.mini-placeholder{border-radius:7px}
+.rank-list li{padding:14px 0}
+.rank-list a>span{color:var(--red)}
+
+/* E-paper callout: premium dark panel, restrained accent. */
+.epaper-promo{
+  margin-top:58px;
+  min-height:150px;
+  padding:30px 34px;
+  background:#121419;
+  border-left:5px solid var(--red);
+  border-radius:10px;
+}
+.epaper-promo h2{font-size:34px}
+.epaper-promo p{color:#c6c9ce}
+.epaper-promo>a{background:var(--red);border-radius:3px;padding:13px 20px}
+.epaper-promo>a:hover{background:var(--red-dark)}
+.epaper-section{padding-top:54px}
+
+/* Topic rail and footer. */
+.lower-sections{
+  padding:58px 0 70px;
+  gap:0;
+  border-top:1px solid var(--line);
+}
+.lower-card{
+  padding:20px 20px 18px;
+  border:0;
+  border-right:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  background:#fff;
+}
+.lower-card:last-child{border-right:0}
+.lower-card h2{font-size:26px}
+footer{background:#111318;margin-top:0}
+
+/* Mobile: ABC-like vertical rhythm, image-led stories and no overlap. */
+@media(max-width:900px){
+  .container{width:calc(100% - 28px)}
+  .masthead{height:82px;grid-template-columns:1fr auto}
+  .lokmadat-logo{justify-self:start;width:auto}
+  .lokmadat-text-logo{font-size:40px}
+  .split-section{display:flex !important;flex-direction:column !important;gap:42px !important;align-items:stretch}
+  .main-column,.sidebar{width:100% !important;min-width:0}
+  .sidebar{display:flex !important;flex-direction:column !important;gap:34px !important}
+  .side-module{width:100% !important;float:none !important;clear:both !important}
+  .written-list{display:grid !important;grid-template-columns:1fr !important}
+  .written-list .story-card.large{grid-column:auto}
+}
+
+@media(max-width:560px){
+  .container{width:calc(100% - 24px)}
+  .utility-inner{height:30px;font-size:10px}
+  .masthead{height:76px;grid-template-columns:1fr auto}
+  .lokmadat-text-logo{font-size:34px;letter-spacing:-2px}
+  .epaper-top{padding:9px 11px;font-size:11px}
+  .category-nav{overflow:hidden}
+  .nav-inner{min-height:47px;overflow-x:auto}
+  .nav-inner a{padding:12px 14px 10px;font-size:13px}
+  .breaking-inner{height:42px}
+  .breaking-inner>strong{height:28px;padding:0 10px;font-size:11px}
+  .breaking #ticker{height:42px}
+  .ticker-item{font-size:11px;padding:0 12px}
+  .latest-wrap{padding-top:30px}
+  .section-heading{margin-bottom:18px}
+  .section-heading h1{font-size:34px;margin-bottom:11px}
+  .section-heading h2{font-size:25px}
+  .section-heading:after{width:64px}
+  .latest-grid{display:block}
+  .lead-story>a{display:flex;flex-direction:column;gap:0}
+  .lead-image{min-height:235px;height:235px;border-radius:12px 12px 0 0}
+  .lead-body{padding:19px 16px 22px;border-radius:0 0 12px 12px}
+  .lead-body h2{font-size:28px;line-height:1.25}
+  .lead-body p{font-size:14px;line-height:1.7}
+  .news-band{padding-top:42px}
+  .story-grid{grid-template-columns:1fr;gap:0}
+  .story-card{padding-top:18px}
+  .story-img{height:205px;border-radius:10px}
+  .story-content{padding:12px 2px 22px}
+  .story-content h3{font-size:20px}
+  .split-section{padding-top:42px;gap:40px !important}
+  .written-list .story-card{padding:18px 0}
+  .written-list .story-card.large>a{display:block}
+  .written-list .story-card.large .story-img{height:225px;border-radius:10px;margin-bottom:12px}
+  .side-module{margin:0 !important;padding-bottom:12px !important}
+  .module-head h3{font-size:23px}
+  .epaper-promo{margin-top:42px;padding:24px 18px;min-height:0;border-radius:10px}
+  .epaper-promo h2{font-size:29px}
+  .epaper-promo>a{width:max-content}
+  .epaper-section{padding-top:42px}
+  .lower-sections{display:grid;grid-template-columns:1fr;padding:42px 0 50px}
+  .lower-card{border-right:0}
+}
