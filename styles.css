@@ -935,7 +935,3 @@ footer{background:#111318;margin-top:0}
   .lokmadat-logo{width:185px;}
   .lokmadat-logo-img{max-height:52px;}
 }
-
-/* v25: E-paper is the first homepage content after the header. */
-.epaper-home-first{padding-top:34px !important;}
-@media(max-width:560px){.epaper-home-first{padding-top:28px !important;}}
