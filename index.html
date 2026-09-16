@@ -16,14 +16,12 @@
 <header class="site-header">
   <div class="utility"><div class="container utility-inner"><span>महाराष्ट्रातील स्थानिक बातम्यांचे डिजिटल व्यासपीठ</span><span id="today-label"></span></div></div>
   <div class="masthead container">
+    <button class="menu-btn" id="menu-btn" type="button" aria-label="मेन्यू उघडा" aria-expanded="false"><span></span><span></span><span></span></button>
     <a class="lokmadat-logo" href="index.html" aria-label="लोकमदत मुख्यपृष्ठ">
       <img src="lokmadat-logo.png" alt="लोकमदत" class="lokmadat-logo-img">
     </a>
     <div class="mast-actions"><a href="#epaper-section" class="epaper-top">📰 ई-पेपर</a><a href="login.html" class="login-top">लॉगिन</a></div>
   </div>
-  <nav class="category-nav" id="category-nav"><div class="container nav-inner">
-    <a class="active" href="index.html">मुख्यपृष्ठ</a><a href="#maharashtra">महाराष्ट्र</a><a href="#local">स्थानिक</a><a href="#politics">राजकारण</a><a href="#sports">क्रीडा</a><a href="#business">व्यवसाय</a><a href="#entertainment">मनोरंजन</a><a href="#epaper-section">ई-पेपर</a>
-  </div></nav>
   <div class="breaking"><div class="container breaking-inner"><strong>ताज्या घडामोडी</strong><div id="ticker"><span>ताज्या बातम्या लोड होत आहेत…</span></div><span class="breaking-arrow">›</span></div></div>
 </header>
 
@@ -75,6 +73,40 @@
     <img id="fullscreen-image" alt="लोकमदत वृत्तपत्राचे पान">
   </div>
 </div>
-<footer><div class="container footer-grid"><div><div class="footer-logo"><span>लोक</span><b>मदत</b></div><p>विश्वसनीय बातम्या • स्थानिक घडामोडी</p></div><div><b>वाचा</b><a href="#epaper-section">ई-पेपर</a></div><div><b>संपर्क</b><a href="mailto:info@example.com">ई-मेल</a><a href="login.html">प्रशासक लॉगिन</a></div></div><div class="copyright">© २०२६ लोकमदत • सर्व हक्क राखीव</div></footer>
+<nav class="bottom-category-nav" aria-label="विभाग">
+  <div class="container bottom-nav-inner">
+    <a class="active" href="index.html">मुख्यपृष्ठ</a>
+    <a href="#maharashtra">महाराष्ट्र</a>
+    <a href="#local">स्थानिक</a>
+    <a href="#politics">राजकारण</a>
+    <a href="#sports">क्रीडा</a>
+    <a href="#business">व्यवसाय</a>
+    <a href="#entertainment">मनोरंजन</a>
+    <a href="#epaper-section">ई-पेपर</a>
+  </div>
+</nav>
+<aside class="menu-drawer" id="menu-drawer" aria-hidden="true">
+  <div class="menu-backdrop" id="menu-backdrop"></div>
+  <div class="menu-panel" role="dialog" aria-modal="true" aria-label="लोकमदत मेन्यू">
+    <div class="menu-panel-head"><b>लोकमदत</b><button id="menu-close" type="button" aria-label="मेन्यू बंद करा">×</button></div>
+    <div class="menu-panel-links">
+      <a href="#epaper-section">ई-पेपर</a>
+      <a href="mailto:info@example.com">ई-मेल</a>
+      <a href="login.html">प्रशासक लॉगिन</a>
+    </div>
+  </div>
+</aside>
+<footer><div class="container footer-grid"><div><div class="footer-logo"><span>लोक</span><b>मदत</b></div><p>विश्वसनीय बातम्या • स्थानिक घडामोडी</p></div></div><div class="copyright">© २०२६ लोकमदत • सर्व हक्क राखीव</div></footer>
+<script>
+(function(){
+  const btn=document.getElementById('menu-btn'), drawer=document.getElementById('menu-drawer'), close=document.getElementById('menu-close'), backdrop=document.getElementById('menu-backdrop');
+  if(!btn||!drawer)return;
+  function setOpen(open){drawer.classList.toggle('open',open);drawer.setAttribute('aria-hidden',String(!open));btn.setAttribute('aria-expanded',String(open));btn.setAttribute('aria-label',open?'मेन्यू बंद करा':'मेन्यू उघडा');document.body.classList.toggle('menu-open',open);}
+  btn.addEventListener('click',()=>setOpen(!drawer.classList.contains('open')));
+  close&&close.addEventListener('click',()=>setOpen(false));
+  backdrop&&backdrop.addEventListener('click',()=>setOpen(false));
+  drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setOpen(false)));
+})();
+</script>
 <script src="supabase-config.js?v=20260910-lokmadat1"></script><script src="reader.js?v=20260910-lokmadat1"></script><script src="homepage.js?v=20260910-lokmadat1"></script>
 </body></html>

@@ -935,3 +935,34 @@ footer{background:#111318;margin-top:0}
   .lokmadat-logo{width:185px;}
   .lokmadat-logo-img{max-height:52px;}
 }
+
+/* v29: move section navigation to the bottom and footer links into the top-left menu. */
+.menu-btn{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;border:1px solid #d8d8d8;background:#fff;cursor:pointer;padding:0}
+.menu-btn span{display:block;width:24px;height:2px;background:#17191d;border-radius:2px}
+.masthead{grid-template-columns:54px 1fr auto}
+.lokmadat-logo{justify-self:center;display:flex;align-items:center;justify-content:center;min-width:0}
+.lokmadat-logo-img{display:block;width:auto;height:72px;max-width:min(360px,100%);object-fit:contain}
+.bottom-category-nav{background:#fff;border-top:1px solid #ddd;border-bottom:1px solid #d2d2d2}
+.bottom-nav-inner{display:flex;overflow-x:auto;scrollbar-width:none}
+.bottom-nav-inner::-webkit-scrollbar{display:none}
+.bottom-nav-inner a{padding:13px 16px 11px;font-size:15px;font-weight:800;white-space:nowrap;border-bottom:3px solid transparent}
+.bottom-nav-inner a.active,.bottom-nav-inner a:hover{color:var(--red);border-color:var(--red)}
+.menu-drawer{position:fixed;inset:0;z-index:1000;pointer-events:none;visibility:hidden}
+.menu-drawer.open{pointer-events:auto;visibility:visible}
+.menu-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.38);opacity:0;transition:opacity .2s}
+.menu-drawer.open .menu-backdrop{opacity:1}
+.menu-panel{position:absolute;left:0;top:0;bottom:0;width:min(330px,86vw);background:#fff;box-shadow:12px 0 35px rgba(0,0,0,.18);transform:translateX(-100%);transition:transform .22s ease;padding:22px 20px}
+.menu-drawer.open .menu-panel{transform:translateX(0)}
+.menu-panel-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:18px;border-bottom:1px solid #ddd;font-size:24px}
+.menu-panel-head b{font-weight:900}
+.menu-panel-head button{width:38px;height:38px;border:1px solid #ddd;background:#fff;font-size:26px;line-height:1;cursor:pointer}
+.menu-panel-links{display:flex;flex-direction:column;padding-top:8px}
+.menu-panel-links a{padding:17px 2px;border-bottom:1px solid #eee;font-size:18px;font-weight:800}
+body.menu-open{overflow:hidden}
+@media(max-width:560px){
+  .masthead{height:82px;grid-template-columns:48px 1fr auto}
+  .menu-btn{width:40px;height:40px}
+  .menu-btn span{width:22px}
+  .lokmadat-logo-img{height:58px;max-width:calc(100vw - 130px)}
+  .bottom-nav-inner a{font-size:13px;padding:11px 13px 9px}
+}
