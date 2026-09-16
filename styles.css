@@ -902,3 +902,36 @@ footer{background:#111318;margin-top:0}
   .lower-sections{display:grid;grid-template-columns:1fr;padding:42px 0 50px}
   .lower-card{border-right:0}
 }
+
+/* v23 — replace the text wordmark with the supplied logo image only. */
+.masthead{
+  grid-template-columns:1fr auto 1fr;
+}
+.lokmadat-logo{
+  grid-column:2;
+  width:260px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.lokmadat-logo-img{
+  display:block;
+  width:100%;
+  height:auto;
+  max-height:64px;
+  object-fit:contain;
+}
+.mast-actions{
+  grid-column:3;
+  justify-self:end;
+}
+@media(max-width:900px){
+  .masthead{grid-template-columns:1fr auto 1fr;}
+  .lokmadat-logo{width:220px;}
+  .lokmadat-logo-img{max-height:58px;}
+}
+@media(max-width:560px){
+  .masthead{grid-template-columns:1fr auto 1fr;}
+  .lokmadat-logo{width:185px;}
+  .lokmadat-logo-img{max-height:52px;}
+}
