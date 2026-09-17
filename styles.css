@@ -936,70 +936,54 @@ footer{background:#111318;margin-top:0}
   .lokmadat-logo-img{max-height:52px;}
 }
 
-/* =========================================================
-   v24 — Hamburger menu + slide-in drawer, ePaper-first layout
-   ========================================================= */
-.menu-btn{
-  grid-column:1;
-  justify-self:start;
-  width:44px;height:44px;
-  border:1px solid var(--line);
-  border-radius:10px;
-  background:#fff;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;
-  transition:background .15s,border-color .15s;
-  padding:0;
-}
-.menu-btn:hover{background:var(--soft);border-color:#c6cad0}
-.menu-btn-bars{display:flex;flex-direction:column;gap:4px;width:19px}
-.menu-btn-bars i{display:block;height:2px;border-radius:2px;background:var(--ink);transition:transform .2s,opacity .2s}
-.menu-btn[aria-expanded="true"] .menu-btn-bars i:nth-child(1){transform:translateY(6px) rotate(45deg)}
-.menu-btn[aria-expanded="true"] .menu-btn-bars i:nth-child(2){opacity:0}
-.menu-btn[aria-expanded="true"] .menu-btn-bars i:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
-
-.side-drawer{position:fixed;inset:0;z-index:300;visibility:hidden;pointer-events:none}
-.side-drawer.open{visibility:visible;pointer-events:auto}
-.drawer-backdrop{position:absolute;inset:0;background:rgba(10,11,14,.55);opacity:0;transition:opacity .25s ease}
-.side-drawer.open .drawer-backdrop{opacity:1}
-.drawer-panel{
-  position:absolute;top:0;left:0;bottom:0;
-  width:min(320px,86vw);
-  background:#fff;
-  box-shadow:16px 0 44px rgba(0,0,0,.20);
-  transform:translateX(-100%);
-  transition:transform .3s cubic-bezier(.2,.9,.25,1);
-  display:flex;flex-direction:column;
-  overflow-y:auto;
-}
-.side-drawer.open .drawer-panel{transform:translateX(0)}
-.drawer-head{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:16px 16px;border-bottom:1px solid var(--line);
-  position:sticky;top:0;background:#fff;z-index:2;
-}
-.drawer-logo{height:34px;width:auto;object-fit:contain}
-.drawer-close{width:36px;height:36px;border:0;background:var(--soft);border-radius:9px;font-size:20px;line-height:1;cursor:pointer;color:var(--ink)}
-.drawer-close:hover{background:#e7e6e2}
-.drawer-section{display:flex;flex-direction:column;padding:10px 10px}
-.drawer-label{font-size:11px;font-weight:900;letter-spacing:1.2px;color:#9aa0a6;padding:8px 12px 2px;text-transform:uppercase}
-.drawer-link{
-  padding:13px 12px;border-radius:9px;
-  font-weight:800;font-size:15px;color:var(--ink);
-  display:flex;align-items:center;gap:8px;
-}
-.drawer-link:hover{background:var(--soft)}
-.drawer-link.active{background:var(--soft);color:var(--red)}
-.drawer-reporter{background:var(--ink) !important;color:#fff !important;justify-content:center;margin-top:2px}
-.drawer-reporter:hover{background:var(--red) !important}
-.drawer-divider{height:1px;background:var(--line);margin:4px 14px}
-body.drawer-lock{overflow:hidden}
-
-/* ePaper section leads the homepage — tighter top spacing since it's first now */
-.epaper-section.epaper-first{padding-top:26px}
-.epaper-section.epaper-first .section-heading{margin-bottom:16px}
-
+/* v29: move section navigation to the bottom and footer links into the top-left menu. */
+.menu-btn{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;border:1px solid #d8d8d8;background:#fff;cursor:pointer;padding:0}
+.menu-btn span{display:block;width:24px;height:2px;background:#17191d;border-radius:2px}
+.masthead{grid-template-columns:54px 1fr auto}
+.lokmadat-logo{justify-self:center;display:flex;align-items:center;justify-content:center;min-width:0}
+.lokmadat-logo-img{display:block;width:auto;height:72px;max-width:min(360px,100%);object-fit:contain}
+.bottom-category-nav{background:#fff;border-top:1px solid #ddd;border-bottom:1px solid #d2d2d2}
+.bottom-nav-inner{display:flex;overflow-x:auto;scrollbar-width:none}
+.bottom-nav-inner::-webkit-scrollbar{display:none}
+.bottom-nav-inner a{padding:13px 16px 11px;font-size:15px;font-weight:800;white-space:nowrap;border-bottom:3px solid transparent}
+.bottom-nav-inner a.active,.bottom-nav-inner a:hover{color:var(--red);border-color:var(--red)}
+.menu-drawer{position:fixed;inset:0;z-index:1000;pointer-events:none;visibility:hidden}
+.menu-drawer.open{pointer-events:auto;visibility:visible}
+.menu-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.38);opacity:0;transition:opacity .2s}
+.menu-drawer.open .menu-backdrop{opacity:1}
+.menu-panel{position:absolute;left:0;top:0;bottom:0;width:min(330px,86vw);background:#fff;box-shadow:12px 0 35px rgba(0,0,0,.18);transform:translateX(-100%);transition:transform .22s ease;padding:22px 20px}
+.menu-drawer.open .menu-panel{transform:translateX(0)}
+.menu-panel-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:18px;border-bottom:1px solid #ddd;font-size:24px}
+.menu-panel-head b{font-weight:900}
+.menu-panel-head button{width:38px;height:38px;border:1px solid #ddd;background:#fff;font-size:26px;line-height:1;cursor:pointer}
+.menu-panel-links{display:flex;flex-direction:column;padding-top:8px}
+.menu-panel-links a{padding:17px 2px;border-bottom:1px solid #eee;font-size:18px;font-weight:800}
+body.menu-open{overflow:hidden}
 @media(max-width:560px){
-  .drawer-panel{width:min(300px,88vw)}
-  .drawer-link{font-size:14px;padding:12px 11px}
+  .masthead{height:82px;grid-template-columns:48px 1fr auto}
+  .menu-btn{width:40px;height:40px}
+  .menu-btn span{width:22px}
+  .lokmadat-logo-img{height:58px;max-width:calc(100vw - 130px)}
+  .bottom-nav-inner a{font-size:13px;padding:11px 13px 9px}
+}
+
+/* v30: polish only the navigation/menu requested in v29. */
+.masthead{grid-template-columns:48px minmax(0,1fr) auto !important;align-items:center !important;}
+.menu-btn{display:flex !important;visibility:visible !important;opacity:1 !important;position:relative !important;z-index:5 !important;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;border:1px solid #d9d9d9;border-radius:4px;background:#f7f7f7;cursor:pointer;padding:0;}
+.menu-btn span{display:block !important;width:23px;height:2.5px;background:#17191d;border-radius:2px;}
+.lokmadat-logo{justify-self:center !important;margin:0 !important;}
+.mast-actions{grid-column:3 !important;justify-self:end !important;}
+.bottom-category-nav{margin-top:0;background:#fff;border-top:1px solid #d9d9d9;border-bottom:1px solid #d9d9d9;box-shadow:0 -2px 10px rgba(0,0,0,.04);}
+.bottom-nav-inner{min-height:58px;align-items:center;justify-content:center;gap:0;}
+.bottom-nav-inner a{display:flex;align-items:center;justify-content:center;padding:16px 18px 14px;font-size:15px;font-weight:800;color:#20242a;white-space:nowrap;border-bottom:3px solid transparent;transition:color .15s ease,border-color .15s ease;}
+.bottom-nav-inner a.active,.bottom-nav-inner a:hover{color:var(--red);border-bottom-color:var(--red);}
+.menu-panel{padding:0 20px 24px !important;}
+.menu-panel-head{padding:20px 0 16px !important;}
+.menu-panel-links a{padding:18px 4px !important;font-size:18px !important;}
+@media(max-width:560px){
+  .masthead{height:82px;grid-template-columns:46px minmax(0,1fr) auto !important;}
+  .menu-btn{width:40px;height:40px;}
+  .menu-btn span{width:22px;}
+  .bottom-nav-inner{justify-content:flex-start;min-height:54px;}
+  .bottom-nav-inner a{font-size:13px;padding:14px 14px 11px;}
 }

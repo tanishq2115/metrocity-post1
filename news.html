@@ -3,106 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#b40018">
-<title>बातमी | लोकमदत</title>
+<meta name="theme-color" content="#ffffff">
+<title>बातमी | मेट्रोसिटी पोस्ट</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260917-lokmadat25">
-<style>
-.article-wrap{width:min(900px,calc(100% - 32px));margin:0 auto;padding:34px 0 60px}
-.crumb{font-size:12.5px;color:var(--muted);margin:0 0 16px}
-.crumb a{color:var(--red);font-weight:800}
-.normal-article .eyebrow{color:var(--red);font-size:12px;font-weight:900;letter-spacing:1.2px}
-.normal-article h1{font-family:'Playfair Display',serif;font-size:36px;line-height:1.22;margin:10px 0 14px;font-weight:800}
-.meta{font-size:12.5px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:18px}
-.article-hero-img{width:100%;max-height:460px;object-fit:cover;border-radius:10px;display:block;margin-bottom:22px;background:#eee}
-.normal-article .body{font-size:17px;line-height:1.95;color:#26282c}
-.normal-article .body p{margin:0 0 18px}
-.empty,.error,.loading{background:#fff;border:1px dashed #d0d0d0;border-radius:12px;padding:34px;text-align:center;color:#777}
-.error{color:var(--red);border-color:#f0c7ce}
-@media(max-width:560px){.article-wrap{width:calc(100% - 24px);padding:24px 0 44px}.normal-article h1{font-size:27px}.normal-article .body{font-size:15.5px}}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20260910-home1">
+<link rel="stylesheet" href="homepage.css?v=20260910-home1">
 </head>
-<body class="lokmadat-home">
-<header class="site-header">
-  <div class="utility"><div class="container utility-inner"><span>महाराष्ट्रातील स्थानिक बातम्यांचे डिजिटल व्यासपीठ</span><span id="today-label"></span></div></div>
-  <div class="masthead container">
-    <button class="menu-btn" id="menu-btn" type="button" aria-label="मेनू उघडा" aria-controls="side-drawer" aria-expanded="false">
-      <span class="menu-btn-bars"><i></i><i></i><i></i></span>
-    </button>
-    <a class="lokmadat-logo" href="index.html" aria-label="लोकमदत मुख्यपृष्ठ">
-      <img src="lokmadat-logo.png" alt="लोकमदत" class="lokmadat-logo-img">
-    </a>
-    <div class="mast-actions"><a href="index.html#epaper-section" class="epaper-top">📰 ई-पेपर</a><a href="login.html" class="login-top">लॉगिन</a></div>
-  </div>
+<body class="news-site">
+<header class="masthead">
+  <div class="topline"><span>महाराष्ट्रातील स्थानिक बातम्यांचे डिजिटल व्यासपीठ</span><span>मेट्रोसिटी पोस्ट</span></div>
+  <div class="brandbar"><a href="index.html" class="brand"><span>मेट्रोसिटी</span> <b>पोस्ट</b><small>विश्वसनीय • स्थानिक • तत्पर</small></a><div class="brandtools"><a class="epaper-head-btn" href="epaper.html">📰 ई-पेपर</a></div></div>
+  <nav class="mainnav"><a href="index.html">मुख्यपृष्ठ</a><a href="epaper.html">ई-पेपर</a><a class="active" href="index.html#written">लिखित बातम्या</a></nav>
 </header>
-
-<div class="side-drawer" id="side-drawer" aria-hidden="true">
-  <div class="drawer-backdrop" id="drawer-backdrop"></div>
-  <nav class="drawer-panel" aria-label="मुख्य मेनू">
-    <div class="drawer-head">
-      <img src="lokmadat-logo.png" alt="लोकमदत" class="drawer-logo">
-      <button class="drawer-close" id="drawer-close" type="button" aria-label="बंद करा">×</button>
-    </div>
-    <div class="drawer-section">
-      <a href="index.html" class="drawer-link">🏠 मुख्यपृष्ठ</a>
-      <a href="index.html#epaper-section" class="drawer-link">📰 ई-पेपर</a>
-      <a href="index.html#written" class="drawer-link">📝 लिखित बातम्या</a>
-    </div>
-    <div class="drawer-divider"></div>
-    <div class="drawer-section">
-      <span class="drawer-label">न्यूजरूम</span>
-      <a href="login.html" class="drawer-link drawer-reporter">🖊️ पत्रकार लॉगिन</a>
-    </div>
-  </nav>
-</div>
-
-<main class="article-wrap" id="article-root"><div class="loading">बातमी लोड होत आहे…</div></main>
-
-<footer><div class="container footer-grid"><div><div class="footer-logo"><span>लोक</span><b>मदत</b></div><p>विश्वसनीय बातम्या • स्थानिक घडामोडी</p></div><div><b>वाचा</b><a href="index.html">मुख्यपृष्ठ</a><a href="index.html#epaper-section">ई-पेपर</a></div><div><b>संपर्क</b><a href="mailto:info@example.com">ई-मेल</a><a href="login.html">पत्रकार लॉगिन</a></div></div><div class="copyright">© २०२६ लोकमदत • सर्व हक्क राखीव</div></footer>
-
-<script src="supabase-config.js?v=20260917-lokmadat25"></script>
+<main class="article-main" id="article-root"><div class="loading">बातमी लोड होत आहे…</div></main>
+<footer class="footer home-footer"><div><div class="brand"><span>मेट्रोसिटी</span> <b>पोस्ट</b></div><p>विश्वसनीय • स्थानिक • तत्पर</p></div><div><b>वाचा</b><a href="index.html">मुख्यपृष्ठ</a><a href="epaper.html">ई-पेपर</a></div><div><b>संपर्क</b><a href="mailto:metrocitypost@gmail.com">ई-मेल</a></div></footer>
+<div class="copyright">© २०२६ मेट्रोसिटी पोस्ट</div>
+<script src="supabase-config.js?v=20260910-home1"></script>
 <script>
-(()=>{
-  const URL=window.METROCITY_SUPABASE_URL,KEY=window.METROCITY_SUPABASE_KEY,API=URL+'/rest/v1';
-  const $=s=>document.querySelector(s);
-  const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
-  const get=async p=>{const r=await fetch(API+p,{headers:{apikey:KEY,Authorization:`Bearer ${KEY}`},cache:'no-store'});if(!r.ok)throw Error('load');return r.json()};
-  const text=v=>String(v||'').replace(/\r\n/g,'\n').replace(/\n{3,}/g,'\n\n').trim();
-  const date=v=>{const d=new Date(v);return Number.isNaN(d.getTime())?'':new Intl.DateTimeFormat('mr-IN',{timeZone:'Asia/Kolkata',day:'numeric',month:'long',year:'numeric',hour:'numeric',minute:'2-digit'}).format(d)};
-
-  function initDrawer(){
-    const drawer=$('#side-drawer'),btn=$('#menu-btn'),closeBtn=$('#drawer-close'),backdrop=$('#drawer-backdrop');
-    if(!drawer||!btn)return;
-    const open=()=>{drawer.classList.add('open');drawer.setAttribute('aria-hidden','false');btn.setAttribute('aria-expanded','true');document.body.classList.add('drawer-lock')};
-    const close=()=>{drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true');btn.setAttribute('aria-expanded','false');document.body.classList.remove('drawer-lock')};
-    btn.addEventListener('click',()=>{drawer.classList.contains('open')?close():open()});
-    closeBtn?.addEventListener('click',close);
-    backdrop?.addEventListener('click',close);
-    drawer.querySelectorAll('.drawer-link').forEach(a=>a.addEventListener('click',close));
-    document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
-  }
-
-  async function init(){
-    const t=$('#today-label');if(t)t.textContent=date(new Date());
-    const slug=new URLSearchParams(location.search).get('slug');
-    if(!slug){$('#article-root').innerHTML='<div class="empty">बातमी सापडली नाही.</div>';return}
-    try{
-      const rows=await get(`/news?select=id,slug,headline,subheadline,content,location,main_image_url,published_at,created_at,epaper_layout,categories(name)&status=eq.published&slug=eq.${encodeURIComponent(slug)}&limit=1`);
-      const n=rows?.[0];
-      if(!n){$('#article-root').innerHTML='<div class="empty">ही बातमी उपलब्ध नाही.</div>';return}
-      if(n.epaper_layout==='direct-newspaper'){location.href='index.html#epaper-section';return}
-      const img=n.main_image_url?`<img class="article-hero-img" src="${esc(n.main_image_url)}" alt="${esc(n.headline)}">`:'';
-      const paragraphs=text(n.content||n.subheadline||'').split(/\n\s*\n|\n/).filter(Boolean).map(p=>`<p>${esc(p)}</p>`).join('');
-      document.title=(n.headline||'बातमी')+' | लोकमदत';
-      $('#article-root').innerHTML=`<div class="crumb"><a href="index.html">मुख्यपृष्ठ</a> / ${esc(n.categories?.name||'बातमी')}</div><article class="normal-article"><span class="eyebrow">${esc(n.categories?.name||'बातमी')}</span><h1>${esc(n.headline||'बातमी')}</h1><div class="meta">${esc(date(n.published_at||n.created_at))}${n.location?' • '+esc(n.location):''}</div>${img}<div class="body">${paragraphs||'<p>या बातमीसाठी अतिरिक्त मजकूर उपलब्ध नाही.</p>'}</div></article>`;
-    }catch(e){
-      console.error(e);
-      $('#article-root').innerHTML='<div class="error">बातमी लोड करता आली नाही. कृपया पुन्हा प्रयत्न करा.</div>';
-    }
-  }
-  document.addEventListener('DOMContentLoaded',()=>{init();initDrawer()});
-})();
+(()=>{const URL=window.METROCITY_SUPABASE_URL,KEY=window.METROCITY_SUPABASE_KEY,API=URL+'/rest/v1';const $=s=>document.querySelector(s);const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));const get=async p=>{const r=await fetch(API+p,{headers:{apikey:KEY,Authorization:`Bearer ${KEY}`},cache:'no-store'});if(!r.ok)throw Error('load');return r.json()};const text=v=>String(v||'').replace(/\r\n/g,'\n').replace(/\n{3,}/g,'\n\n').trim();const date=v=>{const d=new Date(v);return Number.isNaN(d.getTime())?'':new Intl.DateTimeFormat('mr-IN',{timeZone:'Asia/Kolkata',day:'numeric',month:'long',year:'numeric',hour:'numeric',minute:'2-digit'}).format(d)};async function init(){const slug=new URLSearchParams(location.search).get('slug');if(!slug){$('#article-root').innerHTML='<div class="empty">बातमी सापडली नाही.</div>';return}try{const rows=await get(`/news?select=id,slug,headline,subheadline,content,location,main_image_url,published_at,created_at,epaper_layout,categories(name)&status=eq.published&slug=eq.${encodeURIComponent(slug)}&limit=1`);const n=rows?.[0];if(!n){$('#article-root').innerHTML='<div class="empty">ही बातमी उपलब्ध नाही.</div>';return}if(n.epaper_layout==='direct-newspaper'){location.href='epaper.html';return}const img=n.main_image_url?`<img class="article-hero-img" src="${esc(n.main_image_url)}" alt="${esc(n.headline)}">`:'';const paragraphs=text(n.content||n.subheadline||'').split(/\n\s*\n|\n/).filter(Boolean).map(p=>`<p>${esc(p)}</p>`).join('');document.title=(n.headline||'बातमी')+' | मेट्रोसिटी पोस्ट';$('#article-root').innerHTML=`<div class="crumb"><a href="index.html">मुख्यपृष्ठ</a> / ${esc(n.categories?.name||'बातमी')}</div><article class="normal-article"><span class="eyebrow">${esc(n.categories?.name||'बातमी')}</span><h1>${esc(n.headline||'बातमी')}</h1><div class="meta">${esc(date(n.published_at||n.created_at))}${n.location?' • '+esc(n.location):''}</div>${img}<div class="body">${paragraphs||'<p>या बातमीसाठी अतिरिक्त मजकूर उपलब्ध नाही.</p>'}</div></article>`}catch(e){console.error(e);$('#article-root').innerHTML='<div class="error">बातमी लोड करता आली नाही. कृपया पुन्हा प्रयत्न करा.</div>'}}document.addEventListener('DOMContentLoaded',init)})();
 </script>
 </body></html>
