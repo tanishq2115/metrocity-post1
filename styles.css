@@ -987,3 +987,48 @@ body.menu-open{overflow:hidden}
   .bottom-nav-inner{justify-content:flex-start;min-height:54px;}
   .bottom-nav-inner a{font-size:13px;padding:14px 14px 11px;}
 }
+
+
+/* v32 trial — compact the e-paper start and add a restrained newsroom polish. */
+.utility-inner{position:relative}
+.live-indicator{display:inline-flex;align-items:center;gap:6px;color:#fff;font-family:Arial,sans-serif;font-size:10px;font-weight:800;letter-spacing:1px;position:absolute;left:50%;transform:translateX(-50%)}
+.live-indicator i{display:block;width:7px;height:7px;border-radius:50%;background:#d5001f;box-shadow:0 0 0 2px rgba(213,0,31,.15);animation:lok-live-blink 1.15s ease-in-out infinite}
+@keyframes lok-live-blink{0%,100%{opacity:1;box-shadow:0 0 0 2px rgba(213,0,31,.12)}50%{opacity:.28;box-shadow:0 0 0 5px rgba(213,0,31,0)}}
+
+/* Reduce the empty space before the first e-paper section. */
+.epaper-section{padding-top:16px}
+.epaper-section .section-heading{margin-bottom:14px}
+
+/* Smaller, cleaner edition identity panel above the reader. */
+.epaper-section .reader-shell{padding-top:8px;padding-bottom:8px;border-radius:8px}
+.epaper-section .reader-topline{padding:11px 14px;gap:12px;min-height:74px;border-radius:7px 7px 0 0;box-shadow:0 2px 8px rgba(17,24,39,.04)}
+.epaper-section .reader-kicker{font-size:11px;letter-spacing:.1px}
+.epaper-section .reader-topline h2{margin:2px 0;font-size:21px;line-height:1.15}
+.epaper-section .reader-topline p{font-size:11px}
+.epaper-section .date-button{padding:8px 11px;font-size:11px;border-radius:5px}
+
+/* Slightly more premium section rule without changing the structure. */
+.epaper-section .section-heading:after{width:230px;height:4px}
+.epaper-section .section-heading{border-bottom-width:2px}
+
+@media(max-width:700px){
+  .epaper-section{padding-top:8px}
+  .epaper-section .section-heading{margin-bottom:10px}
+  .epaper-section .reader-shell{padding:6px 6px 7px;border-radius:7px}
+  .epaper-section .reader-topline{padding:9px 11px;min-height:62px;gap:8px}
+  .epaper-section .reader-topline h2{font-size:18px}
+  .epaper-section .reader-topline p{font-size:10px}
+  .epaper-section .reader-kicker{font-size:10px}
+  .epaper-section .date-button{padding:7px 9px;font-size:10px}
+}
+@media(max-width:560px){
+  .live-indicator{font-size:9px;gap:5px}
+  .live-indicator i{width:6px;height:6px}
+  .epaper-section{padding-top:5px}
+  .epaper-section .reader-shell{padding:5px 5px 6px}
+  .epaper-section .reader-topline{padding:8px 9px;min-height:56px}
+  .epaper-section .reader-topline h2{font-size:17px}
+  .epaper-section .reader-topline p{font-size:9px}
+  .epaper-section .reader-kicker{font-size:9px}
+  .epaper-section .date-button{padding:6px 8px;font-size:9px}
+}
