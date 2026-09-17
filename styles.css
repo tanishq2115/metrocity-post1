@@ -990,10 +990,11 @@ body.menu-open{overflow:hidden}
 
 
 /* v32 trial — compact the e-paper start and add a restrained newsroom polish. */
-.utility-inner{position:relative}
-.live-indicator{display:inline-flex;align-items:center;gap:6px;color:#fff;font-family:Arial,sans-serif;font-size:10px;font-weight:800;letter-spacing:1px;position:absolute;left:50%;transform:translateX(-50%)}
-.live-indicator i{display:block;width:7px;height:7px;border-radius:50%;background:#d5001f;box-shadow:0 0 0 2px rgba(213,0,31,.15);animation:lok-live-blink 1.15s ease-in-out infinite}
-@keyframes lok-live-blink{0%,100%{opacity:1;box-shadow:0 0 0 2px rgba(213,0,31,.12)}50%{opacity:.28;box-shadow:0 0 0 5px rgba(213,0,31,0)}}
+
+/* v34: blinking dot only, beside DIGITAL EDITION. No LIVE text. */
+.epaper-eyebrow-row{display:flex;align-items:center;gap:9px}
+.epaper-eyebrow-row .digital-live-dot{display:inline-block;width:9px;height:9px;flex:0 0 9px;border-radius:50%;background:#d5001f;box-shadow:0 0 0 2px rgba(213,0,31,.14),0 0 10px rgba(213,0,31,.28);animation:lok-live-dot-blink 1.15s ease-in-out infinite}
+@keyframes lok-live-dot-blink{0%,100%{opacity:1;transform:scale(1);box-shadow:0 0 0 2px rgba(213,0,31,.14),0 0 10px rgba(213,0,31,.28)}50%{opacity:.28;transform:scale(.82);box-shadow:0 0 0 5px rgba(213,0,31,0)}}
 
 /* Reduce the empty space before the first e-paper section. */
 .epaper-section{padding-top:16px}
@@ -1022,8 +1023,6 @@ body.menu-open{overflow:hidden}
   .epaper-section .date-button{padding:7px 9px;font-size:10px}
 }
 @media(max-width:560px){
-  .live-indicator{font-size:9px;gap:5px}
-  .live-indicator i{width:6px;height:6px}
   .epaper-section{padding-top:5px}
   .epaper-section .reader-shell{padding:5px 5px 6px}
   .epaper-section .reader-topline{padding:8px 9px;min-height:56px}
