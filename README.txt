@@ -27,3 +27,20 @@ Do not put a Supabase service-role/secret key into this package or into GitHub P
 
 GitHub Pages:
 - CNAME preserves the custom domain configuration.
+
+SHARE THUMBNAIL FIX — IMPORTANT
+- Added Supabase Edge Function: supabase/functions/news-share/index.ts
+- The function creates server-delivered Open Graph metadata for each written-news share link, including the article's actual main image.
+- The browser article page continues to use the existing news.html design and short-key system.
+
+DEPLOY ONCE IN SUPABASE
+1. In the Supabase project, create/deploy the function named: news-share
+2. Deploy the file: supabase/functions/news-share/index.ts
+3. The function uses the existing Supabase Edge Function environment variables (SUPABASE_URL and SUPABASE_ANON_KEY).
+4. After deployment, the article's Copy Link button uses:
+   https://eomqfssvcpczfazndezs.supabase.co/functions/v1/news-share?n=SHORT_KEY
+5. Opening that share URL immediately takes normal visitors to the existing metrocitynews.co.in/news.html article page. Social crawlers receive article-specific OG metadata first.
+
+NOTE ABOUT THE DOMAIN
+- This is the robust thumbnail fix without changing the existing GitHub Pages website hosting.
+- Until a server-side rewrite/proxy is configured on metrocitynews.co.in, the share URL itself will contain the Supabase function domain. The preview metadata points back to the normal metrocitynews.co.in article URL.
