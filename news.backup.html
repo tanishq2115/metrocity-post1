@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="mr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>बातमी | मेट्रोसिटी पोस्ट</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20260910-home1">
+<link rel="stylesheet" href="homepage.css?v=20260910-home1">
+</head>
+<body class="news-site">
+<header class="masthead">
+  <div class="topline"><span>महाराष्ट्रातील स्थानिक बातम्यांचे डिजिटल व्यासपीठ</span><span>मेट्रोसिटी पोस्ट</span></div>
+  <div class="brandbar"><a href="index.html" class="brand"><span>मेट्रोसिटी</span> <b>पोस्ट</b><small>विश्वसनीय • स्थानिक • तत्पर</small></a><div class="brandtools"><a class="epaper-head-btn" href="epaper.html">📰 ई-पेपर</a></div></div>
+  <nav class="mainnav"><a href="index.html">मुख्यपृष्ठ</a><a href="epaper.html">ई-पेपर</a><a class="active" href="index.html#written">लिखित बातम्या</a></nav>
+</header>
+<main class="article-main" id="article-root"><div class="loading">बातमी लोड होत आहे…</div></main>
+<footer class="footer home-footer"><div><div class="brand"><span>मेट्रोसिटी</span> <b>पोस्ट</b></div><p>विश्वसनीय • स्थानिक • तत्पर</p></div><div><b>वाचा</b><a href="index.html">मुख्यपृष्ठ</a><a href="epaper.html">ई-पेपर</a></div><div><b>संपर्क</b><a href="mailto:metrocitypost@gmail.com">ई-मेल</a></div></footer>
+<div class="copyright">© २०२६ मेट्रोसिटी पोस्ट</div>
+<script src="supabase-config.js?v=20260910-home1"></script>
+<script>
+(()=>{const URL=window.METROCITY_SUPABASE_URL,KEY=window.METROCITY_SUPABASE_KEY,API=URL+'/rest/v1';const $=s=>document.querySelector(s);const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));const get=async p=>{const r=await fetch(API+p,{headers:{apikey:KEY,Authorization:`Bearer ${KEY}`},cache:'no-store'});if(!r.ok)throw Error('load');return r.json()};const text=v=>String(v||'').replace(/\r\n/g,'\n').replace(/\n{3,}/g,'\n\n').trim();const date=v=>{const d=new Date(v);return Number.isNaN(d.getTime())?'':new Intl.DateTimeFormat('mr-IN',{timeZone:'Asia/Kolkata',day:'numeric',month:'long',year:'numeric',hour:'numeric',minute:'2-digit'}).format(d)};async function init(){const slug=new URLSearchParams(location.search).get('slug');if(!slug){$('#article-root').innerHTML='<div class="empty">बातमी सापडली नाही.</div>';return}try{const rows=await get(`/news?select=id,slug,headline,subheadline,content,location,main_image_url,published_at,created_at,epaper_layout,categories(name)&status=eq.published&slug=eq.${encodeURIComponent(slug)}&limit=1`);const n=rows?.[0];if(!n){$('#article-root').innerHTML='<div class="empty">ही बातमी उपलब्ध नाही.</div>';return}if(n.epaper_layout==='direct-newspaper'){location.href='epaper.html';return}const img=n.main_image_url?`<img class="article-hero-img" src="${esc(n.main_image_url)}" alt="${esc(n.headline)}">`:'';const paragraphs=text(n.content||n.subheadline||'').split(/\n\s*\n|\n/).filter(Boolean).map(p=>`<p>${esc(p)}</p>`).join('');document.title=(n.headline||'बातमी')+' | मेट्रोसिटी पोस्ट';$('#article-root').innerHTML=`<div class="crumb"><a href="index.html">मुख्यपृष्ठ</a> / ${esc(n.categories?.name||'बातमी')}</div><article class="normal-article"><span class="eyebrow">${esc(n.categories?.name||'बातमी')}</span><h1>${esc(n.headline||'बातमी')}</h1><div class="meta">${esc(date(n.published_at||n.created_at))}${n.location?' • '+esc(n.location):''}</div>${img}<div class="body">${paragraphs||'<p>या बातमीसाठी अतिरिक्त मजकूर उपलब्ध नाही.</p>'}</div></article>`}catch(e){console.error(e);$('#article-root').innerHTML='<div class="error">बातमी लोड करता आली नाही. कृपया पुन्हा प्रयत्न करा.</div>'}}document.addEventListener('DOMContentLoaded',init)})();
+</script>
+</body></html>
